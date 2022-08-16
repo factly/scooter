@@ -1,0 +1,32 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { Editor } from "../../../lib";
+
+import Bubble from "../../assets/bubble.mp4";
+
+<Meta
+  title="Walkthroughs/MenuTypes/Bubble Menu"
+  parameters={{
+    layout: "padded",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+  component={Editor}
+/>
+
+# Bubble Menu
+
+An on-demand menu to interact with the editor rather than an always-on-top fixed
+menu. Bubble Menu option that appears when user selects part of text.
+
+<video src={Bubble} playsInline autoPlay muted loop />
+
+#### **Example**
+
+<Canvas>
+  <Story name="Bubble Menu">
+    <Editor menuType="bubble" />
+  </Story>
+</Canvas>

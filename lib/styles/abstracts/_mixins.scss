@@ -1,0 +1,20 @@
+@mixin scrollbars(
+  $size,
+  $foreground-color: $scooter-ui-gray-300,
+  $background-color: "transparent"
+) {
+  // For Google Chrome
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+    border-radius: 50px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+}

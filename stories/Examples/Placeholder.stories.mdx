@@ -1,0 +1,37 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { Editor } from "../../lib";
+
+<Meta
+  title="Examples/Placeholder"
+  parameters={{
+    layout: "padded",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+  component={Editor}
+/>
+
+# Placeholder
+
+The editor can have placeholder texts for different nodes. These value is
+accepted as `placeholder` prop.
+
+<Canvas>
+  <Story name="Placeholder">
+    <Editor placeholder="Input text here" />
+  </Story>
+</Canvas>
+
+- **Value as object**: Each type of node can have corresponding placeholder, in
+  which case the value should be of type `{"{node_name:placeholder_text}"}`.
+
+- **Value as string**: When plain string is provided as value for placeholder,
+  all the nodes will be using the same placeholder text irrespective of their
+  type in which case the value should be of type.
+
+- **Value as function**: the `placeholder` prop can also accepts a function. For
+  each node in the document, the function receives node as argument and return
+  the corresponding placeholder string. eg: `{"({node}) => placeholder_text"}`
