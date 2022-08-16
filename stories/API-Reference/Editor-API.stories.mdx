@@ -1,0 +1,61 @@
+import { Meta } from "@storybook/addon-docs";
+import { MethodsTable, CommandsTable } from "./Tables";
+
+<Meta
+  title="API Reference/Editor API"
+  parameters={{
+    layout: "padded",
+    viewMode: "docs",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+/>
+
+# Editor API
+
+####
+
+The editor API contains a number of methods and commands which can be used to
+interact with the editor instance. This section will cover the most important
+ones.
+
+### **Methods**
+
+The editor instance will provide a bunch of useful methods. Here is a list of
+methods that can be access the editor content.
+
+<MethodsTable />
+
+#### **Usage**
+
+```js
+editorRef.current.editor.methodName;
+```
+
+Refer [https://tiptap.dev/api/editor](https://tiptap.dev/api/editor) for the
+full list of available editor methods.
+
+### **Commands**
+
+The editor instance will provide a bunch of useful commands. Here is a list of
+commands to control the editor content.
+
+<CommandsTable />
+
+#### **Usage**
+
+```js
+editorRef.current.editor.commands.commandName();
+```
+
+You can also combine multiple commands in a single call.
+
+```js
+editorRef.current.editor.chain().command1().command2().run();
+```
+
+Refer [https://tiptap.dev/api/commands](https://tiptap.dev/api/commands) for the
+full list of available editor commands.

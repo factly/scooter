@@ -1,0 +1,34 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { Editor } from "../../lib";
+
+<Meta
+  title="Examples/Force title"
+  parameters={{
+    layout: "padded",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+  component={Editor}
+/>
+
+# Force title
+
+scooterEditor can be configured to force user to include a document title. This
+can be achieved by providing a truthy value to the `forceTitle` prop. To replace
+the default title placeholder the `placeholder` prop should also be provided.
+
+<Canvas>
+  <Story name="Force title">
+    <Editor
+      value="Title Text"
+      placeholder={{
+        title: "Input title here",
+        paragraph: "Enter your content here",
+      }}
+      forceTitle
+    />
+  </Story>
+</Canvas>

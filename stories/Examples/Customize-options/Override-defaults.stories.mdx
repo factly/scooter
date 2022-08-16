@@ -1,0 +1,42 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { Editor } from "../../../lib";
+
+<Meta
+  title="Examples/Customize options/Override defaults"
+  parameters={{
+    layout: "padded",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+  component={Editor}
+/>
+
+# Override defaults
+
+By default the following the optons are available:
+
+- `font-color`
+- `bold`
+- `italics`
+- `underline`
+- `strike`
+- `link`
+- `paragraph`
+- `h1`
+- `bulleted-list`
+- `numbered-list`
+
+You can edit the available options by passing an array of strings to the
+`defaults` prop. In addition to the above options you can also pass the
+following options: `h3`, `h4`, `h5`, and `h6`.
+
+<Canvas>
+  <Story name="Override defaults">
+    <Editor
+      defaults={["font-color", "p", "h1", "h2", "h3", "h4", "h5", "h6", "bold"]}
+    />
+  </Story>
+</Canvas>

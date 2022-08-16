@@ -1,0 +1,32 @@
+import { Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { Editor } from "../../lib";
+import { ARG_VALUES } from "./constants";
+
+<Meta
+  title="API Reference/All Props"
+  component={Editor}
+  parameters={{
+    layout: "padded",
+    viewMode: "docs",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+  argTypes={ARG_VALUES}
+/>
+
+# **Props**
+
+export const Template = args => <Editor {...args} />;
+
+<Story name="All Props"> {Template.bind({})}</Story>
+
+<div id="hide-controls-column">
+  <ArgsTable story="All Props" />
+</div>
+
+#### **Note**
+
+> The empty value or initialValue should should always be `<p></p>`.

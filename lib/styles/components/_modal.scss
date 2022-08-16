@@ -1,0 +1,53 @@
+.sc-modal__backdrop {
+  position: fixed;
+  z-index: 99999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: $scooter-ui-transition;
+  background-color: rgba($scooter-ui-gray-500, 0.5);
+
+  .sc-modal__wrapper {
+    width: 50%;
+    max-width: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    @include scrollbars(4px);
+    position: relative;
+    background-color: $scooter-ui-white;
+    border-radius: $scooter-ui-rounded-sm;
+
+    .sc-modal__close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+    }
+
+    &.sc-modal__wrapper--xs {
+      width: 320px;
+    }
+
+    &.sc-modal__wrapper--sm {
+      width: 480px;
+    }
+
+    &.sc-modal__wrapper--md {
+      width: 720px;
+    }
+  }
+
+  .sc-icon__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 32px;
+    padding: 10px 0 0 2px;
+  }
+}

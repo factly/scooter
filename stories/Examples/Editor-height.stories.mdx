@@ -1,0 +1,27 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { Editor } from "../../lib";
+
+<Meta
+  title="Examples/Editor height"
+  parameters={{
+    layout: "padded",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+  component={Editor}
+/>
+
+# Editor height
+
+scooterEditor can be configured to provided a custom initial height using the
+`rows` prop. It accepts an integer value which represents the number of rows. It
+uses the `strategy` prop to control whether the height is `fixed` or `flexible`.
+
+<Canvas>
+  <Story name="Editor height">
+    <Editor rows={3} heightStrategy="flexible" />
+  </Story>
+</Canvas>

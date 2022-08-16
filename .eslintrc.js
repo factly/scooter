@@ -1,0 +1,124 @@
+module.exports = {
+  env: {
+    browser: true,
+    // window object etc part of browser are made available globally.
+    es2020: true,
+    // to include BigInt support
+    es6: true,
+    commonjs: true,
+    node: true,
+  },
+
+  /*
+   * The order of extending each plugin matters a LOT!!
+   * Thus don't change order of items in this array
+   * unless you're sure of it.
+   */
+  extends: [
+    "plugin:cypress/recommended",
+    "plugin:json/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "./.eslint-rules/globals",
+    "./.eslint-rules/imports/order",
+    "./.eslint-rules/overrides",
+    "./.eslint-rules/custom",
+    "./.eslint-rules/imports/enforced",
+    "./.eslint-rules/react",
+    "./.eslint-rules/promise",
+    "prettier",
+    "plugin:storybook/recommended",
+  ],
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: "module",
+  },
+  // babel-eslint is deprecated now. This is the latest package.
+  parser: "@babel/eslint-parser",
+  plugins: [
+    "react",
+    "prettier",
+    "import",
+    "react-hooks",
+    "promise",
+    "jam3",
+    "unused-imports",
+  ],
+  rules: {
+    // auto-fixable: Respect all Prettier rules and apply it.
+    "prettier/prettier": "error",
+    // not-auto-fixable: No unused variables allowed.
+    "no-unused-vars": [
+      "error",
+      {
+        argsIgnorePattern: "^_",
+      },
+    ],
+    // not-auto-fixable: No undefined variables allowed.
+    "no-undef": "error",
+    // not-auto-fixable: Dont use console statements. Use logger which babel will remove during bundling.
+    "no-console": "error",
+    // not-auto-fixable: require `return` statements to either always or never specify values.
+    "consistent-return": "error",
+    // auto-fixable: sadly this doesn't support guard clauses yet.
+    "padding-line-between-statements": [
+      "error",
+      {
+        blankLine: "always",
+        prev: "if",
+        next: ["if", "return"],
+      },
+    ],
+    // auto-fixable: Single line statements needn't have any braces. But in all other cases enforce curly braces.
+    curly: ["error", "multi-line"],
+    // auto-fixable: Remove the else part, if the "if" or "else-if" chain has a return statement
+    "no-else-return": "error",
+    // not-auto-fixable: Prevent un-sanitized dangerouslySetInnerHTML.
+    "jam3/no-sanitizer-with-danger": [
+      2,
+      {
+        wrapperName: ["dompurify", "sanitizer", "sanitize"],
+      },
+    ],
+    // auto-fixable: Requires trailing commas when the last element or property is in a different line than the closing ] or }
+    "comma-dangle": [
+      "error",
+      {
+        arrays: "always-multiline",
+        objects: "always-multiline",
+        imports: "always-multiline",
+        exports: "always-multiline",
+        functions: "never",
+      },
+    ],
+    // auto-fixable: If a variable is never reassigned, using the const declaration is better.
+    "prefer-const": "error",
+    // auto-fixable: It is considered good practice to use the type-safe equality operators === and !==.
+    eqeqeq: "error",
+    // not-auto-fixable: Rule flags optional chaining expressions in positions where short-circuiting to undefined causes throwing a TypeError afterward.
+    "no-unsafe-optional-chaining": "error",
+    // auto-fixable: Remove all unused imports.
+    "unused-imports/no-unused-imports": "error",
+    // auto-fixable-1-level-deep: Using nested ternary operators make the code unreadable. Use if/else or switch with if/else. If it's JSX then move it out into a function or a variable. It's fine to use nestedTernary in JSX when it makes code more readable.
+    "no-nested-ternary": "warn",
+    // auto-fixable: Enforces no braces where they can be omitted.
+    "arrow-body-style": ["error", "as-needed"],
+    // auto-fixable: Suggests using template literals instead of string concatenation.
+    "prefer-template": "error",
+    // auto-fixable: Disallows ternary operators when simpler alternatives exist.
+    "no-unneeded-ternary": [
+      "error",
+      {
+        defaultAssignment: false,
+      },
+    ],
+  },
+};
