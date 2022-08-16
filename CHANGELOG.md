@@ -21,3 +21,7 @@ Prefix the change with one of these keywords:
 - *Removed*: for now removed features.
 - *Fixed*: for any bug fixes.
 - *Security*: in case of vulnerabilities.
+
+## 0.0.1 - 2022-08-16
+
+Added: Initial Package
