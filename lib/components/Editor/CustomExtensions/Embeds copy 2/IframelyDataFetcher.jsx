@@ -14,7 +14,7 @@ const IframelyDataFetcher = ({ onSubmit, iframelyEndpoint, embedConfig }) => {
     try {
       setLoading(true);
       setError(false);
-      console.log({ url });
+      // console.log({ url });
 
       const response = await getIframelyData({
         url,

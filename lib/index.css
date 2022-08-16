@@ -1139,10 +1139,12 @@ body *::before {
   font-weight: 600;
   line-height: 1.5;
   color: #ffffff;
+  margin: 0;
 }
 .scooter-editor-slash-commands__wrapper .scooter-editor-slash-commands__item .scooter-editor-slash-commands__item-content p {
   font-size: 12px;
   color: #d8dcde;
+  margin: 0;
 }
 .scooter-editor-mentions__wrapper {
   padding: 8px;

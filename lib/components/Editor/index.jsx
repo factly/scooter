@@ -36,7 +36,7 @@ const Editor = (
         "csrf_token_2d785ea2f6536900108362e9bfff73eef3a32be3921b3abc74b0a990093487c9=WdsYiez/zgzwK/YzNhzLZwUucmImocZjzqTLVnvJlhE=; ory_kratos_session=MTY1NzM2NTkzMnxEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRXBUZFdGcGRUQlNPRlZ5Ym5WWVJVNXRiVTVMWW5SQ1VsVTBXRGd6ZWxkMHw7B48V8525ldAIfi2D9QeByKc-19KY_kM82pxBb4dCWw==",
     },
     initialValue = "<p></p>",
-    onChange = html => html,
+    onChange = ({html,json}) => ({html,json}),
     onFocus = () => {},
     onBlur = () => {},
     menuType = "fixed",
@@ -120,7 +120,7 @@ const Editor = (
     parseOptions: {
       preserveWhitespace: true,
     },
-    onUpdate: ({ editor }) => onChange(editor.getHTML()),
+    onUpdate: ({ editor }) => onChange({html: editor.getHTML(), json: editor.getJSON()}),
     onFocus,
     onBlur,
   });
