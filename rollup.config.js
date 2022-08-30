@@ -10,7 +10,7 @@ import replace from "@rollup/plugin-replace";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import styles from "rollup-plugin-styles";
 import { terser } from "rollup-plugin-terser";
-import json from '@rollup/plugin-json';
+import json from "@rollup/plugin-json";
 
 export default [
   {

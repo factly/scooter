@@ -65,7 +65,7 @@ const LinkOption = ({ editor, handleClose, handleAnimateInvalidLink }) => {
         data-cy="scooter-editor-link-input"
       />
       <Button
-        style="icon"
+        variant="icon"
         icon={RiCloseLine}
         onClick={handleReset}
         data-cy="scooter-editor-link-cancel-button"

@@ -54,7 +54,7 @@ const Modal = ({
           >
             {closeButton && (
               <Button
-                style="text"
+                variant="text"
                 icon={RiCloseLine}
                 className="sc-modal__close"
                 onClick={onClose}

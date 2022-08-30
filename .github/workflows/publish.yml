@@ -8,7 +8,9 @@ jobs:
   release:
     name: "Release"
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.merged == true && !contains(github.event.pull_request.labels.*.name, 'skip-ci') }}
+    if:
+      ${{ github.event.pull_request.merged == true &&
+      !contains(github.event.pull_request.labels.*.name, 'skip-ci') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2.2.0
@@ -61,8 +63,8 @@ jobs:
       - name: Extract changelog
         id: CHANGELOG
         run: |
-           content=$(echo '${{ steps.PR.outputs.pr_body }}' | python3 -c 'import json; import sys; print(json.dumps(sys.stdin.read().partition("**Description**")[2].partition("**Checklist**")[0].strip()))')
-           echo "CHANGELOG=${content}" >> $GITHUB_ENV
+          content=$(echo '${{ steps.PR.outputs.pr_body }}' | python3 -c 'import json; import sys; print(json.dumps(sys.stdin.read().partition("**Description**")[2].partition("**Checklist**")[0].strip()))')
+          echo "CHANGELOG=${content}" >> $GITHUB_ENV
         shell: bash
 
       - name: Update Changelog
@@ -75,7 +77,7 @@ jobs:
         uses: EndBug/add-and-commit@v7
         with:
           branch: main
-          message: 'New version release'
+          message: "New version release"
 
       - name: Create Github Release
         uses: release-drafter/release-drafter@v5.15.0
