@@ -22,6 +22,10 @@ Prefix the change with one of these keywords:
 - *Fixed*: for any bug fixes.
 - *Security*: in case of vulnerabilities.
 
+## 0.0.4 - 2022-08-30
+
+Added Embed component
+
 ## 0.0.3 - 2022-08-17
 
 Updated: Blockquote styles
