@@ -42,6 +42,8 @@ const FixedMenu = ({
   const selectedNode = editor && editor.view.state.selection.node;
   const isImageNodeSelected =
     selectedNode && selectedNode.type.name === "image";
+  const isTableNodeSelected =
+    selectedNode && selectedNode.type.name === "table";
   const isTextAlignActive = selectedNode && selectedNode.type.name === "text";
   if (!editor) {
     return null;
@@ -191,6 +193,25 @@ const FixedMenu = ({
       {blockStyleOptions.map(renderOptionButton)}
       {listStyleOptions.map(renderOptionButton)}
       {isImageNodeSelected &&
+        getImageMenuOptions({
+          editor,
+          isImageEditorModalOpen,
+          setIsImageEditorModalOpen,
+        }).map(({ Icon, command, active, optionName }, index) => (
+          <MenuButton
+            key={index}
+            icon={Icon}
+            iconActive={active}
+            onClick={command}
+            tooltipProps={{
+              content: capitalize(optionName),
+              position: "bottom",
+              delay: [500],
+            }}
+            data-cy={`scooter-editor-fixed-menu-${optionName}-option`}
+          />
+        ))}
+      {isTableNodeSelected &&
         getImageMenuOptions({
           editor,
           isImageEditorModalOpen,

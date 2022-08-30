@@ -98,7 +98,10 @@ class Menu extends React.Component {
     const isCurrentMenuActive = menuIndex === activeMenuIndex;
 
     return (
-      <div ref={this.menuRef} className="scooter-editor-slash-commands__wrapper">
+      <div
+        ref={this.menuRef}
+        className="scooter-editor-slash-commands__wrapper"
+      >
         {items.map((item, index) => {
           const isLeafNode = isNilOrEmpty(item.items);
 

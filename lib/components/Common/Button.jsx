@@ -24,8 +24,8 @@ const Button = forwardRef((props, ref) => {
     loading = false,
     onClick = noop,
     to = null,
-    type = "button",
-    style = "primary",
+    variant = "button",
+    type = "primary",
     fullWidth = false,
     className = "",
     disabled = false,
@@ -51,7 +51,7 @@ const Button = forwardRef((props, ref) => {
   } else {
     Parent = "button";
     elementSpecificProps = {
-      type,
+      type: variant,
     };
   }
 
@@ -66,11 +66,11 @@ const Button = forwardRef((props, ref) => {
         ref={ref}
         onClick={handleClick}
         className={classnames("sc-btn", [className], {
-          "sc-btn--style-primary": style === BUTTON_STYLES.primary,
-          "sc-btn--style-secondary": style === BUTTON_STYLES.secondary,
-          "sc-btn--style-danger": style === BUTTON_STYLES.danger,
-          "sc-btn--style-text": style === BUTTON_STYLES.text,
-          "sc-btn--style-link": style === BUTTON_STYLES.link,
+          "sc-btn--style-primary": type === BUTTON_STYLES.primary,
+          "sc-btn--style-secondary": type === BUTTON_STYLES.secondary,
+          "sc-btn--style-danger": type === BUTTON_STYLES.danger,
+          "sc-btn--style-text": type === BUTTON_STYLES.text,
+          "sc-btn--style-link": type === BUTTON_STYLES.link,
           "sc-btn--size-large": size === BUTTON_SIZES.large,
           "sc-btn--width-full": fullWidth,
           "sc-btn--icon-left": iconPosition === ICON_POSITIONS.left,

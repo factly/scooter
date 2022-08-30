@@ -1,6 +1,6 @@
 .scooter-editor-loader {
   width: 100%;
-  height: 32px;
+  max-height: 32px;
   display: flex;
   align-items: center;
   text-align: center;
@@ -15,5 +15,5 @@
   border-top-color: $scooter-ui-gray-800;
   border-left-color: $scooter-ui-gray-800;
   animation: spin 600ms linear infinite;
-  margin: 1px auto;
+  margin: 0px auto;
 }

@@ -30,7 +30,7 @@ const Progress = ({ uppy }) => {
             icon={RiCloseLine}
             onClick={() => uppy.cancelAll()}
             size="small"
-            style="text"
+            variant="text"
           />
         </div>
         <div className="scooter-editor-progress-bar__indicator">

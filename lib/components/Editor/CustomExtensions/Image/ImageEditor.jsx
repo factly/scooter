@@ -37,7 +37,7 @@ const ImageEditor = ({ url, editor, onClose, alt, caption }) => {
       />
       <div className="scooter-editor-image-editor__footer">
         <Button label="Save Changes" onClick={handleSubmit} />
-        <Button label="Cancel" style="text" onClick={onClose} />
+        <Button label="Cancel" variant="text" onClick={onClose} />
       </div>
     </div>
   );
