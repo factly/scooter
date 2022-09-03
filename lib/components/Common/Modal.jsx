@@ -16,7 +16,7 @@ const sizes = {
 };
 
 const Modal = ({
-  size = "sm",
+  size = "md",
   isOpen = false,
   onClose = noop,
   loading = false,
