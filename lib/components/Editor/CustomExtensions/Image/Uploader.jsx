@@ -9,6 +9,7 @@ import ImageEditor from "./ImageEditor";
 import LocalUploader from "./LocalUploader";
 import UnsplashImagePicker from "./UnsplashImagePicker";
 import URLForm from "./URLForm";
+import Gallery from "./Gallery";
 
 const ImageUpload = ({
   editor,
@@ -18,6 +19,8 @@ const ImageUpload = ({
   setIsVisible,
   unsplashApiKey,
   isUnsplashImageUploadActive,
+  imagesFetcher,
+  itemsPerPage,
 }) => {
   const [activeTab, setActiveTab] = useTabBar(IMAGE_UPLOAD_OPTIONS);
   const [imageUrl, setImageUrl] = useState("");
@@ -28,10 +31,10 @@ const ImageUpload = ({
 
   const tab = {
     gallery: () => (
-      <URLForm
+      <Gallery
         onSubmit={handleUrlFormSubmit}
-        buttonLabel="Upload Image"
-        placeholder="Paste the image link"
+        imagesFetcher={imagesFetcher}
+        itemsPerPage={itemsPerPage}
       />
     ),
     local: () => (
@@ -68,15 +71,17 @@ const ImageUpload = ({
         <Tab>
           {IMAGE_UPLOAD_OPTIONS.filter(
             option => option.key !== "unsplash" || isUnsplashImageUploadActive
-          ).map(option => (
-            <Tab.Item
-              key={option.key}
-              active={activeTab === option.key}
-              onClick={() => setActiveTab(option)}
-            >
-              {option.title}
-            </Tab.Item>
-          ))}
+          )
+            .filter(option => option.key !== "gallery" || imagesFetcher)
+            .map(option => (
+              <Tab.Item
+                key={option.key}
+                active={activeTab === option.key}
+                onClick={() => setActiveTab(option)}
+              >
+                {option.title}
+              </Tab.Item>
+            ))}
         </Tab>
 
         <div className="scooter-editor-image-uploader__content">

@@ -60,7 +60,7 @@ export default [
     ],
   },
   {
-    input: "./lib/styles/editor-output.scss",
+    input: "./lib/index.css",
     output: {
       dir: `${__dirname}/dist`,
       format: "esm",
