@@ -21,6 +21,8 @@ const ImageUpload = ({
   isUnsplashImageUploadActive,
   imagesFetcher,
   itemsPerPage,
+  onFileAdded,
+  onUploadComplete,
 }) => {
   const [activeTab, setActiveTab] = useTabBar(IMAGE_UPLOAD_OPTIONS);
   const [imageUrl, setImageUrl] = useState("");
@@ -42,6 +44,8 @@ const ImageUpload = ({
         endpoint={imageUploadUrl}
         onSuccess={handleUrlFormSubmit}
         uploadConfig={uploadConfig}
+        onFileAdded={onFileAdded}
+        onUploadComplete={onUploadComplete}
       />
     ),
     link: () => (

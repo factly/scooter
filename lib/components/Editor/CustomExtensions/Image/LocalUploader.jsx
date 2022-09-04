@@ -17,6 +17,8 @@ import { convertToFileSize } from "./utils";
 const LocalUploader = ({
   endpoint = DEFAULT_UPLOAD_ENDPOINT,
   onSuccess,
+  onFileAdded = () => {},
+  onUploadComplete = () => {},
   uploadConfig,
 }) => {
   const [isUploading, setIsUploading] = useState(false);
@@ -57,7 +59,11 @@ const LocalUploader = ({
       .on("upload", () => setIsUploading(true))
       .on("upload-success", (_, response) => onSuccess(response.uploadURL))
       .on("cancel-all", () => setIsUploading(false))
-      .on("complete", () => setIsUploading(false))
+      .on("file-added", () => onFileAdded())
+      .on("complete", () => {
+        onUploadComplete();
+        setIsUploading(false);
+      })
   );
 
   return isUploading ? (

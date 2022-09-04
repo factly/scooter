@@ -57,6 +57,8 @@ const Editor = (
     error = null,
     imagesFetcher,
     itemsPerPage,
+    onFileAdded = () => {},
+    onUploadComplete = () => {},
     ...otherProps
   },
   ref
@@ -169,6 +171,8 @@ const Editor = (
         unsplashApiKey={editorSecrets?.unsplash}
         imagesFetcher={imagesFetcher}
         itemsPerPage={itemsPerPage}
+        onFileAdded={onFileAdded}
+        onUploadComplete={onUploadComplete}
       />
       <EmbedFetcher
         isVisible={isEmbedFetcherVisible}
