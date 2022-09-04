@@ -59,9 +59,9 @@ const LocalUploader = ({
       .on("upload", () => setIsUploading(true))
       .on("upload-success", (_, response) => onSuccess(response.uploadURL))
       .on("cancel-all", () => setIsUploading(false))
-      .on("file-added", () => onFileAdded())
-      .on("complete", () => {
-        onUploadComplete();
+      .on("file-added", file => onFileAdded(file))
+      .on("complete", result => {
+        onUploadComplete(result);
         setIsUploading(false);
       })
   );
