@@ -51,10 +51,12 @@ const Editor = (
     rows = 6,
     autoFocus = false,
     onSubmit,
-    heightStrategy = "fixed",
+    heightStrategy = "flexible",
     characterCountStrategy = "hidden",
     keyboardShortcuts = [],
     error = null,
+    imagesFetcher,
+    itemsPerPage,
     ...otherProps
   },
   ref
@@ -165,6 +167,8 @@ const Editor = (
         uploadConfig={uploadConfig}
         isUnsplashImageUploadActive={isUnsplashImageUploadActive}
         unsplashApiKey={editorSecrets?.unsplash}
+        imagesFetcher={imagesFetcher}
+        itemsPerPage={itemsPerPage}
       />
       <EmbedFetcher
         isVisible={isEmbedFetcherVisible}
