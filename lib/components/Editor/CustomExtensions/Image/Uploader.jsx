@@ -68,7 +68,10 @@ const ImageUpload = ({
   return (
     <Modal
       isOpen={isVisible}
-      onClose={() => setIsVisible(false)}
+      onClose={() => {
+        setImageUrl(null);
+        setIsVisible(false);
+      }}
       closeButton={false}
     >
       <div className="scooter-editor-image-uploader">

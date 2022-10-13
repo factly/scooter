@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import classNames from "classnames";
 import ErrorWrapper from "components/Common/ErrorWrapper";
+import { EditorView } from "prosemirror-view";
 import { stringifyObject, isNilOrEmpty } from "utils/common";
 
 import { DEFAULT_EDITOR_OPTIONS } from "./constants";
@@ -31,10 +32,7 @@ const Editor = (
     uploadEndpoint,
     iframelyEndpoint,
     uploadConfig = {},
-    embedConfig = {
-      Cookie:
-        "csrf_token_2d785ea2f6536900108362e9bfff73eef3a32be3921b3abc74b0a990093487c9=WdsYiez/zgzwK/YzNhzLZwUucmImocZjzqTLVnvJlhE=; ory_kratos_session=MTY1NzM2NTkzMnxEdi1CQkFFQ180SUFBUkFCRUFBQVJfLUNBQUVHYzNSeWFXNW5EQThBRFhObGMzTnBiMjVmZEc5clpXNEdjM1J5YVc1bkRDSUFJRXBUZFdGcGRUQlNPRlZ5Ym5WWVJVNXRiVTVMWW5SQ1VsVTBXRGd6ZWxkMHw7B48V8525ldAIfi2D9QeByKc-19KY_kM82pxBb4dCWw==",
-    },
+    embedConfig = {},
     initialValue = "<p></p>",
     onChange = ({ html, json }) => ({ html, json }),
     onFocus = () => {},
@@ -57,8 +55,8 @@ const Editor = (
     error = null,
     imagesFetcher,
     itemsPerPage,
-    onFileAdded = () => {},
-    onUploadComplete = () => {},
+    onFileAdded,
+    onUploadComplete,
     ...otherProps
   },
   ref
@@ -96,6 +94,12 @@ const Editor = (
     keyboardShortcuts,
     onSubmit,
   });
+
+  // https://github.com/ueberdosis/tiptap/issues/1451#issuecomment-953348865
+  EditorView.prototype.updateState = function updateState(state) {
+    if (!this.docView) return;
+    this.updateStateInner(state, this.state.plugins !== state.plugins);
+  };
 
   const editorClasses = classNames("scooter-editor", {
     "slash-active": showSlashCommandPlaceholder,
