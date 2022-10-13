@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import classnames from "classnames";
 import DOMPurify from "dompurify";
 import highlightCode from "utils/highlightCode";
+import InnerHTML from "dangerously-set-html-content";
 
 const EditorContent = ({ content = "", className, ...otherProps }) => {
   useEffect(() => {
@@ -19,12 +20,14 @@ const EditorContent = ({ content = "", className, ...otherProps }) => {
       className={classnames(EDITOR_CONTENT_CLASSNAME, {
         [className]: className,
       })}
-      dangerouslySetInnerHTML={{
-        __html: sanitize(content, { ADD_ATTR: ["target"] }),
-      }}
+      // dangerouslySetInnerHTML={{
+      //   __html: content,
+      // }}
       data-cy="scooter-editor-content"
       {...otherProps}
-    />
+    >
+      <InnerHTML className="editor-content" html={content} />
+    </div>
   );
 };
 
