@@ -22,6 +22,10 @@ Prefix the change with one of these keywords:
 - *Fixed*: for any bug fixes.
 - *Security*: in case of vulnerabilities.
 
+## 0.0.8 - 2022-10-13
+
+Fixed: embed component HTML parsing issue
+
 ## 0.0.7 - 2022-09-04
 
 Updated Middleware function for images upload
