@@ -22,6 +22,10 @@ Prefix the change with one of these keywords:
 - *Fixed*: for any bug fixes.
 - *Security*: in case of vulnerabilities.
 
+## 0.0.10 - 2022-10-19
+
+Removed Gap Cursor extension
+
 ## 0.0.9 - 2022-10-19
 
 Updated Embed component to fix parsing issue
