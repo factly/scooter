@@ -135,7 +135,5 @@
   "files": [
     "build"
   ],
-  "dependencies": {
-    "@tiptap/extension-gapcursor": "^2.0.0-beta.199"
-  }
+  "dependencies": {}
 }
