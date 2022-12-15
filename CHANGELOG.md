@@ -22,6 +22,10 @@ Prefix the change with one of these keywords:
 - *Fixed*: for any bug fixes.
 - *Security*: in case of vulnerabilities.
 
+## 0.0.11 - 2022-12-15
+
+Changed: updated default headings
+
 ## 0.0.10 - 2022-10-19
 
 Removed Gap Cursor extension
