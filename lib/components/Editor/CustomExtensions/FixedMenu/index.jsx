@@ -17,6 +17,7 @@ import {
   RiAlignCenter,
   RiImage2Line,
   RiDoubleQuotesL,
+  RiTaskLine
 } from "react-icons/ri";
 import { capitalize } from "utils/common";
 
@@ -116,6 +117,12 @@ const FixedMenu = ({
       active: editor.isActive("orderedList"),
       optionName: "ordered-list",
     },
+    {
+      Icon: RiTaskLine,
+      command : ()=> editor.chain().focus().toggleTaskList().run(),
+      active: editor.isActive("taskList"),
+      optionName: "task-list"
+    }
   ].filter(item => options.includes(item.optionName));
 
   const fontSizeOptions = options.filter(option => option.match(/^h[1-6]$/));
