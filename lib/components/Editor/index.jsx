@@ -34,7 +34,7 @@ const Editor = (
     uploadConfig = {},
     embedConfig = {},
     initialValue = "<p></p>",
-    onChange = ({ html, json }) => ({ html, json }),
+    onChange = ({ html, json, text }) => ({ html, json, text }),
     onFocus = () => {},
     onBlur = () => {},
     menuType = "fixed",
@@ -129,7 +129,11 @@ const Editor = (
       preserveWhitespace: true,
     },
     onUpdate: ({ editor }) =>
-      onChange({ html: editor.getHTML(), json: editor.getJSON() }),
+      onChange({
+        html: editor.getHTML(),
+        json: editor.getJSON(),
+        text: editor.getText(),
+      }),
     onFocus,
     onBlur,
   });
