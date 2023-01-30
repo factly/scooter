@@ -1,0 +1,35 @@
+{
+  "name": "scooter-slash-commands",
+  "sourceRoot": "libs/scooter-slash-commands/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/scooter-slash-commands/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "build": {
+      "executor": "@nrwl/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/scooter-slash-commands",
+        "tsConfig": "libs/scooter-slash-commands/tsconfig.lib.json",
+        "project": "libs/scooter-slash-commands/package.json",
+        "entryFile": "libs/scooter-slash-commands/src/index.js",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/scooter-slash-commands/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    }
+  }
+}
