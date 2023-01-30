@@ -22,6 +22,10 @@ Prefix the change with one of these keywords:
 - *Fixed*: for any bug fixes.
 - *Security*: in case of vulnerabilities.
 
+## 0.0.12 - 2023-01-19
+
+Changed: onChange function to get text output
+
 ## 0.0.11 - 2022-12-15
 
 Changed: updated default headings
