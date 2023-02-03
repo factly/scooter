@@ -28,6 +28,9 @@ import Title from './Title/ExtensionConfig';
 import Typography from './Typography/EditorConfig';
 // import Variable from './Variable/ExtensionConfig';
 // import InsertRawHTML from './InsertRawHTML';
+import {ScooterTasklist} from '@factly/scooter-tasklist';
+import  {ScooterTaskitem}  from '@factly/scooter-taskitem';
+
 
 const useCustomExtensions = ({
   forceTitle,
@@ -89,6 +92,8 @@ const useCustomExtensions = ({
     TableRow,
     TableHeader,
     TableCell,
+    ScooterTasklist(),
+    ScooterTaskitem(),
   ];
 
   if (isSlashCommandsActive) {
