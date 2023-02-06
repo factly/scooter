@@ -92,8 +92,6 @@ const useCustomExtensions = ({
     TableRow,
     TableHeader,
     TableCell,
-    ScooterTasklist(),
-    ScooterTaskitem(),
   ];
 
   if (isSlashCommandsActive) {
