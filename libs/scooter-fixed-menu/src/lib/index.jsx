@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { Modal, MenuButton } from '@factly/scooter-ui';
-import { EDITOR_OPTIONS } from './utils/constants';
+import { Modal, MenuButton } from "@factly/scooter-ui";
+import { EDITOR_OPTIONS } from "utils/constants";
 import {
   RiBold,
   RiItalic,
@@ -16,14 +16,14 @@ import {
   RiAlignCenter,
   RiImage2Line,
   RiDoubleQuotesL,
-} from 'react-icons/ri';
-import { capitalize } from './utils/common';
-import FontSizeOption from './FontSizeOption';
-import LinkOption from './LinkOption';
-import TextColorOption from './TextColorOption';
+} from "react-icons/ri";
+import { capitalize } from "utils/common";
+import FontSizeOption from "./FontSizeOption";
+import LinkOption from "./LinkOption";
+import TextColorOption from "./TextColorOption";
 
-import { helpers } from '@factly/scooter-bubble-menu';
-import { ImageEditor } from '@factly/scooter-image';
+import { helpers } from "@factly/scooter-bubble-menu";
+import { ImageEditor } from "@factly/scooter-image";
 // import Mentions from '../Mention';
 // import Variables from '../Variable';
 
@@ -39,10 +39,10 @@ export const FixedMenu = ({
   const [isImageEditorModalOpen, setIsImageEditorModalOpen] = useState(false);
   const selectedNode = editor && editor.view.state.selection.node;
   const isImageNodeSelected =
-    selectedNode && selectedNode.type.name === 'image';
+    selectedNode && selectedNode.type.name === "image";
   const isTableNodeSelected =
-    selectedNode && selectedNode.type.name === 'table';
-  const isTextAlignActive = selectedNode && selectedNode.type.name === 'text';
+    selectedNode && selectedNode.type.name === "table";
+  const isTextAlignActive = selectedNode && selectedNode.type.name === "text";
   if (!editor) {
     return null;
   }
@@ -51,72 +51,72 @@ export const FixedMenu = ({
     {
       Icon: RiBold,
       command: () => editor.chain().focus().toggleBold().run(),
-      active: editor.isActive('bold'),
-      optionName: 'bold',
+      active: editor.isActive("bold"),
+      optionName: "bold",
     },
     {
       Icon: RiItalic,
       command: () => editor.chain().focus().toggleItalic().run(),
-      active: editor.isActive('italic'),
-      optionName: 'italic',
+      active: editor.isActive("italic"),
+      optionName: "italic",
     },
     {
       Icon: RiUnderline,
       command: () => editor.chain().focus().toggleUnderline().run(),
-      active: editor.isActive('underline'),
-      optionName: 'underline',
+      active: editor.isActive("underline"),
+      optionName: "underline",
     },
     {
       Icon: RiStrikethrough,
       command: () => editor.chain().focus().toggleStrike().run(),
-      active: editor.isActive('strike'),
-      optionName: 'strike',
+      active: editor.isActive("strike"),
+      optionName: "strike",
     },
     {
       Icon: RiMarkPenLine,
       command: () => editor.chain().focus().toggleHighlight().run(),
-      active: editor.isActive('highlight'),
-      optionName: 'highlight',
+      active: editor.isActive("highlight"),
+      optionName: "highlight",
     },
-  ].filter((item) => options.includes(item.optionName));
+  ].filter(item => options.includes(item.optionName));
 
   const blockStyleOptions = [
     {
       Icon: RiDoubleQuotesL,
       command: () => editor.chain().focus().toggleBlockquote().run(),
-      active: editor.isActive('blockquote'),
-      optionName: 'block-quote',
+      active: editor.isActive("blockquote"),
+      optionName: "block-quote",
     },
     {
       Icon: RiCodeSSlashFill,
       command: () => editor.chain().focus().toggleCodeBlock().run(),
-      active: editor.isActive('codeBlock'),
-      optionName: 'code-block',
+      active: editor.isActive("codeBlock"),
+      optionName: "code-block",
     },
     {
       Icon: RiImage2Line,
       command: () => setImageUploadVisible(true),
-      active: editor.isActive('imageUpload'),
-      optionName: 'image-upload',
+      active: editor.isActive("imageUpload"),
+      optionName: "image-upload",
     },
-  ].filter((item) => options.includes(item.optionName));
+  ].filter(item => options.includes(item.optionName));
 
   const listStyleOptions = [
     {
       Icon: RiListUnordered,
       command: () => editor.chain().focus().toggleBulletList().run(),
-      active: editor.isActive('bulletList'),
-      optionName: 'bullet-list',
+      active: editor.isActive("bulletList"),
+      optionName: "bullet-list",
     },
     {
       Icon: RiListOrdered,
       command: () => editor.chain().focus().toggleOrderedList().run(),
-      active: editor.isActive('orderedList'),
-      optionName: 'ordered-list',
+      active: editor.isActive("orderedList"),
+      optionName: "ordered-list",
     },
-  ].filter((item) => options.includes(item.optionName));
+  ].filter(item => options.includes(item.optionName));
 
-  const fontSizeOptions = options.filter((option) => option.match(/^h[1-6]$/));
+  const fontSizeOptions = options.filter(option => option.match(/^h[1-6]$/));
   const isTextColorActive = options.includes(EDITOR_OPTIONS.FONT_COLOR);
   const isFontSizeActive = fontSizeOptions.length > 0;
 
@@ -130,7 +130,7 @@ export const FixedMenu = ({
       onClick={command}
       tooltipProps={{
         content: capitalize(optionName),
-        position: 'bottom',
+        position: "bottom",
         delay: [500],
       }}
       data-cy={`scooter-editor-fixed-menu-${optionName}-option`}
@@ -145,41 +145,41 @@ export const FixedMenu = ({
       {fontStyleOptions.map(renderOptionButton)}
       {isTextColorActive && (
         <TextColorOption
-          color={editor.getAttributes('textStyle').color}
-          onChange={(color) => editor.chain().focus().setColor(color).run()}
+          color={editor.getAttributes("textStyle").color}
+          onChange={color => editor.chain().focus().setColor(color).run()}
         />
       )}
       {isTextAlignActive && (
         <div className="scooter-editor-fixed-menu-align-options">
           <MenuButton
             icon={RiAlignLeft}
-            iconActive={editor.isActive('align', 'left')}
-            onClick={() => editor.chain().focus().setAlign('left').run()}
+            iconActive={editor.isActive("align", "left")}
+            onClick={() => editor.chain().focus().setAlign("left").run()}
             tooltipProps={{
-              content: 'Left',
-              position: 'bottom',
+              content: "Left",
+              position: "bottom",
               delay: [500],
             }}
             data-cy={`scooter-editor-fixed-menu-align-left-option`}
           />
           <MenuButton
             icon={RiAlignCenter}
-            iconActive={editor.isActive('align', 'center')}
-            onClick={() => editor.chain().focus().setAlign('center').run()}
+            iconActive={editor.isActive("align", "center")}
+            onClick={() => editor.chain().focus().setAlign("center").run()}
             tooltipProps={{
-              content: 'Center',
-              position: 'bottom',
+              content: "Center",
+              position: "bottom",
               delay: [500],
             }}
             data-cy={`scooter-editor-fixed-menu-align-center-option`}
           />
           <MenuButton
             icon={RiAlignRight}
-            iconActive={editor.isActive('align', 'right')}
-            onClick={() => editor.chain().focus().setAlign('right').run()}
+            iconActive={editor.isActive("align", "right")}
+            onClick={() => editor.chain().focus().setAlign("right").run()}
             tooltipProps={{
-              content: 'Right',
-              position: 'bottom',
+              content: "Right",
+              position: "bottom",
               delay: [500],
             }}
             data-cy={`scooter-editor-fixed-menu-align-right-option`}
@@ -203,7 +203,7 @@ export const FixedMenu = ({
             onClick={command}
             tooltipProps={{
               content: capitalize(optionName),
-              position: 'bottom',
+              position: "bottom",
               delay: [500],
             }}
             data-cy={`scooter-editor-fixed-menu-${optionName}-option`}
@@ -222,7 +222,7 @@ export const FixedMenu = ({
             onClick={command}
             tooltipProps={{
               content: capitalize(optionName),
-              position: 'bottom',
+              position: "bottom",
               delay: [500],
             }}
             data-cy={`scooter-editor-fixed-menu-${optionName}-option`}

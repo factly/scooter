@@ -1,27 +1,27 @@
-import { UrlRegExp } from './utils/regexp';
+import { UrlRegExp } from "utils/regexp";
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 
-import { Button, Dropdown, Input, MenuButton } from '@factly/scooter-ui';
+import { Button, Dropdown, Input, MenuButton } from "@factly/scooter-ui";
 
-import { RiLink } from 'react-icons/ri';
+import { RiLink } from "react-icons/ri";
 
 export const LinkOption = ({ editor }) => {
   const dropdownRef = useRef();
   const inputRef = useRef();
-  const [error, setError] = useState('');
-  const [urlString, setUrlString] = useState('');
+  const [error, setError] = useState("");
+  const [urlString, setUrlString] = useState("");
 
-  const isActive = editor.isActive('link');
+  const isActive = editor.isActive("link");
 
   const onClickTrigger = () => {
-    setUrlString(editor.getAttributes('link').href || '');
+    setUrlString(editor.getAttributes("link").href || "");
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Escape') {
+  const handleKeyDown = event => {
+    if (event.key === "Escape") {
       dropdownRef.current.close();
-    } else if (event.key === 'Enter') {
+    } else if (event.key === "Enter") {
       handleLink();
     }
   };
@@ -31,7 +31,7 @@ export const LinkOption = ({ editor }) => {
       editor.chain().focus().setLink({ href: urlString }).run();
       dropdownRef.current?.close();
     } else {
-      setError('Please enter a valid url');
+      setError("Please enter a valid url");
     }
   };
 
@@ -53,7 +53,7 @@ export const LinkOption = ({ editor }) => {
           icon={RiLink}
           iconActive={isActive}
           onClick={onClickTrigger}
-          tooltipProps={{ content: 'Link', position: 'bottom', delay: [500] }}
+          tooltipProps={{ content: "Link", position: "bottom", delay: [500] }}
           data-cy="scooter-editor-fixed-menu-link-option"
         />
       )}
@@ -67,7 +67,7 @@ export const LinkOption = ({ editor }) => {
           name="url"
           value={urlString}
           placeholder="Paste URL"
-          onFocus={() => setError('')}
+          onFocus={() => setError("")}
           error={error}
           onChange={({ target: { value } }) => setUrlString(value)}
           data-cy="scooter-editor-fixed-menu-link-option-input"

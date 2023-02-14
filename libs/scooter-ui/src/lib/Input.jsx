@@ -1,22 +1,22 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef } from "react";
 
-import classnames from 'classnames';
-import { hyphenize } from './utils/common';
+import classnames from "classnames";
+import { hyphenize } from "utils/common";
 
-import Label from './Label';
+import Label from "./Label";
 
 export const Input = forwardRef((props, ref) => {
   const {
     id,
-    size = 'small',
-    type = 'text',
+    size = "small",
+    type = "text",
     label,
     error = null,
     suffix = null,
     prefix = null,
     disabled = false,
-    helpText = '',
-    className = '',
+    helpText = "",
+    className = "",
     nakedInput = false,
     contentSize = null,
     required = false,
@@ -24,7 +24,7 @@ export const Input = forwardRef((props, ref) => {
   } = props;
 
   return (
-    <div className={classnames(['sc-input__wrapper', className])}>
+    <div className={classnames(["sc-input__wrapper", className])}>
       {label && (
         <Label
           required={required}
@@ -35,11 +35,11 @@ export const Input = forwardRef((props, ref) => {
         </Label>
       )}
       <div
-        className={classnames('sc-input', {
-          'sc-input--naked': !!nakedInput,
-          'sc-input--error': !!error,
-          'sc-input--disabled': !!disabled,
-          'sc-input--small': size === 'small',
+        className={classnames("sc-input", {
+          "sc-input--naked": !!nakedInput,
+          "sc-input--error": !!error,
+          "sc-input--disabled": !!disabled,
+          "sc-input--small": size === "small",
         })}
       >
         {prefix && <div className="sc-input__prefix">{prefix}</div>}
@@ -68,5 +68,5 @@ export const Input = forwardRef((props, ref) => {
   );
 });
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 export default Input;

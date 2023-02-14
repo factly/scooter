@@ -1,20 +1,20 @@
-import React from 'react';
+import React from "react";
 
-import Menu from './Menu';
+import { SlashCommandsMenu } from "./Menu";
 
 export class CommandsList extends React.Component {
   state = { activeMenuIndex: 0 };
 
   onKeyDown = ({ event }) =>
-    ['Enter', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(
+    ["Enter", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(
       event.key
     );
 
-  setActiveMenuIndex = (index) => this.setState({ activeMenuIndex: index });
+  setActiveMenuIndex = index => this.setState({ activeMenuIndex: index });
 
   render() {
     return (
-      <Menu
+      <SlashCommandsMenu
         {...this.props}
         menuIndex={0}
         activeMenuIndex={this.state.activeMenuIndex}

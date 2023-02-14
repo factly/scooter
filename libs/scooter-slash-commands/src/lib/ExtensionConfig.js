@@ -1,14 +1,14 @@
-import { Extension } from '@tiptap/core';
-import { ReactRenderer } from '@tiptap/react';
-import Suggestion from '@tiptap/suggestion';
-import { PluginKey } from 'prosemirror-state';
-import tippy from 'tippy.js';
-import { isNilOrEmpty } from './utils/common';
+import { Extension } from "@tiptap/core";
+import { ReactRenderer } from "@tiptap/react";
+import Suggestion from "@tiptap/suggestion";
+import { PluginKey } from "prosemirror-state";
+import tippy from "tippy.js";
+import { isNilOrEmpty } from "utils/common";
 
-import CommandsList from './CommandsList';
-import { MENU_ITEMS } from './constants';
+import CommandsList from "./CommandsList";
+import { MENU_ITEMS } from "./constants";
 
-const CommandsPluginKey = new PluginKey('commands');
+const CommandsPluginKey = new PluginKey("commands");
 
 export const SlashCommandsExtension = {
   configure: ({
@@ -62,10 +62,10 @@ export const SlashCommandsExtension = {
       addOptions() {
         return {
           HTMLAttributes: {
-            class: 'commands',
+            class: "commands",
           },
           suggestion: {
-            char: '/',
+            char: "/",
             startOfLine: false,
             pluginKey: CommandsPluginKey,
             command: ({ editor, range, props }) => {
@@ -87,20 +87,19 @@ export const SlashCommandsExtension = {
               let popup;
 
               return {
-                onStart: (props) => {
+                onStart: props => {
                   reactRenderer = new ReactRenderer(CommandsList, {
                     props,
                     editor: props.editor,
                   });
-
-                  popup = tippy('body', {
+                  popup = tippy("body", {
                     getReferenceClientRect: props.clientRect,
                     appendTo: () => document.body,
                     content: reactRenderer.element,
                     showOnCreate: true,
                     interactive: true,
-                    trigger: 'manual',
-                    placement: 'bottom-start',
+                    trigger: "manual",
+                    placement: "bottom-start",
                     arrow: false,
                     zIndex: 99999,
                   });

@@ -1,32 +1,32 @@
-import { UrlRegExp } from './utils/regexp';
+import { UrlRegExp } from "utils/regexp";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { Button } from '@factly/scooter-ui';
-import { RiCloseLine } from 'react-icons/ri';
-import { isNilOrEmpty } from './utils/common';
+import { Button } from "@factly/scooter-ui";
+import { RiCloseLine } from "react-icons/ri";
+import { isNilOrEmpty } from "utils/common";
 
 export const LinkOption = ({
   editor,
   handleClose,
   handleAnimateInvalidLink,
 }) => {
-  const [link, setLink] = useState('');
+  const [link, setLink] = useState("");
   const [target, setTarget] = useState(true);
 
   useEffect(() => {
-    setLink(editor.getAttributes('link').href || '');
+    setLink(editor.getAttributes("link").href || "");
     setTarget(
-      editor.getAttributes('link').target
-        ? editor.getAttributes('link').target === '__blank'
+      editor.getAttributes("link").target
+        ? editor.getAttributes("link").target === "__blank"
         : true
     );
   }, []);
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Escape') {
+  const handleKeyDown = event => {
+    if (event.key === "Escape") {
       handleClose();
-    } else if (event.key === 'Enter') {
+    } else if (event.key === "Enter") {
       handleSubmit();
     }
   };
@@ -36,21 +36,21 @@ export const LinkOption = ({
       editor
         .chain()
         .focus()
-        .setLink({ href: link, target: target ? '__blank' : '__self' })
+        .setLink({ href: link, target: target ? "__blank" : "__self" })
         .run();
       handleClose();
     } else if (isNilOrEmpty(link)) {
       editor.chain().focus().unsetLink().run();
       handleClose();
     } else {
-      setLink('');
+      setLink("");
       handleAnimateInvalidLink();
     }
   };
 
   const handleReset = () => {
     if (link) {
-      setLink('');
+      setLink("");
       editor.chain().focus().unsetLink().run();
     } else {
       handleClose();
@@ -80,7 +80,7 @@ export const LinkOption = ({
           id="target"
           checked={target}
           onChange={() => setTarget(!target)}
-        />{' '}
+        />{" "}
         Open in new tab
       </label>
     </div>

@@ -1,26 +1,26 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useState, useEffect } from 'react';
-import { useEditor, EditorContent } from '@tiptap/react';
-import classNames from 'classnames';
-import { ErrorWrapper } from '@factly/scooter-ui';
-import { EditorView } from 'prosemirror-view';
-import { stringifyObject, isNilOrEmpty } from './utils/common';
+import React, { useState, useEffect } from "react";
+import { useEditor, EditorContent } from "@tiptap/react";
+import classNames from "classnames";
+import { ErrorWrapper } from "@factly/scooter-ui";
+import { EditorView } from "prosemirror-view";
+import { stringifyObject, isNilOrEmpty } from "utils/common";
 
-import { DEFAULT_EDITOR_OPTIONS } from './utils/constants';
-import { BubbleMenu } from '@factly/scooter-bubble-menu';
-import CharacterCount from './CustomExtensions/CharacterCount';
-import { EmbedFetcher } from '@factly/scooter-embed';
-import { FixedMenu } from '@factly/scooter-fixed-menu';
-import { Uploader as ImageUploader } from '@factly/scooter-image';
-import useCustomExtensions from './CustomExtensions/useCustomExtensions';
+import { DEFAULT_EDITOR_OPTIONS } from "utils/constants";
+import { BubbleMenu } from "@factly/scooter-bubble-menu";
+import CharacterCount from "./CustomExtensions/CharacterCount";
+import { EmbedFetcher } from "@factly/scooter-embed";
+import { FixedMenu } from "@factly/scooter-fixed-menu";
+import { Uploader as ImageUploader } from "@factly/scooter-image";
+import useCustomExtensions from "./CustomExtensions/useCustomExtensions";
 import {
   generateAddonOptions,
   getEditorStyles,
   getIsPlaceholderActive,
   clipboardTextParser,
-} from './utils/helpers';
+} from "utils/helpers";
 
-import './scooter-core.css';
+import "./scooter-core.css";
 
 export const ScooterCore = React.forwardRef(
   (
@@ -36,15 +36,15 @@ export const ScooterCore = React.forwardRef(
       iframelyEndpoint,
       uploadConfig = {},
       embedConfig = {},
-      initialValue = '<p></p>',
+      initialValue = "<p></p>",
       onChange = ({ html, json, text }) => ({ html, json, text }),
       onFocus = () => {},
       onBlur = () => {},
-      menuType = 'fixed',
+      menuType = "fixed",
       variables,
       mentions,
       showImageInMention = false,
-      placeholder = forceTitle ? { title: 'Untitled' } : null,
+      placeholder = forceTitle ? { title: "Untitled" } : null,
       extensions,
       contentClassName,
       characterLimit,
@@ -52,8 +52,8 @@ export const ScooterCore = React.forwardRef(
       rows = 6,
       autoFocus = false,
       onSubmit,
-      heightStrategy = 'flexible',
-      characterCountStrategy = 'hidden',
+      heightStrategy = "flexible",
+      characterCountStrategy = "hidden",
       keyboardShortcuts = [],
       error = null,
       imagesFetcher,
@@ -67,16 +67,16 @@ export const ScooterCore = React.forwardRef(
     const [isImageUploadVisible, setImageUploadVisible] = useState(false);
     const [isEmbedFetcherVisible, setEmbedFetcherVisible] = useState(false);
 
-    const isFixedMenuActive = menuType === 'fixed';
-    const isBubbleMenuActive = menuType === 'bubble';
+    const isFixedMenuActive = menuType === "fixed";
+    const isBubbleMenuActive = menuType === "bubble";
     const isSlashCommandsActive = !hideSlashCommands;
     const isPlaceholderActive = getIsPlaceholderActive(placeholder);
     const showSlashCommandPlaceholder =
       !isPlaceholderActive && isSlashCommandsActive;
     const isUnsplashImageUploadActive = addons.includes(
-      'image-upload-unsplash'
+      "image-upload-unsplash"
     );
-    const isCharacterCountActive = characterCountStrategy !== 'hidden';
+    const isCharacterCountActive = characterCountStrategy !== "hidden";
 
     const addonOptions = generateAddonOptions(defaults, addons, {
       includeImageUpload: isUnsplashImageUploadActive,
@@ -106,13 +106,13 @@ export const ScooterCore = React.forwardRef(
       this.updateStateInner(state, this.state.plugins !== state.plugins);
     };
 
-    const editorClasses = classNames('scooter-editor', {
-      'slash-active': showSlashCommandPlaceholder,
-      'fixed-menu-active border': isFixedMenuActive,
-      'bubble-menu-active': isBubbleMenuActive,
-      'force-title': forceTitle,
-      'force-title--error': titleError,
-      'placeholder-active': isPlaceholderActive,
+    const editorClasses = classNames("scooter-editor", {
+      "slash-active": showSlashCommandPlaceholder,
+      "fixed-menu-active border": isFixedMenuActive,
+      "bubble-menu-active": isBubbleMenuActive,
+      "force-title": forceTitle,
+      "force-title--error": titleError,
+      "placeholder-active": isPlaceholderActive,
       [className]: className,
     });
 
@@ -122,7 +122,7 @@ export const ScooterCore = React.forwardRef(
       extensions: customExtensions,
       content: initialValue,
       injectCSS: false,
-      autofocus: autoFocus && 'end',
+      autofocus: autoFocus && "end",
       editorProps: {
         attributes: {
           class: editorClasses,
@@ -150,7 +150,7 @@ export const ScooterCore = React.forwardRef(
       const isProduction = [
         process.env.RAILS_ENV,
         process.env.NODE_ENV,
-      ].includes('production');
+      ].includes("production");
       if (!isProduction && isNilOrEmpty(initialValue)) {
         // eslint-disable-next-line no-console
         console.warn(

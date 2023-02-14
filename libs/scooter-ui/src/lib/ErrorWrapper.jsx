@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import classnames from 'classnames';
-import { is } from 'ramda';
-import { isNilOrEmpty } from './utils/common';
+import classnames from "classnames";
+import { is } from "ramda";
+import { isNilOrEmpty } from "utils/common";
 
 export const ErrorWrapper = ({ error, isFixedMenuActive, children }) => {
   const wrapperClasses = classnames({
-    'scooter-editor-error': error && isFixedMenuActive,
+    "scooter-editor-error": error && isFixedMenuActive,
   });
 
   const getErrorMessage = () => {

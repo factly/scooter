@@ -1,9 +1,9 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef } from "react";
 
-import Tippy from '@tippyjs/react';
-import classnames from 'classnames';
-import { isNilOrEmpty } from './utils/common';
-import { scrollHandler } from './utils/scrollhandler';
+import Tippy from "@tippyjs/react";
+import classnames from "classnames";
+import { isNilOrEmpty } from "utils/common";
+import { scrollHandler } from "utils/scrollhandler";
 
 export class SlashCommandsMenu extends React.Component {
   constructor(props) {
@@ -16,12 +16,12 @@ export class SlashCommandsMenu extends React.Component {
     const { menuIndex, activeMenuIndex } = this.props;
     const isCurrentMenuActive = menuIndex === activeMenuIndex;
     if (isCurrentMenuActive) {
-      document.addEventListener('keydown', this.keydownHandler);
+      document.addEventListener("keydown", this.keydownHandler);
     }
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.keydownHandler);
+    document.removeEventListener("keydown", this.keydownHandler);
   }
 
   componentDidUpdate(oldProps) {
@@ -36,11 +36,11 @@ export class SlashCommandsMenu extends React.Component {
     });
 
     if (isCurrentMenuActive) {
-      document.addEventListener('keydown', this.keydownHandler);
-    } else document.removeEventListener('keydown', this.keydownHandler);
+      document.addEventListener("keydown", this.keydownHandler);
+    } else document.removeEventListener("keydown", this.keydownHandler);
   }
 
-  keydownHandler = (event) => {
+  keydownHandler = event => {
     const listeners = {
       Enter: this.enterHandler,
       ArrowUp: this.upHandler,
@@ -52,7 +52,7 @@ export class SlashCommandsMenu extends React.Component {
     if (event.key in listeners) listeners[event.key](event);
   };
 
-  selectItem = (index) => {
+  selectItem = index => {
     const { items, editor, range } = this.props;
     const selectedItem = items[index];
     const hasCommand = selectedItem && selectedItem.command;
@@ -130,7 +130,7 @@ export class SlashCommandsMenu extends React.Component {
                   menuIndex={menuIndex + 1}
                 />
               }
-              onCreate={({ popper }) => (popper.style.width = 'max-content')}
+              onCreate={({ popper }) => (popper.style.width = "max-content")}
               visible={selectedIndex === index}
               onShow={() => {
                 this.isSubmenuOpened = true;
@@ -155,7 +155,7 @@ const MenuItem = forwardRef(
 
     return (
       <div
-        className={classnames('scooter-editor-slash-commands__item', {
+        className={classnames("scooter-editor-slash-commands__item", {
           active: index === selectedIndex,
         })}
         onClick={selectItem}

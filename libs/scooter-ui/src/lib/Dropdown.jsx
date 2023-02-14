@@ -4,14 +4,14 @@ import React, {
   useRef,
   forwardRef,
   useImperativeHandle,
-} from 'react';
+} from "react";
 
-import classnames from 'classnames';
-import useOutsideClick from './hooks/useOutsideClick';
-import { useHotkeys } from 'react-hotkeys-hook';
-import { RiArrowDownSLine } from 'react-icons/ri';
-import { usePopper } from 'react-popper';
-import { hyphenize } from './utils/common';
+import classnames from "classnames";
+import useOutsideClick from "utils/hooks/useOutsideClick";
+import { useHotkeys } from "react-hotkeys-hook";
+import { RiArrowDownSLine } from "react-icons/ri";
+import { usePopper } from "react-popper";
+import { hyphenize } from "utils/common";
 
 const noop = () => {};
 
@@ -44,7 +44,7 @@ export const Dropdown = React.forwardRef(
     const [popper, setPopper] = useState(null);
 
     const { styles, attributes } = usePopper(reference, popper, {
-      placement: position || 'bottom-end',
+      placement: position || "bottom-end",
       modifiers: dropdownModifiers,
     });
 
@@ -66,7 +66,7 @@ export const Dropdown = React.forwardRef(
       !isControlled && setVisibility(!visible);
     };
 
-    useHotkeys('esc', closeOnEsc ? onPopupClose : noop);
+    useHotkeys("esc", closeOnEsc ? onPopupClose : noop);
     useOutsideClick(wrapperRef, closeOnOutsideClick ? onPopupClose : noop);
 
     useEffect(() => {
@@ -80,7 +80,7 @@ export const Dropdown = React.forwardRef(
     return (
       <div
         ref={wrapperRef}
-        className={classnames('sc-dropdown__wrapper', {
+        className={classnames("sc-dropdown__wrapper", {
           [className]: className,
         })}
         {...otherProps}
@@ -103,7 +103,7 @@ export const Dropdown = React.forwardRef(
             data-cy={`scooter-editor-${hyphenize(label)}-dropdown-container`}
             {...ulProps}
             style={{
-              display: 'block',
+              display: "block",
               ...styles.offset,
               ...styles.popper,
             }}
@@ -117,6 +117,6 @@ export const Dropdown = React.forwardRef(
   }
 );
 
-Dropdown.displayName = 'Dropdown';
+Dropdown.displayName = "Dropdown";
 
 export default Dropdown;

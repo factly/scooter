@@ -1,31 +1,31 @@
-import CharacterCount from '@tiptap/extension-character-count';
-import Color from '@tiptap/extension-color';
-import Highlight from '@tiptap/extension-highlight';
-import Link from '@tiptap/extension-link';
-import TextAlign from '@tiptap/extension-text-align';
-import TextStyle from '@tiptap/extension-text-style';
-import Underline from '@tiptap/extension-underline';
-import StarterKit from '@tiptap/starter-kit';
-import Table from '@tiptap/extension-table';
-import TableRow from '@tiptap/extension-table-row';
-import TableCell from '@tiptap/extension-table-cell';
-import TableHeader from '@tiptap/extension-table-header';
-import { isNilOrEmpty } from '../utils/common';
+import CharacterCount from "@tiptap/extension-character-count";
+import Color from "@tiptap/extension-color";
+import Highlight from "@tiptap/extension-highlight";
+import Link from "@tiptap/extension-link";
+import TextAlign from "@tiptap/extension-text-align";
+import TextStyle from "@tiptap/extension-text-style";
+import Underline from "@tiptap/extension-underline";
+import StarterKit from "@tiptap/starter-kit";
+import Table from "@tiptap/extension-table";
+import TableRow from "@tiptap/extension-table-row";
+import TableCell from "@tiptap/extension-table-cell";
+import TableHeader from "@tiptap/extension-table-header";
+import { isNilOrEmpty } from "utils/common";
 
-import { CodeBlockExtension } from '@factly/scooter-code-block';
-import Document from './Document/ExtensionConfig';
-import { EmbedExtension } from '@factly/scooter-embed';
+import { CodeBlockExtension } from "@factly/scooter-code-block";
+import Document from "./Document/ExtensionConfig";
+import { EmbedExtension } from "@factly/scooter-embed";
 // import EmojiPicker from './Emoji/EmojiPicker/ExtensionConfig';
 // import EmojiSuggestion from './Emoji/EmojiSuggestion/ExtensionConfig';
-import { ImageExtensionConfig } from '@factly/scooter-image';
-import KeyboardShortcuts from './KeyboardShortcuts/ExtensionConfig';
+import { ImageExtensionConfig } from "@factly/scooter-image";
+import KeyboardShortcuts from "./KeyboardShortcuts/ExtensionConfig";
 // import Mention, { createMentionSuggestions } from './Mention/ExtensionConfig';
 import Placeholder, {
   placeholderGenerator,
-} from './Placeholder/ExtensionConfig';
-import { SlashCommandsExtension } from '@factly/scooter-slash-commands';
-import Title from './Title/ExtensionConfig';
-import Typography from './Typography/EditorConfig';
+} from "./Placeholder/ExtensionConfig";
+import { SlashCommandsExtension } from "@factly/scooter-slash-commands";
+import Title from "./Title/ExtensionConfig";
+import Typography from "./Typography/EditorConfig";
 // import Variable from './Variable/ExtensionConfig';
 // import InsertRawHTML from './InsertRawHTML';
 
@@ -48,7 +48,7 @@ const useCustomExtensions = ({
   let customExtensions = [
     Title,
     Document.extend({
-      content: forceTitle ? 'title block*' : 'block+',
+      content: forceTitle ? "title block*" : "block+",
     }),
     StarterKit.configure({
       document: false,
@@ -60,7 +60,7 @@ const useCustomExtensions = ({
     Typography,
     TextStyle,
     TextAlign.configure({
-      types: ['heading', 'paragraph'],
+      types: ["heading", "paragraph"],
     }),
     Highlight,
     CodeBlockExtension,
@@ -69,10 +69,9 @@ const useCustomExtensions = ({
     EmbedExtension,
     Link,
     Color,
-    // Placeholder,
-    // Placeholder.configure({
-    //   placeholder: placeholderGenerator(placeholder),
-    // }),
+    Placeholder.configure({
+      placeholder: placeholderGenerator(placeholder),
+    }),
     //   EmojiSuggestion,
     //   EmojiPicker,
     CharacterCount.configure({

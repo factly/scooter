@@ -1,30 +1,30 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
-import classnames from 'classnames';
-import Backdrop from './Backdrop';
-import Button from './Button';
-import Portal from './Portal';
-import useOutsideClick from './hooks/useOutsideClick';
-import { useHotkeys } from 'react-hotkeys-hook';
-import { RiCloseLine } from 'react-icons/ri';
+import classnames from "classnames";
+import Backdrop from "./Backdrop";
+import Button from "./Button";
+import Portal from "./Portal";
+import useOutsideClick from "utils/hooks/useOutsideClick";
+import { useHotkeys } from "react-hotkeys-hook";
+import { RiCloseLine } from "react-icons/ri";
 
 const noop = () => {};
 const sizes = {
-  xs: 'xs',
-  sm: 'sm',
-  md: 'md',
+  xs: "xs",
+  sm: "sm",
+  md: "md",
 };
 
 export const Modal = ({
-  size = 'md',
+  size = "md",
   isOpen = false,
   onClose = noop,
   loading = false,
   children,
-  className = '',
+  className = "",
   closeOnEsc = true,
   closeButton = true,
-  backdropClassName = '',
+  backdropClassName = "",
   closeOnOutsideClick = true,
   ...otherProps
 }) => {
@@ -32,22 +32,22 @@ export const Modal = ({
 
   useOutsideClick(modalWrapper, closeOnOutsideClick ? onClose : noop);
 
-  useHotkeys('esc', closeOnEsc ? onClose : noop);
+  useHotkeys("esc", closeOnEsc ? onClose : noop);
 
   return (
     <Portal className="sc-portal">
       {isOpen && (
         <Backdrop
           key="modal-backdrop"
-          className={classnames('sc-modal__backdrop', backdropClassName)}
+          className={classnames("sc-modal__backdrop", backdropClassName)}
         >
           <div
             ref={modalWrapper}
             key="modal-wrapper"
-            className={classnames('sc-modal__wrapper', {
-              'sc-modal__wrapper--xs': size === sizes.xs,
-              'sc-modal__wrapper--sm': size === sizes.sm,
-              'sc-modal__wrapper--md': size === sizes.md,
+            className={classnames("sc-modal__wrapper", {
+              "sc-modal__wrapper--xs": size === sizes.xs,
+              "sc-modal__wrapper--sm": size === sizes.sm,
+              "sc-modal__wrapper--md": size === sizes.md,
               [className]: className,
             })}
             {...otherProps}
@@ -60,7 +60,7 @@ export const Modal = ({
                 onClick={onClose}
               />
             )}
-            {loading ? '' : children}
+            {loading ? "" : children}
           </div>
         </Backdrop>
       )}

@@ -1,32 +1,32 @@
-import { UrlRegExp } from './utils/regexp';
+import { UrlRegExp } from "utils/regexp";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import classNames from 'classnames';
-import { Button } from '@factly/scooter-ui';
-import { Input } from '@factly/scooter-ui';
+import classNames from "classnames";
+import { Button } from "@factly/scooter-ui";
+import { Input } from "@factly/scooter-ui";
 
 export const URLForm = ({
-  buttonLabel = 'Submit',
+  buttonLabel = "Submit",
   placeholder,
   onSubmit,
   className,
 }) => {
-  const [urlString, setUrlString] = useState('');
-  const [error, setError] = useState('');
+  const [urlString, setUrlString] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = event => {
     event.preventDefault();
     if (UrlRegExp.test(urlString)) {
       onSubmit(urlString);
     } else {
-      setError('Please enter a valid url');
+      setError("Please enter a valid url");
     }
   };
 
   return (
     <div
-      className={classNames('scooter-editor-url-form__wrapper', {
+      className={classNames("scooter-editor-url-form__wrapper", {
         [className]: className,
       })}
     >
@@ -34,7 +34,7 @@ export const URLForm = ({
         name="url"
         value={urlString}
         placeholder={placeholder}
-        onFocus={() => setError('')}
+        onFocus={() => setError("")}
         error={error}
         onChange={({ target: { value } }) => setUrlString(value)}
         data-cy="scooter-editor-image-upload-url-input"

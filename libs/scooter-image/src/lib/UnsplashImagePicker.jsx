@@ -1,28 +1,28 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from "react";
 
-import { searchUnsplashImages } from './apis/unsplash';
-import { Input, Loader } from '@factly/scooter-ui';
-import useDebounce from './hooks/useDebounce';
-import MasonryInfiniteScroller from 'react-masonry-infinite';
-import { isNilOrEmpty } from './utils/common';
+import { searchUnsplashImages } from "./apis/unsplash";
+import { Input, Loader } from "@factly/scooter-ui";
+import useDebounce from "utils/hooks/useDebounce";
+import MasonryInfiniteScroller from "react-masonry-infinite";
+import { isNilOrEmpty } from "utils/common";
 
 export const UnsplashImagePicker = ({ onSubmit, unsplashApiKey }) => {
   const masonryRef = useRef(null);
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [error, setError] = useState(false);
   const [images, setImages] = useState([]);
   const [pageNo, setPageNo] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const debouncedQuery = useDebounce(query || 'latest');
+  const debouncedQuery = useDebounce(query || "latest");
 
   useEffect(() => {
     fetchUnsplashPhotos(1);
   }, [debouncedQuery]);
 
-  const fetchUnsplashPhotos = async (page) => {
+  const fetchUnsplashPhotos = async page => {
     try {
       setLoading(true);
       setError(false);
@@ -89,11 +89,11 @@ export const UnsplashImagePicker = ({ onSubmit, unsplashApiKey }) => {
           <MasonryInfiniteScroller
             ref={masonryRef}
             pack={true}
-            style={{ width: '100%' }}
+            style={{ width: "100%" }}
             sizes={[
               { columns: 3, gutter: 0 },
-              { mq: '768px', columns: 3, gutter: 0 },
-              { mq: '1024px', columns: 3, gutter: 0 },
+              { mq: "768px", columns: 3, gutter: 0 },
+              { mq: "1024px", columns: 3, gutter: 0 },
             ]}
             hasMore={hasMore}
             loadMore={loadMore}
@@ -128,7 +128,7 @@ export const UnsplashImagePicker = ({ onSubmit, unsplashApiKey }) => {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        {image.user.name}{' '}
+                        {image.user.name}{" "}
                       </a>
                     </div>
                   </div>

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { Modal } from '@factly/scooter-ui';
-import { Tab } from '@factly/scooter-ui';
-import useTabBar from './hooks/useTabBar';
+import { Modal } from "@factly/scooter-ui";
+import { Tab } from "@factly/scooter-ui";
+import useTabBar from "utils/hooks/useTabBar";
 
-import { IMAGE_UPLOAD_OPTIONS } from './constants';
-import ImageEditor from './ImageEditor';
-import LocalUploader from './LocalUploader';
-import UnsplashImagePicker from './UnsplashImagePicker';
-import URLForm from './URLForm';
-import Gallery from './Gallery';
+import { IMAGE_UPLOAD_OPTIONS } from "./constants";
+import ImageEditor from "./ImageEditor";
+import LocalUploader from "./LocalUploader";
+import UnsplashImagePicker from "./UnsplashImagePicker";
+import URLForm from "./URLForm";
+import Gallery from "./Gallery";
 
 export const Uploader = ({
   editor,
@@ -25,9 +25,9 @@ export const Uploader = ({
   onUploadComplete,
 }) => {
   const [activeTab, setActiveTab] = useTabBar(IMAGE_UPLOAD_OPTIONS);
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState("");
 
-  const handleUrlFormSubmit = (url) => {
+  const handleUrlFormSubmit = url => {
     setImageUrl(url);
   };
 
@@ -77,10 +77,10 @@ export const Uploader = ({
       <div className="scooter-editor-image-uploader">
         <Tab>
           {IMAGE_UPLOAD_OPTIONS.filter(
-            (option) => option.key !== 'unsplash' || isUnsplashImageUploadActive
+            option => option.key !== "unsplash" || isUnsplashImageUploadActive
           )
-            .filter((option) => option.key !== 'gallery' || imagesFetcher)
-            .map((option) => (
+            .filter(option => option.key !== "gallery" || imagesFetcher)
+            .map(option => (
               <Tab.Item
                 key={option.key}
                 active={activeTab === option.key}
