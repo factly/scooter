@@ -1,33 +1,33 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef } from "react";
 
-import classnames from 'classnames';
-import ToolTip from './ToolTip';
-import { Link } from 'react-router-dom';
+import classnames from "classnames";
+import ToolTip from "./ToolTip";
+import { Link } from "react-router-dom";
 
 const noop = () => {};
 const BUTTON_STYLES = {
-  primary: 'primary',
-  secondary: 'secondary',
-  danger: 'danger',
-  text: 'text',
-  link: 'link',
+  primary: "primary",
+  secondary: "secondary",
+  danger: "danger",
+  text: "text",
+  link: "link",
 };
-const BUTTON_SIZES = { large: 'large', default: 'default' };
-const ICON_POSITIONS = { left: 'left', right: 'right' };
+const BUTTON_SIZES = { large: "large", default: "default" };
+const ICON_POSITIONS = { left: "left", right: "right" };
 
 export const Button = forwardRef((props, ref) => {
   const {
     icon = null,
-    iconPosition = 'right',
+    iconPosition = "right",
     iconSize = 16,
-    label = '',
+    label = "",
     loading = false,
     onClick = noop,
     to = null,
-    variant = 'button',
-    type = 'primary',
+    variant = "button",
+    type = "primary",
     fullWidth = false,
-    className = '',
+    className = "",
     disabled = false,
     size = null,
     href = null,
@@ -35,7 +35,7 @@ export const Button = forwardRef((props, ref) => {
     ...otherProps
   } = props;
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     if (!loading && !disabled) {
       onClick(e);
     }
@@ -46,18 +46,18 @@ export const Button = forwardRef((props, ref) => {
     Parent = Link;
     elementSpecificProps = { to };
   } else if (href) {
-    Parent = 'a';
+    Parent = "a";
     elementSpecificProps = { href };
   } else {
-    Parent = 'button';
+    Parent = "button";
     elementSpecificProps = {
       type: variant,
     };
   }
 
   const Icon =
-    typeof icon === 'string'
-      ? () => <i className={classnames('sc-btn__icon', [icon])} />
+    typeof icon === "string"
+      ? () => <i className={classnames("sc-btn__icon", [icon])} />
       : icon || React.Fragment;
 
   return (
@@ -65,16 +65,16 @@ export const Button = forwardRef((props, ref) => {
       <Parent
         ref={ref}
         onClick={handleClick}
-        className={classnames('sc-btn', [className], {
-          'sc-btn--style-primary': type === BUTTON_STYLES.primary,
-          'sc-btn--style-secondary': type === BUTTON_STYLES.secondary,
-          'sc-btn--style-danger': type === BUTTON_STYLES.danger,
-          'sc-btn--style-text': type === BUTTON_STYLES.text,
-          'sc-btn--style-link': type === BUTTON_STYLES.link,
-          'sc-btn--size-large': size === BUTTON_SIZES.large,
-          'sc-btn--width-full': fullWidth,
-          'sc-btn--icon-left': iconPosition === ICON_POSITIONS.left,
-          'sc-btn--icon-only': !label,
+        className={classnames("sc-btn", [className], {
+          "sc-btn--style-primary": type === BUTTON_STYLES.primary,
+          "sc-btn--style-secondary": type === BUTTON_STYLES.secondary,
+          "sc-btn--style-danger": type === BUTTON_STYLES.danger,
+          "sc-btn--style-text": type === BUTTON_STYLES.text,
+          "sc-btn--style-link": type === BUTTON_STYLES.link,
+          "sc-btn--size-large": size === BUTTON_SIZES.large,
+          "sc-btn--width-full": fullWidth,
+          "sc-btn--icon-left": iconPosition === ICON_POSITIONS.left,
+          "sc-btn--icon-only": !label,
           disabled: disabled,
         })}
         disabled={disabled}
@@ -90,5 +90,5 @@ export const Button = forwardRef((props, ref) => {
   );
 });
 
-Button.displayName = 'Button';
+Button.displayName = "Button";
 export default Button;

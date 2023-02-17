@@ -4,7 +4,7 @@ import classnames from "classnames";
 import Backdrop from "./Backdrop";
 import Button from "./Button";
 import Portal from "./Portal";
-import useOutsideClick from "utils/hooks/useOutsideClick";
+import { useOutsideClick } from "@factly/scooter-shared-utils";
 import { useHotkeys } from "react-hotkeys-hook";
 import { RiCloseLine } from "react-icons/ri";
 

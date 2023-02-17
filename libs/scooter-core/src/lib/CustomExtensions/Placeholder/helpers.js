@@ -1,9 +1,9 @@
-import isPlainObject from 'lodash.isplainobject';
+import isPlainObject from "lodash.isplainobject";
 
-export const placeholderGenerator = (placeholder) => {
+export const placeholderGenerator = placeholder => {
   const type = typeof placeholder;
 
-  if (type === 'string' || type === 'function') {
+  if (type === "string" || type === "function") {
     return placeholder;
   }
 
@@ -14,5 +14,5 @@ export const placeholderGenerator = (placeholder) => {
     };
   }
 
-  return '';
+  return "";
 };

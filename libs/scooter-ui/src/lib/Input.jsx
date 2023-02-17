@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 
 import classnames from "classnames";
-import { hyphenize } from "utils/common";
+import { hyphenize } from "@factly/scooter-shared-utils";
 
 import Label from "./Label";
 

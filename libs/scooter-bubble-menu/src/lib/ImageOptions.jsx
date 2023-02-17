@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import { getImageMenuOptions } from './helpers';
-import Option from './Option';
+import { getImageMenuOptions } from "./helpers";
+import Option from "./Option";
 
 export const ImageOptions = ({
   editor,
@@ -12,6 +12,6 @@ export const ImageOptions = ({
     editor,
     isImageEditorModalOpen,
     setIsImageEditorModalOpen,
-  }).map((option) => <Option key={option.optionName} {...option} />);
+  }).map(option => <Option key={option.optionName} {...option} />);
 
 export default ImageOptions;

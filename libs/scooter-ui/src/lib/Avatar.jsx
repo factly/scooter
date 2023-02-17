@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import classNames from "classnames";
+import PropTypes from "prop-types";
 
 const SIZE = {
   small: 24,
@@ -11,20 +11,20 @@ const SIZE = {
 };
 
 const STATUS = {
-  online: 'online',
-  idle: 'idle',
-  offline: 'offline',
+  online: "online",
+  idle: "idle",
+  offline: "offline",
 };
 
 const COLORS = [
-  '#E5E7EB',
-  '#FECACA',
-  '#FDE68A',
-  '#A7F3D0',
-  '#BFDBFE',
-  '#C7D2FE',
-  '#DDD6FE',
-  '#FBCFE8',
+  "#E5E7EB",
+  "#FECACA",
+  "#FDE68A",
+  "#A7F3D0",
+  "#BFDBFE",
+  "#C7D2FE",
+  "#DDD6FE",
+  "#FBCFE8",
 ];
 
 export const Avatar = ({
@@ -38,21 +38,21 @@ export const Avatar = ({
 }) => {
   const [loaded, setLoaded] = useState(false);
 
-  const { name = '', imageUrl } = user;
+  const { name = "", imageUrl } = user;
 
-  const isMedium = size === 'medium';
-  const isLarge = size === 'large';
-  const isXLarge = size === 'xlarge';
+  const isMedium = size === "medium";
+  const isLarge = size === "large";
+  const isXLarge = size === "xlarge";
 
-  const getInitials = (fullName) => {
-    const allNames = fullName.trim().split(' ');
+  const getInitials = fullName => {
+    const allNames = fullName.trim().split(" ");
     const initials = allNames.reduce((acc, curr, index) => {
       if (index === 0 || index === allNames.length - 1) {
         acc = `${acc}${curr.charAt(0).toUpperCase()}`;
       }
 
       return acc;
-    }, '');
+    }, "");
     return initials;
   };
 
@@ -71,26 +71,26 @@ export const Avatar = ({
     backgroundColor: getRandomBackgroundColor(),
   };
 
-  const imageClasses = classNames('sc-avatar', {
-    'sc-avatar--medium': isMedium,
-    'sc-avatar--large': isLarge,
-    'sc-avatar--xlarge': isXLarge,
-    'sc-avatar--round': !isSquare,
+  const imageClasses = classNames("sc-avatar", {
+    "sc-avatar--medium": isMedium,
+    "sc-avatar--large": isLarge,
+    "sc-avatar--xlarge": isXLarge,
+    "sc-avatar--round": !isSquare,
     hidden: !loaded,
   });
 
-  const placeholderClasses = classNames('sc-avatar__text', {
-    'sc-avatar__text-medium': isMedium,
-    'sc-avatar__text-large': isLarge,
-    'sc-avatar__text-xlarge': isXLarge,
+  const placeholderClasses = classNames("sc-avatar__text", {
+    "sc-avatar__text-medium": isMedium,
+    "sc-avatar__text-large": isLarge,
+    "sc-avatar__text-xlarge": isXLarge,
   });
 
   // TODO: Remove 'v2' prefix.
-  const statusClasses = classNames('sc-avatar__status', `${status}`, {
-    'sc-avatar__status-medium': isMedium,
-    'sc-avatar__status-large': isLarge,
-    'sc-avatar__status-xlarge': isXLarge,
-    'sc-avatar__status-square': isSquare,
+  const statusClasses = classNames("sc-avatar__status", `${status}`, {
+    "sc-avatar__status-medium": isMedium,
+    "sc-avatar__status-large": isLarge,
+    "sc-avatar__status-xlarge": isXLarge,
+    "sc-avatar__status-square": isSquare,
   });
 
   const Indicator = () =>
@@ -111,9 +111,9 @@ export const Avatar = ({
       onClick={onClick}
       style={imageContainerStyle}
       className={classNames(
-        'sc-avatar--container',
+        "sc-avatar--container",
         {
-          'sc-avatar--container-round': !isSquare,
+          "sc-avatar--container-round": !isSquare,
         },
         className
       )}
@@ -136,10 +136,10 @@ export const Avatar = ({
 };
 
 Avatar.defaultProps = {
-  size: 'medium',
+  size: "medium",
   user: {
-    imageUrl: '',
-    name: '',
+    imageUrl: "",
+    name: "",
   },
   isSquare: false,
   onClick: () => {},

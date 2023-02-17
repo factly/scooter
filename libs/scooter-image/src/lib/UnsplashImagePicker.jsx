@@ -2,9 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 
 import { searchUnsplashImages } from "./apis/unsplash";
 import { Input, Loader } from "@factly/scooter-ui";
-import useDebounce from "utils/hooks/useDebounce";
+import { useDebounce, isNilOrEmpty } from "@factly/scooter-shared-utils";
 import MasonryInfiniteScroller from "react-masonry-infinite";
-import { isNilOrEmpty } from "utils/common";
 
 export const UnsplashImagePicker = ({ onSubmit, unsplashApiKey }) => {
   const masonryRef = useRef(null);

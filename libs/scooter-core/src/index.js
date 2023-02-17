@@ -1,1 +1,1 @@
-export * from './lib/scooter-core';
+export * from "./lib/scooter-core";

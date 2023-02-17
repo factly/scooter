@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
-export const Portal = ({ children, className = 'root-portal', el = 'div' }) => {
+export const Portal = ({ children, className = "root-portal", el = "div" }) => {
   let container = document.getElementsByClassName(className)[0];
   if (!container) {
     container = document.createElement(el);

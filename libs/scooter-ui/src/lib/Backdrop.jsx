@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import classNames from 'classnames';
+import classNames from "classnames";
 
 export const PortalBackDrop = ({ children, className, ...otherProps }) => (
   <div
-    className={classNames('sc-backdrop', {
+    className={classNames("sc-backdrop", {
       [className]: className,
     })}
     {...otherProps}

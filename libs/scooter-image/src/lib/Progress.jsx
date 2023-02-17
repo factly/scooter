@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { Button } from '@factly/scooter-ui';
-import { RiCloseLine } from 'react-icons/ri';
+import { Button } from "@factly/scooter-ui";
+import { RiCloseLine } from "react-icons/ri";
 
 export const Progress = ({ uppy }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    uppy.on('progress', setProgress);
+    uppy.on("progress", setProgress);
   }, [uppy]);
 
   const progressPercentage = `${progress}%`;

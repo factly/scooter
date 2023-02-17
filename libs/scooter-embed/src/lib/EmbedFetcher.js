@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { getIframelyData } from './apis/iframely';
-import { Input, Modal, Button, Loader } from '@factly/scooter-ui';
-import InnerHTML from 'dangerously-set-html-content';
+import React, { useState } from "react";
+import { getIframelyData } from "./apis/iframely";
+import { Input, Modal, Button, Loader } from "@factly/scooter-ui";
+import InnerHTML from "dangerously-set-html-content";
 
 // https://twitter.com/bennythomas03/status/1557766634059997188
 export const EmbedFetcher = ({
@@ -13,9 +13,9 @@ export const EmbedFetcher = ({
 }) => {
   const ref = React.createRef();
 
-  const [url, setUrl] = React.useState('');
+  const [url, setUrl] = React.useState("");
   const [data, setData] = React.useState(null);
-  const [captionText, setCaptionText] = React.useState('');
+  const [captionText, setCaptionText] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const increase = () => {
@@ -24,7 +24,7 @@ export const EmbedFetcher = ({
     });
   };
 
-  const fetchIframelyData = async (url) => {
+  const fetchIframelyData = async url => {
     try {
       setLoading(true);
       setError(null);
@@ -49,7 +49,7 @@ export const EmbedFetcher = ({
   };
 
   const onClose = () => {
-    setUrl('');
+    setUrl("");
     setData(null);
     setIsVisible(false);
   };
@@ -84,19 +84,19 @@ export const EmbedFetcher = ({
               </div>
             </div>
           ) : (
-            <div style={{ display: 'flex', alignItems: 'start' }}>
+            <div style={{ display: "flex", alignItems: "start" }}>
               <Input
                 type="text"
                 value={url}
-                onChange={(e) => setUrl(e.target.value)}
+                onChange={e => setUrl(e.target.value)}
                 ref={ref}
                 error={error}
                 autoFocus
               />
               <Button
-                style={{ height: '2rem' }}
+                style={{ height: "2rem" }}
                 onClick={handleGetData}
-                label={!loading ? 'Fetch Data' : <Loader />}
+                label={!loading ? "Fetch Data" : <Loader />}
               />
             </div>
           )}

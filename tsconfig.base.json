@@ -21,6 +21,9 @@
       "@factly/scooter-embed": ["libs/scooter-embed/src/index.js"],
       "@factly/scooter-fixed-menu": ["libs/scooter-fixed-menu/src/index.js"],
       "@factly/scooter-image": ["libs/scooter-image/src/index.js"],
+      "@factly/scooter-shared-utils": [
+        "libs/scooter-shared-utils/src/index.js"
+      ],
       "@factly/scooter-slash-commands": [
         "libs/scooter-slash-commands/src/index.js"
       ],

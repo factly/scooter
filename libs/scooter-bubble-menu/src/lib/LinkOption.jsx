@@ -1,10 +1,9 @@
-import { UrlRegExp } from "utils/regexp";
+import { UrlRegExp, isNilOrEmpty } from "@factly/scooter-shared-utils";
 
 import React, { useEffect, useState } from "react";
 
 import { Button } from "@factly/scooter-ui";
 import { RiCloseLine } from "react-icons/ri";
-import { isNilOrEmpty } from "utils/common";
 
 export const LinkOption = ({
   editor,

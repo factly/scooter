@@ -2,8 +2,7 @@ import React, { forwardRef } from "react";
 
 import Tippy from "@tippyjs/react";
 import classnames from "classnames";
-import { isNilOrEmpty } from "utils/common";
-import { scrollHandler } from "utils/scrollhandler";
+import { isNilOrEmpty, scrollHandler } from "@factly/scooter-shared-utils";
 
 export class SlashCommandsMenu extends React.Component {
   constructor(props) {

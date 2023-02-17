@@ -3,7 +3,7 @@ import { ReactRenderer } from "@tiptap/react";
 import Suggestion from "@tiptap/suggestion";
 import { PluginKey } from "prosemirror-state";
 import tippy from "tippy.js";
-import { isNilOrEmpty } from "utils/common";
+import { isNilOrEmpty } from "@factly/scooter-shared-utils";
 
 import CommandsList from "./CommandsList";
 import { MENU_ITEMS } from "./constants";

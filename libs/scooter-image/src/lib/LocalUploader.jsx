@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import AwsS3 from '@uppy/aws-s3';
-import Uppy from '@uppy/core';
-import { DragDrop, useUppy } from '@uppy/react';
-import Url from '@uppy/url';
+import AwsS3 from "@uppy/aws-s3";
+import Uppy from "@uppy/core";
+import { DragDrop, useUppy } from "@uppy/react";
+import Url from "@uppy/url";
 //import XHRUpload from "@uppy/xhr-upload";
 
 import {
   DEFAULT_UPPY_CONFIG,
   UPPY_UPLOAD_CONFIG,
   DEFAULT_UPLOAD_ENDPOINT,
-} from './constants';
-import Progress from './Progress';
-import { convertToFileSize } from './utils';
+} from "./constants";
+import Progress from "./Progress";
+import { convertToFileSize } from "./utils";
 
 export const LocalUploader = ({
   endpoint = DEFAULT_UPLOAD_ENDPOINT,
@@ -22,13 +22,13 @@ export const LocalUploader = ({
   uploadConfig,
 }) => {
   const [isUploading, setIsUploading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const uppyConfig = { ...DEFAULT_UPPY_CONFIG, ...uploadConfig };
 
   const uppy = useUppy(() =>
     new Uppy({
       ...uppyConfig,
-      onBeforeFileAdded: (file) => {
+      onBeforeFileAdded: file => {
         const { maxFileSize, allowedFileTypes } = uppyConfig.restrictions;
 
         if (file.size > maxFileSize) {
@@ -41,7 +41,7 @@ export const LocalUploader = ({
         } else if (!allowedFileTypes.includes(`.${file.extension}`)) {
           setError(
             `File type is not permitted. Allowed file types are: ${allowedFileTypes.join(
-              ', '
+              ", "
             )}.`
           );
           return false;
@@ -56,11 +56,11 @@ export const LocalUploader = ({
       })
       .use(Url, { companionUrl: endpoint, ...UPPY_UPLOAD_CONFIG.url })
       //  .use(XHRUpload, { endpoint, ...UPPY_UPLOAD_CONFIG })
-      .on('upload', () => setIsUploading(true))
-      .on('upload-success', (_, response) => onSuccess(response.uploadURL))
-      .on('cancel-all', () => setIsUploading(false))
-      .on('file-added', (file) => onFileAdded(file))
-      .on('complete', (result) => {
+      .on("upload", () => setIsUploading(true))
+      .on("upload-success", (_, response) => onSuccess(response.uploadURL))
+      .on("cancel-all", () => setIsUploading(false))
+      .on("file-added", file => onFileAdded(file))
+      .on("complete", result => {
         onUploadComplete(result);
         setIsUploading(false);
       })
@@ -77,8 +77,8 @@ export const LocalUploader = ({
         )}`}
         locale={{
           strings: {
-            dropHereOr: 'Drop your file(s) here or %{browse}',
-            browse: 'Browse',
+            dropHereOr: "Drop your file(s) here or %{browse}",
+            browse: "Browse",
           },
         }}
         uppy={uppy}

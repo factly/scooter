@@ -1,16 +1,16 @@
-import { EDITOR_OPTIONS } from './utils/constants';
+import { EDITOR_OPTIONS } from "./utils/constants";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { BubbleMenu as BubbleMenuTipTap } from '@tiptap/react';
-import classnames from 'classnames';
-import { roundArrow } from 'tippy.js';
-import 'tippy.js/dist/svg-arrow.css';
-import { isNilOrEmpty } from './utils/common';
+import { BubbleMenu as BubbleMenuTipTap } from "@tiptap/react";
+import classnames from "classnames";
+import { roundArrow } from "tippy.js";
+import "tippy.js/dist/svg-arrow.css";
+import { isNilOrEmpty } from "./utils/common";
 
-import ImageEditorModal from './ImageEditorModal';
-import ImageOptions from './ImageOptions';
-import TextOptions from './TextOptions';
+import ImageEditorModal from "./ImageEditorModal";
+import ImageOptions from "./ImageOptions";
+import TextOptions from "./TextOptions";
 
 export const BubbleMenu = ({ editor, options: textOptions }) => {
   const [isInvalidLink, setIsInvalidLink] = useState(false);
@@ -18,7 +18,7 @@ export const BubbleMenu = ({ editor, options: textOptions }) => {
   const [isImageEditorModalOpen, setIsImageEditorModalOpen] = useState(false);
   const selectedNode = editor && editor.view.state.selection.node;
   const isImageNodeSelected =
-    selectedNode && selectedNode.type.name === 'image';
+    selectedNode && selectedNode.type.name === "image";
 
   const bubbleMenuOptions = [
     EDITOR_OPTIONS.BOLD,
@@ -28,7 +28,7 @@ export const BubbleMenu = ({ editor, options: textOptions }) => {
     EDITOR_OPTIONS.LINK,
   ];
   const noTextOptions = isNilOrEmpty(
-    textOptions.filter((option) => bubbleMenuOptions.includes(option))
+    textOptions.filter(option => bubbleMenuOptions.includes(option))
   );
   if (!editor || (!isImageNodeSelected && noTextOptions)) {
     return null;
@@ -43,8 +43,8 @@ export const BubbleMenu = ({ editor, options: textOptions }) => {
           zIndex: 99999,
           onHide: () => setIsLinkOptionActive(false),
         }}
-        className={classnames('scooter-editor-bubble-menu', {
-          'scooter-editor-bubble-menu-animate-shake': isInvalidLink,
+        className={classnames("scooter-editor-bubble-menu", {
+          "scooter-editor-bubble-menu-animate-shake": isInvalidLink,
         })}
       >
         {isImageNodeSelected ? (

@@ -1,23 +1,23 @@
-import { mergeAttributes } from '@tiptap/core';
-import Image from '@tiptap/extension-image';
+import { mergeAttributes } from "@tiptap/core";
+import Image from "@tiptap/extension-image";
 
 export const ImageExtensionConfig = Image.extend({
-  name: 'image',
+  name: "image",
 
   addAttributes() {
     // console.log({attr: Image.config.addAttributes(), rest: Image.config, defaultOptions: Image.config.defaultOptions, addOptions: Image.config.addOptions(), addCommands: Image.config.addCommands(), addInputRules: Image.config.addInputRules()});
     return {
       ...Image.config.addAttributes(),
       size: {
-        default: 'small',
+        default: "small",
         rendered: false,
       },
       float: {
-        default: 'none',
+        default: "none",
         rendered: false,
       },
       align: {
-        default: 'center',
+        default: "center",
         rendered: false,
       },
     };
@@ -26,10 +26,10 @@ export const ImageExtensionConfig = Image.extend({
   addCommands() {
     return {
       setImage:
-        (options) =>
+        options =>
         ({ tr, commands }) => {
-          if (tr.selection?.node?.type?.name === 'image') {
-            return commands.updateAttributes('image', options);
+          if (tr.selection?.node?.type?.name === "image") {
+            return commands.updateAttributes("image", options);
           }
 
           return commands.insertContent({
@@ -39,7 +39,7 @@ export const ImageExtensionConfig = Image.extend({
         },
 
       setImageAttributes:
-        (attributes) =>
+        attributes =>
         ({ tr }) => {
           const { selection } = tr;
           const options = {
@@ -55,7 +55,7 @@ export const ImageExtensionConfig = Image.extend({
 
   renderHTML({ node, HTMLAttributes }) {
     const { src, alt, caption } = HTMLAttributes;
-    const imageClass = node.attrs.size === 'large' ? 'image-banner' : '';
+    const imageClass = node.attrs.size === "large" ? "image-banner" : "";
 
     HTMLAttributes.class = ` image-size-${node.attrs.size}`;
     HTMLAttributes.class += ` image-float-${node.attrs.float}`;
@@ -65,10 +65,10 @@ export const ImageExtensionConfig = Image.extend({
     delete HTMLAttributes.caption;
 
     return [
-      'figure',
+      "figure",
       mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-      ['img', { src, class: imageClass, alt }],
-      ['figcaption', caption || ''],
+      ["img", { src, class: imageClass, alt }],
+      ["figcaption", caption || ""],
     ];
   },
 });

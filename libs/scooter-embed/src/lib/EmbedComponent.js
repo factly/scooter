@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { NodeViewWrapper } from '@tiptap/react';
-import InnerHTML from 'dangerously-set-html-content';
+import React, { useEffect } from "react";
+import { NodeViewWrapper } from "@tiptap/react";
+import InnerHTML from "dangerously-set-html-content";
 
-export const EmbedComponent = (props) => {
+export const EmbedComponent = props => {
   const [data, setData] = React.useState(null);
 
   useEffect(() => {
-    setData({ html: props?.node?.attrs?.['data-html'] });
+    setData({ html: props?.node?.attrs?.["data-html"] });
   }, [props]);
 
   return (

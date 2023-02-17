@@ -4,9 +4,6 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import classNames from "classnames";
 import { ErrorWrapper } from "@factly/scooter-ui";
 import { EditorView } from "prosemirror-view";
-import { stringifyObject, isNilOrEmpty } from "utils/common";
-
-import { DEFAULT_EDITOR_OPTIONS } from "utils/constants";
 import { BubbleMenu } from "@factly/scooter-bubble-menu";
 import CharacterCount from "./CustomExtensions/CharacterCount";
 import { EmbedFetcher } from "@factly/scooter-embed";
@@ -18,7 +15,10 @@ import {
   getEditorStyles,
   getIsPlaceholderActive,
   clipboardTextParser,
-} from "utils/helpers";
+  stringifyObject,
+  isNilOrEmpty,
+  DEFAULT_EDITOR_OPTIONS,
+} from "@factly/scooter-shared-utils";
 
 import "./scooter-core.css";
 

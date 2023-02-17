@@ -1,33 +1,33 @@
-import { mergeAttributes, Node } from '@tiptap/core';
-import { ReactNodeViewRenderer } from '@tiptap/react';
+import { mergeAttributes, Node } from "@tiptap/core";
+import { ReactNodeViewRenderer } from "@tiptap/react";
 
-import EmbedComponent from './EmbedComponent';
+import EmbedComponent from "./EmbedComponent";
 
 export const EmbedExtension = Node.create({
-  name: 'embed',
+  name: "embed",
 
-  group: 'block',
+  group: "block",
 
   atom: true,
 
   addAttributes() {
     return {
       class: {
-        default: 'embed-container',
+        default: "embed-container",
         rendered: true,
       },
-      'data-type': {
-        default: 'embed',
+      "data-type": {
+        default: "embed",
         rendered: true,
       },
-      'data-url': {
-        default: '',
+      "data-url": {
+        default: "",
         rendered: true,
       },
-      'data-html': {
-        default: '',
+      "data-html": {
+        default: "",
         rendered: true,
-        parseHTML: (element) => {
+        parseHTML: element => {
           return element.innerHTML;
         },
       },
@@ -35,25 +35,25 @@ export const EmbedExtension = Node.create({
   },
   addCommands() {
     return {
-      setEmbed: (options) => (editor) => {
+      setEmbed: options => editor => {
         const { tr, commands, chain } = editor;
-        if (tr.selection?.node?.type?.name === 'embed') {
-          return commands.updateAttributes('embed', {
+        if (tr.selection?.node?.type?.name === "embed") {
+          return commands.updateAttributes("embed", {
             src: options.src,
-            'data-url': options.src,
-            'data-html': options.data?.html,
+            "data-url": options.src,
+            "data-html": options.data?.html,
           });
         }
 
         return commands.insertContent([
           {
             type: this.name,
-            attrs: { src: options.src, 'data-html': options.data.html },
+            attrs: { src: options.src, "data-html": options.data.html },
           },
         ]);
       },
       setEmbedAttributes:
-        (attributes) =>
+        attributes =>
         ({ tr }) => {
           const { selection } = tr;
           const options = {
@@ -70,7 +70,7 @@ export const EmbedExtension = Node.create({
   parseHTML() {
     return [
       {
-        tag: 'div[data-embed]',
+        tag: "div[data-embed]",
         // contentElement: ""
       },
       {
@@ -91,11 +91,11 @@ export const EmbedExtension = Node.create({
   renderHTML({ node, HTMLAttributes }) {
     const { src, alt, caption, data } = HTMLAttributes;
 
-    const div = document.createElement('div');
+    const div = document.createElement("div");
 
-    div.dataset.type = 'embed';
-    div.className = 'embed-wrapper';
-    div.innerHTML = HTMLAttributes['data-html'];
+    div.dataset.type = "embed";
+    div.className = "embed-wrapper";
+    div.innerHTML = HTMLAttributes["data-html"];
 
     return div;
   },

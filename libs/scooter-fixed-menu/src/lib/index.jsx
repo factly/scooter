@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Modal, MenuButton } from "@factly/scooter-ui";
-import { EDITOR_OPTIONS } from "utils/constants";
+import { EDITOR_OPTIONS, capitalize } from "@factly/scooter-shared-utils";
 import {
   RiBold,
   RiItalic,
@@ -17,7 +17,6 @@ import {
   RiImage2Line,
   RiDoubleQuotesL,
 } from "react-icons/ri";
-import { capitalize } from "utils/common";
 import FontSizeOption from "./FontSizeOption";
 import LinkOption from "./LinkOption";
 import TextColorOption from "./TextColorOption";

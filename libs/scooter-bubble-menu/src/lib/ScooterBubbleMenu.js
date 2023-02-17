@@ -1,4 +1,4 @@
-import { EDITOR_OPTIONS } from "utils/constants";
+import { EDITOR_OPTIONS, isNilOrEmpty } from "@factly/scooter-shared-utils";
 
 import React, { useState } from "react";
 
@@ -6,8 +6,6 @@ import { BubbleMenu as BubbleMenuTipTap } from "@tiptap/react";
 import classnames from "classnames";
 import { roundArrow } from "tippy.js";
 import "tippy.js/dist/svg-arrow.css";
-import { isNilOrEmpty } from "utils/common";
-
 import ImageEditorModal from "./ImageEditorModal";
 import ImageOptions from "./ImageOptions";
 import TextOptions from "./TextOptions";

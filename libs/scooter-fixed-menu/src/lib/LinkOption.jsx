@@ -1,4 +1,4 @@
-import { UrlRegExp } from "utils/regexp";
+import { UrlRegExp } from "@factly/scooter-shared-utils";
 
 import React, { useRef, useState } from "react";
 

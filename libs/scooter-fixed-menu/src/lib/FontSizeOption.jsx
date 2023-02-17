@@ -2,7 +2,7 @@ import React from "react";
 
 import classnames from "classnames";
 import { Dropdown, MenuButton } from "@factly/scooter-ui";
-import { EDITOR_OPTIONS } from "utils/constants";
+import { EDITOR_OPTIONS } from "@factly/scooter-shared-utils";
 import { RiFontSize2 } from "react-icons/ri";
 
 export const FontSizeOption = ({ editor, options }) => {

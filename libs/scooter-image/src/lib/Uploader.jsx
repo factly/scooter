@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Modal } from "@factly/scooter-ui";
 import { Tab } from "@factly/scooter-ui";
-import useTabBar from "utils/hooks/useTabBar";
+import { useTabBar } from "@factly/scooter-shared-utils";
 
 import { IMAGE_UPLOAD_OPTIONS } from "./constants";
 import ImageEditor from "./ImageEditor";

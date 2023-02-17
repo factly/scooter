@@ -1,29 +1,29 @@
-import React from 'react';
+import React from "react";
 
-import classnames from 'classnames';
-import { NavLink } from 'react-router-dom';
+import classnames from "classnames";
+import { NavLink } from "react-router-dom";
 
 const noop = () => {};
 
-const TAB_SIZES = { large: 'large', default: 'default' };
+const TAB_SIZES = { large: "large", default: "default" };
 
 export const Tab = ({
   children,
   size,
   noUnderline,
-  className = '',
+  className = "",
   ...otherProps
 }) => (
   <div
     className={classnames(
       {
-        'sc-tab__wrapper': true,
+        "sc-tab__wrapper": true,
       },
       {
-        'sc-tab__wrapper--size-large': size === TAB_SIZES.large,
+        "sc-tab__wrapper--size-large": size === TAB_SIZES.large,
       },
       {
-        'sc-tab__wrapper--underline-none': noUnderline,
+        "sc-tab__wrapper--underline-none": noUnderline,
       },
       [className]
     )}
@@ -36,16 +36,16 @@ export const Tab = ({
 
 const Item = ({
   active,
-  className = '',
+  className = "",
   children,
   icon = null,
   onClick = noop,
-  activeClassName = '',
+  activeClassName = "",
   ...otherProps
 }) => {
-  let Parent = 'button';
+  let Parent = "button";
   const Icon =
-    typeof icon === 'string'
+    typeof icon === "string"
       ? () => <i className={icon} data-cy="tab-item-icon" />
       : icon || React.Fragment;
 
@@ -56,7 +56,7 @@ const Item = ({
   return (
     <Parent
       className={classnames(
-        ['sc-tab flex select-none items-center justify-center', className],
+        ["sc-tab flex select-none items-center justify-center", className],
         {
           active: active,
         }

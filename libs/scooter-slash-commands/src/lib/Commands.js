@@ -1,11 +1,11 @@
-import { Extension } from '@tiptap/core';
-import Suggestion from '@tiptap/suggestion';
-import { PluginKey } from 'prosemirror-state';
+import { Extension } from "@tiptap/core";
+import Suggestion from "@tiptap/suggestion";
+import { PluginKey } from "prosemirror-state";
 
-export const CommandsPluginKey = new PluginKey('commands');
+export const CommandsPluginKey = new PluginKey("commands");
 
 export const CommandsExtension = Extension.create({
-  name: 'commands',
+  name: "commands",
 
   defaultOptions: {},
 

@@ -7,11 +7,10 @@ import React, {
 } from "react";
 
 import classnames from "classnames";
-import useOutsideClick from "utils/hooks/useOutsideClick";
+import { useOutsideClick, hyphenize } from "@factly/scooter-shared-utils";
 import { useHotkeys } from "react-hotkeys-hook";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { usePopper } from "react-popper";
-import { hyphenize } from "utils/common";
 
 const noop = () => {};
 

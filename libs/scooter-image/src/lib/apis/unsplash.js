@@ -1,4 +1,4 @@
-import { UNSPLASH_BASE_URL } from "utils/constants";
+import { UNSPLASH_BASE_URL } from "@factly/scooter-shared-utils";
 
 import axios from "axios";
 

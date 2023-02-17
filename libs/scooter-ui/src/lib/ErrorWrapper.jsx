@@ -2,7 +2,7 @@ import React from "react";
 
 import classnames from "classnames";
 import { is } from "ramda";
-import { isNilOrEmpty } from "utils/common";
+import { isNilOrEmpty } from "@factly/scooter-shared-utils";
 
 export const ErrorWrapper = ({ error, isFixedMenuActive, children }) => {
   const wrapperClasses = classnames({

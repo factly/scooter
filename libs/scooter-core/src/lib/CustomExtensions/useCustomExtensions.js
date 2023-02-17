@@ -10,7 +10,7 @@ import Table from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
-import { isNilOrEmpty } from "utils/common";
+import { isNilOrEmpty } from "@factly/scooter-shared-utils";
 
 import { CodeBlockExtension } from "@factly/scooter-code-block";
 import Document from "./Document/ExtensionConfig";

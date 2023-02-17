@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import {
   ICON_COLOR_ACTIVE,
   ICON_COLOR_INACTIVE,
   MENU_ICON_SIZE,
-} from './constants';
-import ToolTip from './ToolTip';
+} from "./constants";
+import ToolTip from "./ToolTip";
 
 export const MenuButton = ({
   icon: Icon,

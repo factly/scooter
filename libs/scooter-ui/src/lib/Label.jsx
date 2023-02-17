@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import classnames from 'classnames';
-import Tooltip from './ToolTip';
-import { RiInformationLine } from 'react-icons/ri';
+import classnames from "classnames";
+import Tooltip from "./ToolTip";
+import { RiInformationLine } from "react-icons/ri";
 
 export const Label = ({
   children,
-  className = '',
+  className = "",
   required = false,
   helpIconProps = null,
   ...otherProps
@@ -21,7 +21,7 @@ export const Label = ({
   const HelpIcon = icon || RiInformationLine;
   return (
     <label
-      className={classnames('sc-label flex items-center', className)}
+      className={classnames("sc-label flex items-center", className)}
       {...otherProps}
     >
       {children}
@@ -29,7 +29,7 @@ export const Label = ({
       {helpIconProps && (
         <Tooltip {...tooltipProps} disabled={!tooltipProps}>
           <span
-            className={classnames('ml-1', {
+            className={classnames("ml-1", {
               [helpIconClassName]: helpIconClassName,
             })}
             onClick={onClick}

@@ -1,6 +1,6 @@
-import { IFRAMELY_BASE_URL } from '../utils/constants';
+import { IFRAMELY_BASE_URL } from "../utils/constants";
 
-import axios from 'axios';
+import axios from "axios";
 
 export const getIframelyData = (url, iframelyUrl) => {
   // console.log(url);
@@ -8,7 +8,7 @@ export const getIframelyData = (url, iframelyUrl) => {
     withCredentials: true,
     params: {
       url,
-      type: 'iframely',
+      type: "iframely",
     },
   });
 };
