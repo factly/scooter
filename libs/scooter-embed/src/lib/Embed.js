@@ -76,6 +76,9 @@ export const EmbedExtension = Node.create({
       {
         tag: 'div[class="embed-container"]',
       },
+      {
+        tag: 'div[class="embed-wrapper"]'
+      }
     ];
   },
 
