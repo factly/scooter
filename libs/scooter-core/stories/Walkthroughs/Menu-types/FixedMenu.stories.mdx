@@ -1,0 +1,26 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { ScooterCore } from "@factly/scooter-core";
+
+<Meta
+  title="Walkthroughs/MenuTypes/Fixed Menu"
+  parameters={{
+    layout: "padded",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+  component={ScooterCore}
+/>
+
+# Fixed Menu
+
+The default scooterEditor layout comes with a set of always-on-top fixed menu
+controls to interact with the editor.
+
+<Canvas>
+  <Story name="Fixed Menu">
+    <ScooterCore />
+  </Story>
+</Canvas>

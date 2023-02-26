@@ -1,0 +1,54 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { ScooterCore } from "@factly/scooter-core";
+
+<Meta
+  title="Examples/Variables"
+  parameters={{
+    layout: "padded",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+  component={ScooterCore}
+/>
+
+# Variable Support
+
+scooterEditor supports variable placement. Pass array of variables as `variables`
+prop. Users can choose from available variables from the `#` icon in the fixed
+menu. Alternatively, the available variable options can be displayed by
+typing`{{` within the editor.
+
+<Canvas>
+  <Story name="Variables">
+    <ScooterCore
+      variables={[
+        {
+          category_key: "ticket",
+          category_label: "Ticket",
+          variables: [
+            { label: "ID", key: "id" },
+            { label: "Number", key: "number" },
+            { label: "Category", key: "category" },
+            { label: "Status", key: "status" },
+            { label: "Customer URL/Link", key: "customer_url" },
+            { label: "Latest Comment", key: "latest_comment" },
+            { label: "Updated at", key: "updatedt_at" },
+          ],
+        },
+        { label: "Subdomain", key: "subdomain" },
+        {
+          category_key: "organisation",
+          category_label: "Organisation",
+          variables: [
+            { label: "ID", key: "id" },
+            { label: "Name", key: "name" },
+            { label: "Slug", key: "slug" },
+          ],
+        },
+      ]}
+    />
+  </Story>
+</Canvas>

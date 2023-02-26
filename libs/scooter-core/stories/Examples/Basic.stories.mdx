@@ -1,0 +1,23 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { ScooterCore } from "@factly/scooter-core";
+
+<Meta
+  title="Examples/Basic"
+  parameters={{
+    layout: "padded",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+  component={ScooterCore}
+/>
+
+# Basic
+
+<Canvas>
+  <Story name="Basic">
+    <ScooterCore autoFocus />
+  </Story>
+</Canvas>

@@ -1,0 +1,54 @@
+import { Meta } from "@storybook/addon-docs";
+import {
+  EDITOR_PROP_TABLE_COLUMNS,
+  EDITOR_CONTENT_PROP_TABLE_ROWS,
+} from "../constants";
+import Table from "../components/Table";
+
+<Meta
+  title="Walkthroughs/Output"
+  parameters={{
+    layout: "padded",
+    viewMode: "docs",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+/>
+
+# Output
+
+####
+
+The editor API contains a number of methods and commands which can be used to
+interact with the editor instance. This section will cover the most important
+ones.
+
+<br />
+
+### **Use EditorContent component**
+
+```js
+import { EditorContent } from "@factly/scooter-core";
+```
+
+<Table
+  columns={EDITOR_PROP_TABLE_COLUMNS}
+  rows={EDITOR_CONTENT_PROP_TABLE_ROWS}
+/>
+
+<br />
+
+### **Include CSS in your project**
+
+```html
+<link
+  href="https://cdn.jsdelivr.net/gh/factly/scooter@master/dist/editor-content.min.css"
+  rel="stylesheet"
+/>
+```
+
+Use the above CDN link to include the styles in your project. Add the class
+**scooter-editor-content** to the wrapper of the output content.

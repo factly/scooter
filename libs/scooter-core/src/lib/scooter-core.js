@@ -20,7 +20,7 @@ import {
   DEFAULT_EDITOR_OPTIONS,
 } from "@factly/scooter-shared-utils";
 
-import "./scooter-core.css";
+import "./scooter-core.scss";
 
 export const ScooterCore = React.forwardRef(
   (
@@ -37,9 +37,9 @@ export const ScooterCore = React.forwardRef(
       uploadConfig = {},
       embedConfig = {},
       initialValue = "<p></p>",
-      onChange = ({ html, json, text }) => ({ html, json, text }),
-      onFocus = () => {},
-      onBlur = () => {},
+      onChange = ({ html, json, text }) => { console.log({ html, json, text }); return { html, json, text } },
+      onFocus = () => { },
+      onBlur = () => { },
       menuType = "fixed",
       variables,
       mentions,
