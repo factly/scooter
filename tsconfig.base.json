@@ -27,6 +27,8 @@
       "@factly/scooter-slash-commands": [
         "libs/scooter-slash-commands/src/index.js"
       ],
+      "@factly/scooter-taskitem": ["libs/scooter-taskitem/src/index.js"],
+      "@factly/scooter-tasklist": ["libs/scooter-tasklist/src/index.js"],
       "@factly/scooter-ui": ["libs/scooter-ui/src/index.js"]
     }
   },
