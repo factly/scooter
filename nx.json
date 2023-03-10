@@ -30,7 +30,12 @@
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
     "build-storybook": {
-      "inputs": ["default", "^production", "!{projectRoot}/.storybook/**/*","!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)"]
+      "inputs": [
+        "default",
+        "^production",
+        "!{projectRoot}/.storybook/**/*",
+        "!{projectRoot}/**/*.stories.@(js|jsx|ts|tsx|mdx)"
+      ]
     }
   },
   "namedInputs": {

@@ -1,4 +1,16 @@
 {
   "name": "@factly/scooter-tasklist",
-  "version": "0.0.1"
+  "version": "0.0.1-semantic-release",
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/factly/scooter.git",
+    "directory": "libs/scooter-bubble-menu"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  }
 }
