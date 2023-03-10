@@ -1509,7 +1509,8 @@ body *::before {
   opacity: 0.6;
 }
 
-.scooter-editor-content table, .scooter-editor table {
+.scooter-editor-content table,
+.scooter-editor table {
   border-collapse: collapse;
   margin: 0;
   overflow: hidden;
@@ -2191,7 +2192,7 @@ body *::before {
 }
 
 .image-size-small {
-  display: inline-block;
+  display: block;
 }
 .image-size-small img {
   height: 100%;
