@@ -6,6 +6,8 @@ import TextAlign from "@tiptap/extension-text-align";
 import TextStyle from "@tiptap/extension-text-style";
 import Underline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
+import Subscript from "@tiptap/extension-subscript";
+import Superscript from "@tiptap/extension-superscript";
 import Table from "@tiptap/extension-table";
 import TableRow from "@tiptap/extension-table-row";
 import TableCell from "@tiptap/extension-table-cell";
@@ -55,6 +57,8 @@ const useCustomExtensions = ({
       codeBlock: false,
       history: false,
     }),
+    Superscript,
+    Subscript,
     //InsertRawHTML,
     Underline,
     Typography,
