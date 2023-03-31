@@ -27,6 +27,12 @@
       "@factly/scooter-slash-commands": [
         "libs/scooter-slash-commands/src/index.js"
       ],
+      "@factly/scooter-table": ["libs/scooter-table/src/index.js"],
+      "@factly/scooter-table-cell": ["libs/scooter-table-cell/src/index.js"],
+      "@factly/scooter-table-head-cell": [
+        "libs/scooter-table-head-cell/src/index.js"
+      ],
+      "@factly/scooter-table-row": ["libs/scooter-table-row/src/index.js"],
       "@factly/scooter-taskitem": ["libs/scooter-taskitem/src/index.js"],
       "@factly/scooter-tasklist": ["libs/scooter-tasklist/src/index.js"],
       "@factly/scooter-ui": ["libs/scooter-ui/src/index.js"]

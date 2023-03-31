@@ -8,10 +8,10 @@ import Underline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
-import Table from "@tiptap/extension-table";
-import TableRow from "@tiptap/extension-table-row";
-import TableCell from "@tiptap/extension-table-cell";
-import TableHeader from "@tiptap/extension-table-header";
+import { Table } from "@factly/scooter-table";
+import { TableRow } from "@factly/scooter-table-row";
+import { TableCell } from "@factly/scooter-table-cell";
+import { TableHeadCell } from "@factly/scooter-table-head-cell";
 import { isNilOrEmpty } from "@factly/scooter-shared-utils";
 
 import { CodeBlockExtension } from "@factly/scooter-code-block";
@@ -85,12 +85,9 @@ const useCustomExtensions = ({
       handleSubmit: onSubmit,
       shortcuts: keyboardShortcuts,
     }),
-    Table.configure({
-      resizable: true,
-      allowTableNodeSelection: true,
-    }),
+    Table,
     TableRow,
-    TableHeader,
+    TableHeadCell,
     TableCell,
   ];
 

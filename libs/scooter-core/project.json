@@ -1,6 +1,5 @@
 {
   "name": "scooter-core",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/scooter-core/src",
   "projectType": "library",
   "tags": [],
@@ -25,6 +24,8 @@
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",
         "extractCss": false,
+        "format": ["esm", "cjs"],
+        "skipTypeField": true,
         "assets": [
           {
             "glob": "libs/scooter-core/README.md",

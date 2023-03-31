@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-embed",
-  "version": "0.0.2-semantic-release",
+  "version": "0.0.4",
   "peerDependencies": {
     "react": "^18.0.0"
   },
@@ -10,7 +10,7 @@
     "directory": "libs/scooter-bubble-menu"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   }
 }

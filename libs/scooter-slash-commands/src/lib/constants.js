@@ -14,6 +14,7 @@ import {
   RiEmotionHappyLine,
   RiSeparator,
   RiVideoLine,
+  RiTableLine,
 } from "react-icons/ri";
 
 export const EDITOR_OPTIONS = {
@@ -27,6 +28,7 @@ export const EDITOR_OPTIONS = {
   PARAGRAPH: "paragraph",
   H1: "h1",
   H2: "h2",
+  TABLE: "table",
   LIST_BULLETS: "bullet-list",
   LIST_ORDERED: "ordered-list",
   TEXT_ALIGN_LEFT: "text-align-left",
@@ -197,6 +199,20 @@ export const MENU_ITEMS = {
     Icon: RiEmotionHappyLine,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).insertContent("::").run();
+    },
+  },
+  TABLE: {
+    optionName: EDITOR_OPTIONS.TABLE,
+    title: "Table",
+    description: "Add a table.",
+    Icon: RiTableLine,
+    command: ({ editor, range }) => {
+      editor
+        .chain()
+        .focus()
+        .deleteRange(range)
+        .createTable({ rowsCount: 4, colsCount: 3, withHeaderRow: true })
+        .run();
     },
   },
   DIVIDER: {
