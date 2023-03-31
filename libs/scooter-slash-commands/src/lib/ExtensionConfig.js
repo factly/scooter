@@ -19,6 +19,7 @@ export const SlashCommandsExtension = {
   }) => {
     let commandItems = [
       MENU_ITEMS.PARAGRAPH,
+      MENU_ITEMS.TABLE,
       MENU_ITEMS.H1,
       MENU_ITEMS.H2,
       MENU_ITEMS.H3,

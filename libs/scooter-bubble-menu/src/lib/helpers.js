@@ -12,6 +12,18 @@ import {
   RiComputerLine,
   RiEdit2Line,
   RiChatQuoteLine,
+  RiTableLine,
+  RiDeleteColumn,
+  RiDeleteRow,
+  RiInsertColumnLeft,
+  RiInsertColumnRight,
+  RiInsertRowBottom,
+  RiInsertRowTop,
+  RiLayoutRowFill,
+  RiLayoutColumnFill,
+  RiMergeCellsHorizontal,
+  RiSplitCellsHorizontal,
+  RiDeleteBinLine,
 } from "react-icons/ri";
 
 export const getTextMenuOptions = ({ editor, setIsLinkOptionActive }) => [
@@ -183,46 +195,10 @@ export const getImageMenuOptions = ({
 
 export const getTableMenuOptions = ({ editor, isTableActive }) => [
   {
-    Icon: RiBold,
-    command: () => editor.chain().focus().toggleBold().run(),
-    active: editor.isActive("bold"),
-    optionName: "bold",
-  },
-  {
-    Icon: RiItalic,
-    command: () => editor.chain().focus().toggleItalic().run(),
-    active: editor.isActive("italic"),
-    optionName: "italic",
-  },
-  {
-    Icon: RiUnderline,
-    command: () => editor.chain().focus().toggleUnderline().run(),
-    active: editor.isActive("underline"),
-    optionName: "underline",
-  },
-  {
-    Icon: RiStrikethrough,
-    command: () => editor.chain().focus().toggleStrike().run(),
-    active: editor.isActive("strike"),
-    optionName: "strike",
-  },
-  {
-    Icon: RiLink,
-    command: () => isTableActive(true),
-    active: editor.isActive("link"),
-    optionName: "link",
-  },
-  {
-    Icon: RiCodeSSlashFill,
-    command: () => editor.chain().focus().toggleCode().run(),
-    active: editor.isActive("code"),
-    optionName: "code",
-  },
-  {
-    Icon: RiMarkPenLine,
-    command: () => editor.chain().focus().toggleHighlight().run(),
-    active: editor.isActive("highlight"),
-    optionName: "highlight",
+    Icon: RiDeleteBinLine,
+    command: () => editor.chain().focus().deleteTable().run(),
+    active: false,
+    optionName: "delete-table",
   },
 ];
 
@@ -271,9 +247,53 @@ export const getTableCellOptions = ({ editor, isTableCellActive }) => [
   },
 ];
 
+// TODO: add convert to header row and column options and merge and split cells options
+export const getTableRowOptions = ({ editor, isTableCellActive }) => [
+  {
+    Icon: RiDeleteRow,
+    command: () => editor.chain().focus().deleteRow().run(),
+    active: false,
+    optionName: "delete-row",
+  },
+  {
+    Icon: RiInsertRowBottom,
+    command: () => editor.chain().focus().addRowAfter().run(),
+    active: false,
+    optionName: "insert-row-bottom",
+  },
+  {
+    Icon: RiInsertRowTop,
+    command: () => editor.chain().focus().addRowBefore().run(),
+    active: false,
+    optionName: "insert-row-top",
+  },
+];
+export const getTableColOptions = ({ editor, isTableCellActive }) => [
+  {
+    Icon: RiDeleteColumn,
+    command: () => editor.chain().focus().deleteColumn().run(),
+    active: false,
+    optionName: "delete-column",
+  },
+  {
+    Icon: RiInsertColumnLeft,
+    command: () => editor.chain().focus().addColumnBefore().run(),
+    active: false,
+    optionName: "insert-column-left",
+  },
+  {
+    Icon: RiInsertColumnRight,
+    command: () => editor.chain().focus().addColumnAfter().run(),
+    active: false,
+    optionName: "insert-column-right",
+  },
+];
+
 export const helpers = {
   getImageMenuOptions,
   getTableCellOptions,
+  getTableRowOptions,
+  getTableColOptions,
   getTableMenuOptions,
   getTextMenuOptions,
 };

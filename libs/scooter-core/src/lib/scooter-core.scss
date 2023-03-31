@@ -399,6 +399,50 @@ body *::before {
     transform: rotate(360deg);
   }
 }
+// Tippy.js
+.tippy-box[data-placement^="top"] > .tippy-svg-arrow {
+  bottom: 0;
+}
+.tippy-box[data-placement^="top"] > .tippy-svg-arrow:after,
+.tippy-box[data-placement^="top"] > .tippy-svg-arrow > svg {
+  top: 16px;
+  transform: rotate(180deg);
+}
+.tippy-box[data-placement^="bottom"] > .tippy-svg-arrow {
+  top: 0;
+}
+.tippy-box[data-placement^="bottom"] > .tippy-svg-arrow > svg {
+  bottom: 16px;
+}
+.tippy-box[data-placement^="left"] > .tippy-svg-arrow {
+  right: 0;
+}
+.tippy-box[data-placement^="left"] > .tippy-svg-arrow:after,
+.tippy-box[data-placement^="left"] > .tippy-svg-arrow > svg {
+  transform: rotate(90deg);
+  top: calc(50% - 3px);
+  left: 11px;
+}
+.tippy-box[data-placement^="right"] > .tippy-svg-arrow {
+  left: 0;
+}
+.tippy-box[data-placement^="right"] > .tippy-svg-arrow:after,
+.tippy-box[data-placement^="right"] > .tippy-svg-arrow > svg {
+  transform: rotate(-90deg);
+  top: calc(50% - 3px);
+  right: 11px;
+}
+.tippy-svg-arrow {
+  width: 16px;
+  height: 16px;
+  fill: #333;
+  text-align: initial;
+}
+.tippy-svg-arrow,
+.tippy-svg-arrow > svg {
+  position: absolute;
+}
+
 .sc-dropdown__popup {
   width: auto;
   max-height: 445px;
@@ -1245,7 +1289,7 @@ body *::before {
   max-width: 100% !important;
   border-radius: 2px;
   white-space: pre-wrap;
-  padding: 12px;
+  padding: 12px 32px;
   color: #2f3941;
 }
 .scooter-editor p {
@@ -1260,7 +1304,7 @@ body *::before {
 .scooter-editor:focus {
   outline: none;
 }
-.scooter-editor a {
+.scooter-editor .scooter-editor-link {
   pointer-events: none;
 }
 .scooter-editor mark {
@@ -1509,49 +1553,49 @@ body *::before {
   opacity: 0.6;
 }
 
-.scooter-editor-content table,
-.scooter-editor table {
-  border-collapse: collapse;
-  margin: 0;
-  overflow: hidden;
-  table-layout: fixed;
-  width: 100%;
-}
-.scooter-editor-content table td,
-.scooter-editor-content table th,
-.scooter-editor table td,
-.scooter-editor table th {
-  border: 2px solid #ced4da;
-  box-sizing: border-box;
-  min-width: 1em;
-  padding: 3px 5px;
-  position: relative;
-  vertical-align: top;
-}
-.scooter-editor-content table td > *,
-.scooter-editor-content table th > *,
-.scooter-editor table td > *,
-.scooter-editor table th > * {
-  margin-bottom: 0;
-}
-.scooter-editor-content table th,
-.scooter-editor table th {
-  background-color: #f1f3f5;
-  font-weight: bold;
-  text-align: left;
-}
-.scooter-editor-content table .selectedCell:after,
-.scooter-editor table .selectedCell:after {
-  background: rgba(200, 200, 255, 0.4);
-  content: "";
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  pointer-events: none;
-  position: absolute;
-  z-index: 2;
-}
+// .scooter-editor-content table,
+// .scooter-editor table {
+//   border-collapse: collapse;
+//   margin: 0;
+//   overflow: hidden;
+//   table-layout: fixed;
+//   width: 100%;
+// }
+// .scooter-editor-content table td,
+// .scooter-editor-content table th,
+// .scooter-editor table td,
+// .scooter-editor table th {
+//   border: 2px solid #ced4da;
+//   box-sizing: border-box;
+//   min-width: 1em;
+//   padding: 3px 5px;
+//   position: relative;
+//   vertical-align: top;
+// }
+// .scooter-editor-content table td > *,
+// .scooter-editor-content table th > *,
+// .scooter-editor table td > *,
+// .scooter-editor table th > * {
+//   margin-bottom: 0;
+// }
+// .scooter-editor-content table th,
+// .scooter-editor table th {
+//   background-color: #f1f3f5;
+//   font-weight: bold;
+//   text-align: left;
+// }
+// .scooter-editor-content table .selectedCell:after,
+// .scooter-editor table .selectedCell:after {
+//   background: rgba(200, 200, 255, 0.4);
+//   content: "";
+//   left: 0;
+//   right: 0;
+//   top: 0;
+//   bottom: 0;
+//   pointer-events: none;
+//   position: absolute;
+//   z-index: 2;
+// }
 .scooter-editor-content table .column-resize-handle,
 .scooter-editor table .column-resize-handle {
   background-color: #adf;
@@ -1567,7 +1611,8 @@ body *::before {
   margin: 0;
 }
 .tableWrapper {
-  padding: 1rem 0;
+  padding: 1rem;
+  margin-left: -1rem;
   overflow-x: auto;
 }
 .resize-cursor {

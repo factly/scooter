@@ -24,6 +24,7 @@
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",
         "extractCss": false,
+        "format": ["esm", "cjs"],
         "assets": [
           {
             "glob": "libs/scooter-bubble-menu/README.md",

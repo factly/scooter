@@ -1,6 +1,5 @@
 {
   "name": "scooter-shared-utils",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/scooter-shared-utils/src",
   "projectType": "library",
   "tags": [],
@@ -24,6 +23,7 @@
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",
+        "format": ["esm", "cjs"],
         "assets": [
           {
             "glob": "libs/scooter-shared-utils/README.md",
