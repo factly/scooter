@@ -23,6 +23,7 @@
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "extractCss": false,
         "format": ["esm", "cjs"],
+        "skipTypeField": true,
         "compiler": "babel",
         "assets": [
           {

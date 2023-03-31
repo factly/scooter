@@ -24,6 +24,7 @@
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",
         "format": ["esm", "cjs"],
+        "skipTypeField": true,
         "assets": [
           {
             "glob": "libs/scooter-ui/README.md",

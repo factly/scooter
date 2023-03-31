@@ -25,6 +25,7 @@
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
         "format": ["esm", "cjs"],
+        "skipTypeField": true,
         "assets": [
           {
             "glob": "libs/scooter-table-head-cell/README.md",

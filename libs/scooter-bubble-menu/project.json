@@ -25,6 +25,7 @@
         "buildableProjectDepsInPackageJsonType": "dependencies",
         "extractCss": false,
         "format": ["esm", "cjs"],
+        "skipTypeField": true,
         "assets": [
           {
             "glob": "libs/scooter-bubble-menu/README.md",
