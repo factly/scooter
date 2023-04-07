@@ -1,7 +1,7 @@
 import { Extension } from "@tiptap/core";
 import { ReactRenderer } from "@tiptap/react";
 import Suggestion from "@tiptap/suggestion";
-import { PluginKey } from "prosemirror-state";
+import { PluginKey } from "@tiptap/pm/state";
 import tippy from "tippy.js";
 import { isNilOrEmpty } from "@factly/scooter-shared-utils";
 
@@ -74,8 +74,10 @@ export const SlashCommandsExtension = {
             },
 
             items: ({ query }) => {
-              const filteredItems = commandItems.filter(({ title }) =>
-                title.toLowerCase().includes(query.toLowerCase())
+              const filteredItems = commandItems.filter(
+                ({ title, description }) =>
+                  title.toLowerCase().includes(query.toLowerCase()) ||
+                  description.toLowerCase().includes(query.toLowerCase())
               );
 
               return isNilOrEmpty(filteredItems)

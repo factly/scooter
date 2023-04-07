@@ -1,4 +1,4 @@
-import { Selection } from "prosemirror-state";
+import { Selection } from "@tiptap/pm/state";
 import { equalNodeType, isNodeSelection } from "./helpers";
 
 // :: (predicate: (node: ProseMirrorNode) → boolean) → (selection: Selection) → ?{pos: number, start: number, depth: number, node: ProseMirrorNode}

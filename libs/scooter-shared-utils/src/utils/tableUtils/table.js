@@ -5,9 +5,9 @@ import {
   addRow,
   removeColumn,
   removeRow,
-} from "prosemirror-tables";
-import { Selection } from "prosemirror-state";
-import { Slice } from "prosemirror-model";
+} from "@tiptap/pm/tables";
+import { Selection } from "@tiptap/pm/state";
+import { Slice } from "@tiptap/pm/model";
 import { findParentNode, findParentNodeClosestToPos } from "./selection";
 import { setTextSelection, safeInsert } from "./transforms";
 import {

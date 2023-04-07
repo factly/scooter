@@ -1,5 +1,5 @@
 import Document from "@tiptap/extension-document";
-import { Plugin, PluginKey } from "prosemirror-state";
+import { Plugin, PluginKey } from "@tiptap/pm/state";
 
 export default Document.extend({
   content: "root",

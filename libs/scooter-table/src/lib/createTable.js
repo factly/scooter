@@ -1,4 +1,4 @@
-import { TextSelection } from "prosemirror-state";
+import { TextSelection } from "@tiptap/pm/state";
 import { getTableNodeTypes } from "./getTableNodeTypes";
 
 export function createTable(

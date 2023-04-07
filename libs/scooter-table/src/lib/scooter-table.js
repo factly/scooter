@@ -1,4 +1,4 @@
-import { Plugin, TextSelection } from "prosemirror-state";
+import { Plugin, TextSelection } from "@tiptap/pm/state";
 import {
   addColumnAfter,
   addColumnBefore,
@@ -29,7 +29,7 @@ import {
   getRowIndexFromText,
 } from "@factly/scooter-shared-utils";
 
-import { Decoration, DecorationSet } from "prosemirror-view";
+import { Decoration, DecorationSet } from "@tiptap/pm/view";
 import tablesRule from "./tableRules";
 import { Node as ProseMirrorNode } from "@tiptap/pm/model";
 import { mergeAttributes, Node } from "@tiptap/core";

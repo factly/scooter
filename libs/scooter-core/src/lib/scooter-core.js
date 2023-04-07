@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import classNames from "classnames";
 import { ErrorWrapper } from "@factly/scooter-ui";
-import { EditorView } from "prosemirror-view";
+import { EditorView } from "@tiptap/pm/view";
 import { BubbleMenu } from "@factly/scooter-bubble-menu";
 import CharacterCount from "./CustomExtensions/CharacterCount";
 import { EmbedFetcher } from "@factly/scooter-embed";
@@ -37,9 +37,12 @@ export const ScooterCore = React.forwardRef(
       uploadConfig = {},
       embedConfig = {},
       initialValue = "<p></p>",
-      onChange = ({ html, json, text }) => { console.log({ html, json, text }); return { html, json, text } },
-      onFocus = () => { },
-      onBlur = () => { },
+      onChange = ({ html, json, text }) => {
+        console.log({ html, json, text });
+        return { html, json, text };
+      },
+      onFocus = () => {},
+      onBlur = () => {},
       menuType = "fixed",
       variables,
       mentions,
@@ -60,6 +63,7 @@ export const ScooterCore = React.forwardRef(
       itemsPerPage,
       onFileAdded,
       onUploadComplete,
+      editorInstance = () => {},
       ...otherProps
     },
     ref
@@ -143,15 +147,13 @@ export const ScooterCore = React.forwardRef(
       onBlur,
     });
 
+    editor && editorInstance(editor);
+
     /* Make editor object available to the parent */
     React.useImperativeHandle(ref, () => ({ editor }));
 
     useEffect(() => {
-      const isProduction = [
-        process.env.RAILS_ENV,
-        process.env.NODE_ENV,
-      ].includes("production");
-      if (!isProduction && isNilOrEmpty(initialValue)) {
+      if (isNilOrEmpty(initialValue)) {
         // eslint-disable-next-line no-console
         console.warn(
           `[scooter-editor]: Empty value of "initialValue" in scooterEditor is expected to be "<p></p>" instead of "${initialValue}".`

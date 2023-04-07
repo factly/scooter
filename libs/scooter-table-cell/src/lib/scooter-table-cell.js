@@ -1,6 +1,4 @@
-import Token from "markdown-it/lib/token";
-import { NodeSpec } from "prosemirror-model";
-import { Plugin } from "prosemirror-state";
+import { Plugin } from "@tiptap/pm/state";
 import {
   isTableSelected,
   isRowSelected,
@@ -8,7 +6,7 @@ import {
   selectRow,
   selectTable,
 } from "@factly/scooter-shared-utils";
-import { DecorationSet, Decoration } from "prosemirror-view";
+import { DecorationSet, Decoration } from "@tiptap/pm/view";
 
 import {
   callOrReturn,

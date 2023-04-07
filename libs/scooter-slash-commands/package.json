@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-slash-commands",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "peerDependencies": {
     "react": "^18.0.0"
   },

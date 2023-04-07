@@ -1,5 +1,5 @@
-import { NodeSelection, Selection } from "prosemirror-state";
-import { Fragment } from "prosemirror-model";
+import { NodeSelection, Selection } from "@tiptap/pm/state";
+import { Fragment } from "@tiptap/pm/model";
 import { findParentNodeOfType, findPositionOfNodeBefore } from "./selection";
 import {
   cloneTr,

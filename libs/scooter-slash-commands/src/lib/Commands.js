@@ -1,6 +1,6 @@
 import { Extension } from "@tiptap/core";
 import Suggestion from "@tiptap/suggestion";
-import { PluginKey } from "prosemirror-state";
+import { PluginKey } from "@tiptap/pm/state";
 
 export const CommandsPluginKey = new PluginKey("commands");
 

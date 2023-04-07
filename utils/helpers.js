@@ -5,7 +5,7 @@ import {
 } from "./constants";
 import { EDITOR_OPTIONS } from "./constants";
 
-import { Slice, Fragment, Node } from "prosemirror-model";
+import { Slice, Fragment, Node } from "@tiptap/pm/model";
 
 export const getIsPlaceholderActive = placeholder => {
   if (placeholder) {

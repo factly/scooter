@@ -1,10 +1,10 @@
-import { Plugin } from "prosemirror-state";
+import { Plugin } from "@tiptap/pm/state";
 import {
   isColumnSelected,
   getCellsInRow,
   selectColumn,
 } from "@factly/scooter-shared-utils";
-import { DecorationSet, Decoration } from "prosemirror-view";
+import { DecorationSet, Decoration } from "@tiptap/pm/view";
 
 import { mergeAttributes, Node } from "@tiptap/core";
 

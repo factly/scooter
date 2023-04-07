@@ -1,8 +1,15 @@
 {
   "name": "@factly/scooter-image",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "peerDependencies": {
     "react": "^18.0.0"
+  },
+  "dependencies": {
+    "@uppy/dashboard": "^3.3.1",
+    "@uppy/status-bar": "^3.0.1",
+    "@uppy/progress-bar": "^3.0.1",
+    "@uppy/file-input": "^3.0.1",
+    "@uppy/drag-drop": "^3.0.1"
   },
   "repository": {
     "type": "git",

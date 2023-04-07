@@ -1,6 +1,6 @@
-import { NodeSelection } from "prosemirror-state";
-import { Fragment, Node as PMNode } from "prosemirror-model";
-import { TableMap } from "prosemirror-tables";
+import { NodeSelection } from "@tiptap/pm/state";
+import { Fragment, Node as PMNode } from "@tiptap/pm/model";
+import { TableMap } from "@tiptap/pm/tables";
 import { setTextSelection } from "./transforms";
 import { findParentNodeClosestToPos } from "./selection";
 
