@@ -29,6 +29,8 @@ export const BubbleMenu = ({ editor, options: textOptions }) => {
   const selectedNode = editor && editor.view.state.selection.node;
   const isImageNodeSelected =
     selectedNode && selectedNode.type.name === "image";
+  const isTagoreNodeSelected =
+    selectedNode && selectedNode.type.name === "tagore";
 
   let isTableSelection = false;
   let isColSelection = false;
@@ -94,6 +96,9 @@ export const BubbleMenu = ({ editor, options: textOptions }) => {
     textOptions.filter(option => bubbleMenuOptions.includes(option))
   );
   if (!editor || (!isImageNodeSelected && noTextOptions)) {
+    return null;
+  }
+  if (isTagoreNodeSelected) {
     return null;
   }
 

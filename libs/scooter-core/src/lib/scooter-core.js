@@ -64,6 +64,7 @@ export const ScooterCore = React.forwardRef(
       onFileAdded,
       onUploadComplete,
       editorInstance = () => {},
+      tagoreEndpoint,
       ...otherProps
     },
     ref
@@ -102,6 +103,7 @@ export const ScooterCore = React.forwardRef(
       characterLimit,
       keyboardShortcuts,
       onSubmit,
+      tagoreEndpoint,
     });
 
     // https://github.com/ueberdosis/tiptap/issues/1451#issuecomment-953348865

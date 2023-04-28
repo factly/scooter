@@ -1172,12 +1172,22 @@ body *::before {
   align-items: flex-start;
   gap: 4px;
 }
+.scooter-editor-tagore-commands__wrapper {
+  box-shadow: 0 0 20px 4px rgba(154, 161, 177, 0.15),
+    0 4px 80px -8px rgba(36, 40, 47, 0.25),
+    0 4px 4px -2px rgba(91, 94, 105, 0.15);
+  background-color: #ffffff;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  border-radius: 2px;
+}
 .scooter-editor-slash-commands__wrapper::-webkit-scrollbar {
   width: 4px;
   height: 4px;
 }
 .scooter-editor-slash-commands__wrapper::-webkit-scrollbar-thumb {
   background: #d8dcde;
+
   border-radius: 50px;
 }
 .scooter-editor-slash-commands__wrapper::-webkit-scrollbar-track {
@@ -1195,12 +1205,24 @@ body *::before {
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   color: #ffffff;
+  color: #49545c;
 }
 .scooter-editor-slash-commands__wrapper
   .scooter-editor-slash-commands__item:hover,
 .scooter-editor-slash-commands__wrapper
   .scooter-editor-slash-commands__item.active {
   background-color: #49545c;
+  background-color: #cecece;
+}
+
+.scooter-editor-tagore-commands__wrapper
+  .scooter-editor-tagore-commands__item:hover,
+.scooter-editor-tagore-commands__wrapper
+  .scooter-editor-tagore-commands__item.active {
+  background-color: #49545c;
+  background: #9d9ccc;
+  background: #37352f14;
+  color: #37352f;
 }
 .scooter-editor-slash-commands__wrapper
   .scooter-editor-slash-commands__item
@@ -1210,6 +1232,17 @@ body *::before {
   font-weight: 600;
   line-height: 1.5;
   color: #ffffff;
+  color: #49545c;
+  margin: 0;
+}
+.scooter-editor-tagore-commands__wrapper
+  .scooter-editor-tagore-commands__item:hover
+  .scooter-editor-tagore-commands__item-content
+  h5 {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #37352f;
   margin: 0;
 }
 .scooter-editor-slash-commands__wrapper
@@ -1218,8 +1251,32 @@ body *::before {
   p {
   font-size: 12px;
   color: #d8dcde;
+  color: #49545c;
   margin: 0;
 }
+
+.scooter-editor-tagore-commands__item-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  .tagore-command-icon {
+    width: 20px;
+  }
+}
+
+.scooter-editor-tagore-commands__item {
+  .hover-icon {
+    display: none;
+  }
+  &:hover {
+    .hover-icon {
+      display: block;
+    }
+  }
+}
+
 .scooter-editor-mentions__wrapper {
   padding: 8px;
   width: 208px;
@@ -1291,6 +1348,7 @@ body *::before {
   white-space: pre-wrap;
   padding: 12px 32px;
   color: #2f3941;
+  padding-bottom: 100px;
 }
 .scooter-editor p {
   line-height: 1.625;
@@ -2379,6 +2437,115 @@ code {
     }
     &:hover {
       background-color: #1e2431;
+    }
+  }
+}
+
+.scooter-editor-tagore-commands__heading {
+  padding: 5px 16px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+  cursor: default;
+}
+
+.scooter-editor-tagore-commands__section-heading {
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.commands-input {
+  background: white;
+  padding: 4px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  color: #333;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  // position: absolute;
+  // top: -32px;
+  // left: 0;
+  // z-index: 1;
+  // right: 0;
+}
+
+.react-component {
+  margin: 1rem 0;
+  .generated-content {
+    margin-bottom: 1rem;
+  }
+
+  position: relative;
+
+  .label {
+    background-color: #fff;
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+
+  .content {
+    background: #fff;
+    border: 3px solid #9d9ccc;
+    border: 3px solid #37352f14;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+  }
+  .tagore-input-container {
+    position: relative;
+    button {
+      position: absolute;
+      right: 12px;
+      top: 6px;
+      color: #37352f14;
+      &:hover,
+      &:focus,
+      &.active {
+        svg {
+          color: #37352f;
+        }
+      }
+    }
+  }
+  .tagore-input {
+    width: 100%;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.1),
+      0px 4px 8px rgba(0, 0, 0, 0.1), 0px 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    outline: none;
+  }
+  .tagore-options {
+    background: white;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+    justify-content: flex-end;
+    align-items: flex-end;
+    button {
+      background: #fafafa;
+      border: none;
+      padding: 0.25rem 0.5rem;
     }
   }
 }

@@ -41,6 +41,7 @@ export const EDITOR_OPTIONS = {
   VIDEO_EMBED: "video-embed",
   EMBED: "embed",
   RAW_HTML: "raw-html",
+  WRITE_WITH_AI: "write-with-ai",
 
   // OTHER AVAILABLE OPTIONS
   H3: "h3",
@@ -50,6 +51,7 @@ export const EDITOR_OPTIONS = {
 };
 
 export const DEFAULT_EDITOR_OPTIONS = [
+  EDITOR_OPTIONS.WRITE_WITH_AI,
   EDITOR_OPTIONS.FONT_COLOR,
   EDITOR_OPTIONS.BOLD,
   EDITOR_OPTIONS.ITALIC,

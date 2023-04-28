@@ -17,6 +17,8 @@ import {
   RiTableLine,
 } from "react-icons/ri";
 
+import { BiChip } from "react-icons/bi";
+
 export const EDITOR_OPTIONS = {
   // DEFAULT EDITOR OPTIONS
   FONT_COLOR: "font-color",
@@ -47,6 +49,7 @@ export const EDITOR_OPTIONS = {
   VIDEO_EMBED: "video-embed",
   EMBED: "embed",
   RAW_HTML: "raw-html",
+  WRITE_WITH_AI: "write-with-ai",
 
   // OTHER AVAILABLE OPTIONS
   H3: "h3",
@@ -55,6 +58,20 @@ export const EDITOR_OPTIONS = {
   H6: "h6",
 };
 export const MENU_ITEMS = {
+  WRITE_WITH_AI: {
+    optionName: EDITOR_OPTIONS.WRITE_WITH_AI,
+    title: "Write with AI",
+    description: "Write with AI",
+    Icon: BiChip,
+    command: ({ editor, range }) => {
+      return editor
+        .chain()
+        .focus()
+        .deleteRange(range)
+        .insertContent("<tagore-component></tagore-component>")
+        .run();
+    },
+  },
   PARAGRAPH: {
     optionName: EDITOR_OPTIONS.PARAGRAPH,
     title: "Paragraph",

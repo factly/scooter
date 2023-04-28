@@ -30,6 +30,7 @@ import Title from "./Title/ExtensionConfig";
 import Typography from "./Typography/EditorConfig";
 // import Variable from './Variable/ExtensionConfig';
 // import InsertRawHTML from './InsertRawHTML';
+import { TagoreCommandsExtension } from "@factly/scooter-tagore";
 
 const useCustomExtensions = ({
   forceTitle,
@@ -38,6 +39,7 @@ const useCustomExtensions = ({
   mentions,
   variables,
   isSlashCommandsActive,
+  isTagoreCommandsActive,
   showImageInMention,
   setImageUploadVisible,
   setEmbedFetcherVisible,
@@ -46,6 +48,7 @@ const useCustomExtensions = ({
   characterLimit,
   onSubmit,
   keyboardShortcuts,
+  tagoreEndpoint,
 }) => {
   let customExtensions = [
     Title,
@@ -89,6 +92,9 @@ const useCustomExtensions = ({
     TableRow,
     TableHeadCell,
     TableCell,
+    TagoreCommandsExtension.configure({
+      apiUrl: tagoreEndpoint,
+    }),
   ];
 
   if (isSlashCommandsActive) {

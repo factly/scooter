@@ -122,8 +122,9 @@ export class SlashCommandsMenu extends React.Component {
               key={item.title}
               interactive
               placement="right"
+              theme="light"
               content={
-                <Menu
+                <SlashCommandsMenu
                   {...this.props}
                   items={item.items}
                   menuIndex={menuIndex + 1}

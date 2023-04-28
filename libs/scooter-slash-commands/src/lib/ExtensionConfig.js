@@ -18,6 +18,7 @@ export const SlashCommandsExtension = {
     options: allowedCommandOptions,
   }) => {
     let commandItems = [
+      MENU_ITEMS.WRITE_WITH_AI,
       MENU_ITEMS.PARAGRAPH,
       MENU_ITEMS.TABLE,
       MENU_ITEMS.H1,
@@ -105,6 +106,7 @@ export const SlashCommandsExtension = {
                     placement: "bottom-start",
                     arrow: false,
                     zIndex: 99999,
+                    theme: "light",
                   });
                 },
                 onUpdate(props) {
