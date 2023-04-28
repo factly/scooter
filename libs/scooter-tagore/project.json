@@ -9,9 +9,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/scooter-tagore/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["libs/scooter-tagore/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "build": {
