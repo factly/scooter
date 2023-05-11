@@ -31,6 +31,8 @@ import Typography from "./Typography/EditorConfig";
 // import Variable from './Variable/ExtensionConfig';
 // import InsertRawHTML from './InsertRawHTML';
 import { TagoreCommandsExtension } from "@factly/scooter-tagore";
+import { AiOutlineEdit } from "react-icons/ai";
+import axios from "axios";
 
 const useCustomExtensions = ({
   forceTitle,
@@ -48,7 +50,9 @@ const useCustomExtensions = ({
   characterLimit,
   onSubmit,
   keyboardShortcuts,
-  tagoreEndpoint,
+  tagoreEndpoint = "http://localhost:8080",
+  userId = "20",
+  tagoreConfig = {},
 }) => {
   let customExtensions = [
     Title,
@@ -94,6 +98,9 @@ const useCustomExtensions = ({
     TableCell,
     TagoreCommandsExtension.configure({
       apiUrl: tagoreEndpoint,
+      userId,
+      // (...args) => axios.post(...args).then(res => res.data)
+      ...tagoreConfig,
     }),
   ];
 

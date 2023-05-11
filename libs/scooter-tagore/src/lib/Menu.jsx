@@ -56,10 +56,15 @@ export const TagoreCommandsMenu = props => {
     deleteNode,
     content,
     setContent,
+    selectedContent,
     hideMenu,
+    showMenu,
     className,
     range,
+    to,
+    from,
   } = props;
+
   const [selectedIndex, setSelectedIndex] = useState(0);
   const menuRef = useRef();
 
@@ -75,7 +80,6 @@ export const TagoreCommandsMenu = props => {
   }, [menuIndex, activeMenuIndex]);
 
   useEffect(() => {
-    console.log("ran");
     scrollHandler({
       wrapperRef: menuRef,
       index: selectedIndex,
@@ -90,28 +94,90 @@ export const TagoreCommandsMenu = props => {
       ArrowLeft: leftArrowHandler,
       ArrowRight: rightArrowHandler,
     };
-
     if (event.key in listeners) listeners[event.key](event);
   };
 
-  const selectItem = index => {
+  const selectItem = async index => {
     const selectedItem = items[index];
     const hasCommand = selectedItem && selectedItem.command;
+    const hasCommandType = selectedItem && selectedItem.commandType;
     const isLeafNode = isNilOrEmpty(selectedItem.items);
+    if (hasCommand && isLeafNode) {
+      if (hasCommandType === "prompt") {
+        //  console.log("prompt ran", selectedItem.prompt)
+        //  setInputValue(selectItem.prompt);
+        setInputValue(selectedItem.prompt);
+      }
+      if (hasCommandType === "generate") {
+        //   editor.commands.insertContentAt(
+        //   pos,
+        //   //props.getPos(),
+        //   content
+        // );
+        //  console.log("generate");
+        const data = await fetchData(
+          `${selectedItem.prompt} ${editor.getText()}`
+        );
+        //   console.log({ "g": "generate", data })
+        if (data) {
+          editor.commands.insertContentAt(
+            props.getPos(),
+            //props.getPos(),
+            `${data.output}`
+          );
+          hideMenu();
+          deleteNode();
+          setContent("");
+        }
+      }
+      if (hasCommandType === "replace") {
+        if (selectedItem.title === "Insert Below") {
+          editor.commands.insertContentAt(
+            props.getPos(),
+            //props.getPos(),
+            `${content}`
+          );
+          deleteNode();
+          setContent("");
+          return;
+        }
 
-    console.log({ isLeafNode, hasCommand, selectedItem });
-    if (hasCommand && isLeafNode)
-      selectedItem.command({
-        editor,
-        range,
-        inputValue,
-        setInputValue,
-        content,
-        setContent,
-        pos,
-        deleteNode,
-        fetchData,
-      });
+        if (selectedItem.title === "Replace Selection") {
+          const pos = props.getPos();
+          editor.commands.insertContentAt(
+            { from, to },
+            //props.getPos(),
+            content
+          );
+          deleteNode();
+          setContent("");
+          return;
+        }
+
+        const data = await fetchData(
+          `${selectedItem.prompt} ${selectedContent}`
+        );
+        if (data) {
+          //    console.log({ "g": "generate", data })
+          setContent(data.output);
+          showMenu();
+        }
+
+        // editor.commands.insertContentAt(
+        //   props.getPos(),
+        //   //props.getPos(),
+        //   `${data.output}`
+        // );
+        // hideMenu();
+        // deleteNode();
+        // setContent("");
+      }
+      if (hasCommandType === "delete") {
+        setContent("");
+        deleteNode();
+      }
+    }
+
     hideMenu();
   };
 

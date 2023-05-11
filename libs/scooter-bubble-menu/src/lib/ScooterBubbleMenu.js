@@ -86,6 +86,7 @@ export const BubbleMenu = ({ editor, options: textOptions }) => {
   }
 
   const bubbleMenuOptions = [
+    EDITOR_OPTIONS.ASK_AI,
     EDITOR_OPTIONS.BOLD,
     EDITOR_OPTIONS.ITALIC,
     EDITOR_OPTIONS.UNDERLINE,

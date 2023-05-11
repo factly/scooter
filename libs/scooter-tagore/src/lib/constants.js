@@ -1,4 +1,4 @@
-import { RiBoldLine } from "react-icons/ri";
+import { RiBoldLine, RiPlayListAddFill } from "react-icons/ri";
 import axios from "axios";
 import React from "react";
 import { AiOutlineEdit, AiOutlineReload } from "react-icons/ai";
@@ -26,6 +26,11 @@ import { MdShortText, MdDone } from "react-icons/md";
 //   }
 // }
 
+// TODO: Add tags for searching options
+// TODO: Ask AI icon
+// TODO: Remove border
+// TODO: Add all the options from notion
+
 export const MENU_ITEMS = [
   {
     title: "Write with AI",
@@ -36,6 +41,8 @@ export const MENU_ITEMS = [
       {
         title: "Continue writing",
         Icon: AiOutlineEdit,
+        commandType: "generate",
+        prompt: "Continue writing the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Continue writing the following content: \n ${editor.getText()}`
@@ -55,6 +62,8 @@ export const MENU_ITEMS = [
       {
         title: "Summarize",
         Icon: TbBlockquote,
+        commandType: "generate",
+        prompt: "Summarize the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Summarize the following content: \n ${editor.getText()}`
@@ -66,9 +75,11 @@ export const MENU_ITEMS = [
       {
         title: "Find action Items",
         Icon: BsListCheck,
+        commandType: "generate",
+        prompt: "Find action items in the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
-            `Continue writing the following content: \n ${editor.getText()}`
+            `Fin action items in the following content: \n ${editor.getText()}`
           );
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
@@ -83,6 +94,8 @@ export const MENU_ITEMS = [
           {
             title: "Spanish",
             Icon: null,
+            commandType: "generate",
+            prompt: "Translate to spanish the following content: \n",
             command: async ({ editor, range, fetchData }) => {
               let content = await fetchData(
                 `Translate to spanish the following content: \n ${editor.getText()}`
@@ -94,6 +107,8 @@ export const MENU_ITEMS = [
           {
             title: "Chinese",
             Icon: null,
+            commandType: "generate",
+            prompt: "Translate to chinese the following content: \n",
             command: async ({ editor, range, fetchData }) => {
               let content = await fetchData(
                 `Translate to chinese the following content: \n ${editor.getText()}`
@@ -107,6 +122,8 @@ export const MENU_ITEMS = [
       {
         title: "Explain this",
         Icon: BsQuestion,
+        commandType: "generate",
+        prompt: "Explain the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Explain the following content: \n ${editor.getText()}`
@@ -126,6 +143,8 @@ export const MENU_ITEMS = [
       {
         title: "Improve writing",
         Icon: TbWand,
+        commandType: "replace",
+        prompt: "Improve the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Improve the following content: \n ${editor.getText()}`
@@ -135,8 +154,10 @@ export const MENU_ITEMS = [
         type: "command",
       },
       {
-        title: "Fix Spelling",
+        title: "Fix spelling & Grammar",
         Icon: BsCheck,
+        commandType: "replace",
+        prompt: "Fix spelling & grammar in the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Fix Spelling in the following content: \n ${editor.getText()}`
@@ -148,6 +169,8 @@ export const MENU_ITEMS = [
       {
         title: "Make Shorter",
         Icon: MdShortText,
+        commandType: "replace",
+        prompt: "Make the content shorter for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Make the content shorter for the following content: \n ${editor.getText()}`
@@ -159,6 +182,8 @@ export const MENU_ITEMS = [
       {
         title: "Make longer",
         Icon: BsTextLeft,
+        commandType: "replace",
+        prompt: "Make the content longer for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Make the content longer for the following content: \n ${editor.getText()}`
@@ -176,6 +201,8 @@ export const MENU_ITEMS = [
           {
             title: "Professional",
             Icon: null,
+            commandType: "replace",
+            prompt: "Change tone to professional for the following content: \n",
             command: async ({ editor, range, fetchData }) => {
               let content = await fetchData(
                 `Change tone to professional for the following content: \n ${editor.getText()}`
@@ -187,6 +214,8 @@ export const MENU_ITEMS = [
           {
             title: "Casual",
             Icon: null,
+            commandType: "replace",
+            prompt: "Change tone to casual for the following content: \n",
             command: async ({ editor, range, fetchData }) => {
               let content = await fetchData(
                 `Change tone to casual for the following content: \n ${editor.getText()}`
@@ -198,6 +227,9 @@ export const MENU_ITEMS = [
           {
             title: "Straightforward",
             Icon: null,
+            commandType: "replace",
+            prompt:
+              "Change tone to straight forward for the following content: \n",
             command: async ({ editor, range, fetchData }) => {
               let content = await fetchData(
                 `Change tone to straight forward for the following content: \n ${editor.getText()}`
@@ -209,6 +241,8 @@ export const MENU_ITEMS = [
           {
             title: "Confident",
             Icon: null,
+            commandType: "replace",
+            prompt: "Change tone to confident for the following content: \n",
             command: async ({ editor, range, fetchData }) => {
               let content = await fetchData(
                 `Change tone to confident for the following content: \n ${editor.getText()}`
@@ -220,6 +254,8 @@ export const MENU_ITEMS = [
           {
             title: "Friendly",
             Icon: null,
+            commandType: "replace",
+            prompt: "Change tone to friendly for the following content: \n",
             command: async ({ editor, range, fetchData }) => {
               let content = await fetchData(
                 `Change tone to friendly for the following content: \n ${editor.getText()}`
@@ -233,6 +269,9 @@ export const MENU_ITEMS = [
       {
         title: "Simplify language",
         Icon: BsStars,
+        commandType: "replace",
+        prompt:
+          "Change tone to simplify language for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Change tone to simplify language for the following content: \n ${editor.getText()}`
@@ -253,9 +292,8 @@ export const MENU_ITEMS = [
         title: "Brainstorm Ideas..",
         commandType: "prompt",
         Icon: AiOutlineEdit,
+        prompt: "Brainstorm ideas for: \n",
         command: async ({ editor, range, setInputValue }) => {
-          console.log({ setInputValue });
-
           setInputValue(`Brainstorm ideas for: `);
           // // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
 
@@ -268,6 +306,7 @@ export const MENU_ITEMS = [
         title: "Blog Post..",
         commandType: "prompt",
         Icon: AiOutlineEdit,
+        prompt: "Write a blog post about: \n",
         command: async ({ editor, range, setInputValue }) => {
           setInputValue(`Write a blog post about: `);
         },
@@ -277,10 +316,131 @@ export const MENU_ITEMS = [
         title: "Outline..",
         commandType: "prompt",
         Icon: AiOutlineEdit,
+        prompt: "Write Outline for: \n",
         command: async ({ editor, range, setInputValue }) => {
           setInputValue(`Write Outline for: `);
         },
         type: "command",
+      },
+      {
+        title: "Social media post..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a Social Media Post for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write Social Media Post for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Press Release..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a press release for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a press release for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Creative Story..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a creative story for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a creative story for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Essay..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write an Essay for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write an essay for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "See more",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write Outline for: \n",
+        command: null,
+        type: "sub-heading",
+        items: [
+          {
+            title: "Poem..",
+            commandType: "prompt",
+            Icon: AiOutlineEdit,
+            prompt: "Write a Poem for: \n",
+            command: async ({ editor, range, setInputValue }) => {
+              setInputValue(`Write a poem for: `);
+            },
+            type: "command",
+          },
+          {
+            title: "To-do list..",
+            commandType: "prompt",
+            Icon: AiOutlineEdit,
+            prompt: "Write a to-do list for: \n",
+            command: async ({ editor, range, setInputValue }) => {
+              setInputValue(`Write a to-do list for: `);
+            },
+            type: "command",
+          },
+          {
+            title: "Meeting agenda..",
+            commandType: "prompt",
+            Icon: AiOutlineEdit,
+            prompt: "Write a meeting agenda for: \n",
+            command: async ({ editor, range, setInputValue }) => {
+              setInputValue(`Write a meeting agenda for: `);
+            },
+            type: "command",
+          },
+          {
+            title: "Pros and cons list..",
+            commandType: "prompt",
+            Icon: AiOutlineEdit,
+            prompt: "Write a pros and cons list for: \n",
+            command: async ({ editor, range, setInputValue }) => {
+              setInputValue(`Write a pros and cons list for: `);
+            },
+            type: "command",
+          },
+          {
+            title: "Job Description..",
+            commandType: "prompt",
+            Icon: AiOutlineEdit,
+            prompt: "Write a job description for: \n",
+            command: async ({ editor, range, setInputValue }) => {
+              setInputValue(`Write a job description for: `);
+            },
+            type: "command",
+          },
+          {
+            title: "Sales email..",
+            commandType: "prompt",
+            Icon: AiOutlineEdit,
+            prompt: "Write a sales email for: \n",
+            command: async ({ editor, range, setInputValue }) => {
+              setInputValue(`Write a Sales email for: `);
+            },
+            type: "command",
+          },
+          {
+            title: "Recruiting email..",
+            commandType: "prompt",
+            Icon: AiOutlineEdit,
+            prompt: "Write a recruiting email for: \n",
+            command: async ({ editor, range, setInputValue }) => {
+              setInputValue(`Write a recruiting email for: `);
+            },
+            type: "command",
+          },
+        ],
       },
     ],
   },
@@ -314,6 +474,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Continue writing",
         Icon: AiOutlineEdit,
+        commandType: "generate",
+        prompt: "Continue writing the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Continue writing the following content: \n ${editor.getText()}`
@@ -333,6 +495,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Summarize",
         Icon: TbBlockquote,
+        commandType: "generate",
+        prompt: "Summarize the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Summarize the following content: \n ${editor.getText()}`
@@ -344,6 +508,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Find action Items",
         Icon: BsListCheck,
+        commandType: "generate",
+        prompt: "Find action items in the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Continue writing the following content: \n ${editor.getText()}`
@@ -356,6 +522,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Explain this",
         Icon: BsQuestion,
+        commandType: "generate",
+        prompt: "Explain the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Explain the following content: \n ${editor.getText()}`
@@ -375,6 +543,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Improve writing",
         Icon: TbWand,
+        commandType: "replace",
+        prompt: "Improve the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Improve the following content: \n ${editor.getText()}`
@@ -384,8 +554,10 @@ export const SEARCHABLE_MENU_ITEMS = [
         type: "command",
       },
       {
-        title: "Fix Spelling",
+        title: "Fix Spelling & Grammar",
         Icon: BsCheck,
+        commandType: "replace",
+        prompt: "Fix spelling & Grammar in the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Fix Spelling in the following content: \n ${editor.getText()}`
@@ -397,6 +569,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Make Shorter",
         Icon: MdShortText,
+        commandType: "replace",
+        prompt: "Make the content shorter for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Make the content shorter for the following content: \n ${editor.getText()}`
@@ -408,6 +582,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Make longer",
         Icon: BsTextLeft,
+        commandType: "replace",
+        prompt: "Make the content longer for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Make the content longer for the following content: \n ${editor.getText()}`
@@ -420,6 +596,9 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Simplify language",
         Icon: null,
+        commandType: "replace",
+        prompt:
+          "Change tone to simplify language for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Change tone to simplify language for the following content: \n ${editor.getText()}`
@@ -440,9 +619,8 @@ export const SEARCHABLE_MENU_ITEMS = [
         title: "Brainstorm Ideas..",
         commandType: "prompt",
         Icon: AiOutlineEdit,
+        prompt: "Brainstorm ideas for: \n",
         command: async ({ editor, range, setInputValue }) => {
-          console.log({ setInputValue });
-
           setInputValue(`Brainstorm ideas for: `);
           // // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
 
@@ -455,6 +633,7 @@ export const SEARCHABLE_MENU_ITEMS = [
         title: "Blog Post..",
         commandType: "prompt",
         Icon: AiOutlineEdit,
+        prompt: "Write a blog post about: \n",
         command: async ({ editor, range, setInputValue }) => {
           setInputValue(`Write a blog post about: `);
         },
@@ -464,8 +643,119 @@ export const SEARCHABLE_MENU_ITEMS = [
         title: "Outline..",
         commandType: "prompt",
         Icon: AiOutlineEdit,
+        prompt: "Write Outline for: \n",
         command: async ({ editor, range, setInputValue }) => {
           setInputValue(`Write Outline for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Social media post..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a Social Media Post for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write Social Media Post for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Press Release..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a press release for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a press release for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Creative Story..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a creative story for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a creative story for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Essay..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write an Essay for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write an essay for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Poem..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a Poem for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a poem for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "To-do list..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a to-do list for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a to-do list for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Meeting agenda..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a meeting agenda for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a meeting agenda for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Pros and cons list..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a pros and cons list for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a pros and cons list for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Job Description..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a job description for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a job description for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Sales email..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a sales email for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a Sales email for: `);
+        },
+        type: "command",
+      },
+      {
+        title: "Recruiting email..",
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Write a recruiting email for: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Write a recruiting email for: `);
         },
         type: "command",
       },
@@ -480,6 +770,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Professional",
         Icon: null,
+        commandType: "replace",
+        prompt: "Change tone to professional for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Change tone to professional for the following content: \n ${editor.getText()}`
@@ -491,6 +783,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Casual",
         Icon: null,
+        commandType: "replace",
+        prompt: "Change tone to casual for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Change tone to casual for the following content: \n ${editor.getText()}`
@@ -502,6 +796,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Straightforward",
         Icon: null,
+        commandType: "replace",
+        prompt: "Change tone to straight forward for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Change tone to straight forward for the following content: \n ${editor.getText()}`
@@ -513,6 +809,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Confident",
         Icon: null,
+        commandType: "replace",
+        prompt: "Change tone to confident for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Change tone to confident for the following content: \n ${editor.getText()}`
@@ -524,6 +822,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Friendly",
         Icon: null,
+        commandType: "replace",
+        prompt: "Change tone to friendly for the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Change tone to friendly for the following content: \n ${editor.getText()}`
@@ -543,6 +843,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Spanish",
         Icon: null,
+        commandType: "replace",
+        prompt: "Translate to spanish the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Translate to spanish the following content: \n ${editor.getText()}`
@@ -554,6 +856,8 @@ export const SEARCHABLE_MENU_ITEMS = [
       {
         title: "Chinese",
         Icon: null,
+        commandType: "replace",
+        prompt: "Translate to chinese the following content: \n",
         command: async ({ editor, range, fetchData }) => {
           let content = await fetchData(
             `Translate to chinese the following content: \n ${editor.getText()}`
@@ -572,9 +876,37 @@ export const SEARCHABLE_MENU_ITEMS_FLATTENED = flattenMenuItems(
 
 export const FINISHED_MENU_ITEMS = [
   {
-    title: "Done",
+    title: "Replace Selection",
     Icon: MdDone,
     type: "command",
+    commandType: "replace",
+    command: async ({
+      editor,
+      range,
+      fetchData,
+      from,
+      to,
+      pos,
+      content,
+      setContent,
+      deleteNode,
+    }) => {
+      editor.commands.insertContentAt(
+        pos,
+        //props.getPos(),
+        content
+      );
+      deleteNode();
+      setContent("");
+      // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
+    },
+  },
+  {
+    title: "Insert Below",
+    Icon: RiPlayListAddFill,
+    type: "command",
+    commandType: "replace",
+
     command: async ({
       editor,
       range,
@@ -584,7 +916,6 @@ export const FINISHED_MENU_ITEMS = [
       setContent,
       deleteNode,
     }) => {
-      console.log(editor);
       editor.commands.insertContentAt(
         pos,
         //props.getPos(),
@@ -599,6 +930,7 @@ export const FINISHED_MENU_ITEMS = [
     title: "Try Again",
     Icon: AiOutlineReload,
     type: "command",
+    commandType: "replace",
     command: async ({ editor, range, fetchData, content }) => {
       // update fetch content
       await fetchData(`Try again and write about :${content}`);
@@ -609,6 +941,8 @@ export const FINISHED_MENU_ITEMS = [
   {
     title: "Make Longer",
     Icon: BsTextLeft,
+    commandType: "replace",
+    prompt: "Make the following content longer: \n",
     command: async ({ editor, range, fetchData, content }) => {
       await fetchData(`Make the following content longer: \n ${content}`);
       // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
@@ -618,6 +952,8 @@ export const FINISHED_MENU_ITEMS = [
   {
     title: "Make Shorter",
     Icon: MdShortText,
+    commandType: "replace",
+    prompt: "Make the following content shorter: \n",
     command: async ({ editor, range, fetchData, content }) => {
       await fetchData(`Make the following content shorter: \n ${content}`);
       // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
@@ -627,6 +963,7 @@ export const FINISHED_MENU_ITEMS = [
   {
     title: "Delete",
     Icon: BsTrash3,
+    commandType: "delete",
     command: async ({
       editor,
       range,

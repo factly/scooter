@@ -1,3 +1,4 @@
+import { BsMagic } from "react-icons/bs";
 import {
   RiBold,
   RiItalic,
@@ -26,7 +27,35 @@ import {
   RiDeleteBinLine,
 } from "react-icons/ri";
 
-export const getTextMenuOptions = ({ editor, setIsLinkOptionActive }) => [
+export const getTextMenuOptions = ({
+  editor,
+  setIsLinkOptionActive,
+  isAIOptionsActive,
+}) => [
+  {
+    Icon: BsMagic,
+    command: props => {
+      const {
+        view: { state },
+      } = editor;
+
+      const { from, to } = state.selection;
+      const text = state.doc.textBetween(from, to, " ");
+      editor
+        .chain()
+        .focus()
+        .insertContentAt(
+          from + editor.view.state.doc.nodeAt(from).nodeSize + 1,
+          {
+            type: "tagore",
+            attrs: { content: text, type: "float", from, to },
+          }
+        )
+        .run();
+    },
+    active: editor.isActive("tagore"),
+    optionName: "ask-ai",
+  },
   {
     Icon: RiBold,
     command: () => editor.chain().focus().toggleBold().run(),

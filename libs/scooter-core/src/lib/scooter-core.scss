@@ -1180,6 +1180,7 @@ body *::before {
   inset: 0px auto auto 0px;
   margin: 0px;
   border-radius: 2px;
+  margin-left: 16px;
 }
 .scooter-editor-slash-commands__wrapper::-webkit-scrollbar {
   width: 4px;
@@ -2474,8 +2475,25 @@ code {
   // right: 0;
 }
 
+.node-tagore {
+  position: relative;
+}
 .react-component {
+  background: white;
+  z-index: 999;
+  position: relative;
+
   margin: 1rem 0;
+  &.float-tagore {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 32px;
+    .content {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  }
   .generated-content {
     margin-bottom: 1rem;
   }
@@ -2499,8 +2517,8 @@ code {
 
   .content {
     background: #fff;
-    border: 3px solid #9d9ccc;
-    border: 3px solid #37352f14;
+    // border: 3px solid #9d9ccc;
+    // border: 3px solid #37352f14;
     border-radius: 0.5rem;
     margin-top: 1.5rem;
     padding: 1rem;
@@ -2520,12 +2538,18 @@ code {
         }
       }
     }
+    .icon {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+    }
   }
   .tagore-input {
     width: 100%;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.1),
       0px 4px 8px rgba(0, 0, 0, 0.1), 0px 8px 16px rgba(0, 0, 0, 0.1);
     padding: 0.75rem 1rem;
+    padding-left: 2.5rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
     outline: none;
@@ -2548,4 +2572,12 @@ code {
       padding: 0.25rem 0.5rem;
     }
   }
+}
+
+#react-refresh-overlay {
+  height: 40% !important;
+  width: 40vw !important;
+  min-height: 0 !important;
+  right: 0 !important;
+  left: auto !important;
 }

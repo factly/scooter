@@ -22,6 +22,7 @@ import { BiChip } from "react-icons/bi";
 export const EDITOR_OPTIONS = {
   // DEFAULT EDITOR OPTIONS
   FONT_COLOR: "font-color",
+  ASK_AI: "ask-ai",
   BOLD: "bold",
   ITALIC: "italic",
   UNDERLINE: "underline",

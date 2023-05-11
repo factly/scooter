@@ -10,41 +10,60 @@ import {
 } from "./constants";
 import Tippy from "@tippyjs/react";
 import { BiUpArrow, BiUpArrowAlt, BiUpArrowCircle } from "react-icons/bi";
+import { TbWand } from "react-icons/tb";
+import { BsStars } from "react-icons/bs";
 
 export const TagoreComponent = props => {
-  console.log({ props });
   const {
     editor,
     node,
     menuIndex = 0,
     extension: {
-      options: { apiUrl = "http://localhost:8080" },
+      options: {
+        // apiUrl = "http://localhost:8080",
+        // userId = "20",
+        menuItems = {},
+        //systemPrompt=` Return the response as a valid HTML without html, head or body tags`,
+        fetcher,
+      } = {},
     },
   } = props;
+
+  const { content: selectedContent, type, to, from } = node.attrs;
+
   const [inputValue, setInputValue] = React.useState("");
   const inputRef = React.useRef(null);
   const [generated, setGenerated] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   const [content, setContent] = React.useState("");
   const [activeMenuIndex, setActiveMenuIndex] = React.useState(0);
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [items, setItems] = React.useState(
-    filterByTitle(MENU_ITEMS, "", editor.getText().length > 15)
+    filterByTitle(
+      menuItems.MENU ? [...MENU_ITEMS, ...menuItems.MENU] : MENU_ITEMS,
+      "",
+      editor.getText().length > 15
+    )
   );
   const [loading, setLoading] = React.useState(false);
   const [showImprovingOptions, setShowImprovingOptions] = React.useState(false);
 
   React.useEffect(() => {
     const { node, editor } = props;
-    const { content } = node.attrs;
-    content && setContent(content);
+    // const { content } = node.attrs;
+    // content && setContent(content);
     setShowImprovingOptions(editor.getText().length > 15);
   }, [props]);
 
   React.useEffect(() => {
     // if content is present and is not loading, then set menu items
     if (content && !loading) {
-      setItems(FINISHED_MENU_ITEMS);
+      setItems(
+        menuItems.FINISHED
+          ? [...FINISHED_MENU_ITEMS, ...menuItems.FINISHED]
+          : FINISHED_MENU_ITEMS
+      );
       showMenu();
     }
   }, [content, loading]);
@@ -59,21 +78,25 @@ export const TagoreComponent = props => {
   async function fetchData(input) {
     try {
       setLoading(true);
+      setError(null);
       setContent("");
-      const response = await axios.post(
-        `${apiUrl}/prompts/generate`,
-        { input: input || inputValue, max_tokens: 200 },
-        { headers: { "X-User": "20" } }
-      );
-      setContent(response.data.output);
-      hideMenu();
+      const data = await fetcher(content ? content : input || inputValue);
+
+      // axios.post(
+      //   `${apiUrl}/prompts/generate`,
+      //   { input: `${input || inputValue}\n ${systemPrompt}`, max_tokens: 200 },
+      //   { headers: { "X-User": userId } }
+      // );
+      // setContent();
+
       setLoading(false);
       setGenerated(true);
       setInputValue("");
-      return response.data;
+      return data;
     } catch (error) {
       hideMenu();
       setLoading(false);
+      setError(error);
       console.log("Couldn't fetch data");
     }
   }
@@ -125,12 +148,17 @@ export const TagoreComponent = props => {
   }
 
   const handleChange = e => {
-    console.log({ generated });
     // if enterkey is clicked fetchData
 
     setInputValue(e.target.value);
     if (e.target.value.length === 0) {
-      const filterItems = generated ? FINISHED_MENU_ITEMS : MENU_ITEMS;
+      const filterItems = generated
+        ? menuItems.FINISHED
+          ? [...FINISHED_MENU_ITEMS, ...menuItems.FINISHED]
+          : FINISHED_MENU_ITEMS
+        : menuItems.MENU
+        ? [...MENU_ITEMS, ...menuItems.MENU]
+        : MENU_ITEMS;
       const filteredItems = filterByTitle(
         filterItems,
         e.target.value,
@@ -139,7 +167,14 @@ export const TagoreComponent = props => {
       setItems(filteredItems);
       return;
     }
-    const filterItems = generated ? FINISHED_MENU_ITEMS : SEARCHABLE_MENU_ITEMS;
+    const filterItems = generated
+      ? menuItems.FINISHED
+        ? [...FINISHED_MENU_ITEMS, ...menuItems.FINISHED]
+        : FINISHED_MENU_ITEMS
+      : menuItems.SEARCHABLE
+      ? [...SEARCHABLE_MENU_ITEMS, ...menuItems.SEARCHABLE]
+      : SEARCHABLE_MENU_ITEMS;
+
     const filteredItems = filterByTitle(
       filterItems,
       e.target.value,
@@ -148,14 +183,40 @@ export const TagoreComponent = props => {
     setItems(filteredItems);
   };
 
-  const handleEnter = e => {
+  const handleEnter = async e => {
     if (e.key === "Enter") {
-      fetchData();
+      const data = await fetchData();
+      editor.commands.insertContentAt(
+        props.getPos(),
+        //props.getPos(),
+        `${data.output}`
+      );
+
+      hideMenu();
+      props.deleteNode();
+      setContent("");
+    }
+    if (e.key === "Escape") {
+      hideMenu();
+      // props.deleteNode();
+      // setContent("");
+      if (!menuOpen) {
+        props.deleteNode();
+      }
     }
   };
 
-  const handleSubmit = () => {
-    fetchData();
+  const handleSubmit = async () => {
+    const data = await fetchData();
+    editor.commands.insertContentAt(
+      props.getPos(),
+      //props.getPos(),
+      `${data.output}`
+    );
+
+    hideMenu();
+    props.deleteNode();
+    setContent("");
   };
 
   const showMenu = () => {
@@ -166,15 +227,50 @@ export const TagoreComponent = props => {
     setMenuOpen(false);
   };
 
+  const getPosition = () => {
+    const { view } = props.editor;
+
+    if (view.state.selection.empty) return null;
+    const { from, to } = view.state.selection;
+    const start = view.coordsAtPos(from);
+    const end = view.coordsAtPos(to);
+    const box = view.dom.offsetParent.getBoundingClientRect();
+    const avgLeft = Math.max((start.left + end.left) / 2, start.left + 3);
+    return {
+      left: 16,
+      bottom: -25, // end.top - 25 // - 275 to send it to the top
+    };
+  };
+
+  //getPosition();
+
   return (
-    <NodeViewWrapper className="react-component">
+    <NodeViewWrapper
+      className={
+        type === "float" ? "react-component float-tagore" : "react-component"
+      }
+      style={{
+        transform: `translate(${getPosition()?.left}px, ${
+          getPosition()?.bottom
+        }px)`,
+      }}
+    >
+      {/* { console.log(`translate(${getPosition()?.left}px, ${getPosition()?.bottom}px)`)} */}
       <div className="content">
         <div
           className="generated-content"
           dangerouslySetInnerHTML={{ __html: content }}
         ></div>
+        {error && (
+          <div
+            className="generated-content"
+            dangerouslySetInnerHTML={{ __html: "try again" }}
+          ></div>
+        )}
+
         {loading && <div className="generated-content">Generating...</div>}
         <div className="tagore-input-container">
+          <BsStars className="icon" size={"1rem"} />
           <input
             className="tagore-input"
             value={inputValue}
@@ -188,7 +284,7 @@ export const TagoreComponent = props => {
           />
           <button
             onClick={handleSubmit}
-            className={inputValue.length > 0 ? "active" : ""}
+            className={inputValue?.length > 0 ? "active" : ""}
           >
             <BiUpArrowCircle size={"1.5rem"} />
           </button>
@@ -212,10 +308,14 @@ export const TagoreComponent = props => {
           setInputValue={setInputValue}
           fetchData={fetchData}
           setContent={setContent}
+          selectedContent={selectedContent}
+          to={to}
+          from={from}
           pos={props.getPos()}
           content={content}
           deleteNode={props.deleteNode}
           hideMenu={hideMenu}
+          showMenu={showMenu}
         />
       )}
     </NodeViewWrapper>
