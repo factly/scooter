@@ -41,16 +41,17 @@ export const getTextMenuOptions = ({
 
       const { from, to } = state.selection;
       const text = state.doc.textBetween(from, to, " ");
+
+      const nodePos = state.selection.$to.nodeAfter
+        ? state.selection.$to.nodeAfter.nodeSize + to
+        : to;
       editor
         .chain()
         .focus()
-        .insertContentAt(
-          from + editor.view.state.doc.nodeAt(from).nodeSize + 1,
-          {
-            type: "tagore",
-            attrs: { content: text, type: "float", from, to },
-          }
-        )
+        .insertContentAt(nodePos, {
+          type: "tagore",
+          attrs: { content: text, type: "float", from, to },
+        })
         .run();
     },
     active: editor.isActive("tagore"),

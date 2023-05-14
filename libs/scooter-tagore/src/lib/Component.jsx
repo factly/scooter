@@ -105,17 +105,58 @@ export const TagoreComponent = props => {
     if (title.length === 0 && showImprovingOptions) return arr;
     if (!showImprovingOptions) {
       const draftWithAiArray = arr.filter(item =>
-        item.title.toLowerCase().includes("draft with ai")
+        item.searchTags.some(tag => tag.toLowerCase().includes("draft with ai"))
       );
       // console.log({draftWithAiArray})
       const result = draftWithAiArray[0]
         ? [...draftWithAiArray, ...draftWithAiArray[0].items]
         : draftWithAiArray;
-      return result;
+
+      const filteredResults = result.reduce((acc, obj) => {
+        if (
+          obj.searchTags.some(tag =>
+            tag.toLowerCase().includes(title.toLowerCase())
+          )
+        ) {
+          // If the object's title matches the filter, filter its nested items recursively
+          const filteredItems = obj.items; //? filterByTitle(obj.items, title) : null;
+
+          // If the object or any of its nested items match the filter, add it to the result array
+          if (filteredItems !== null) {
+            acc.push({
+              ...obj,
+              items: filteredItems,
+            });
+          }
+        } else if (Array.isArray(obj.items)) {
+          // If the object's title doesn't match the filter but it has nested items,
+          // filter the nested items recursively and add them to a new copy of the object
+          const filteredItems = filterByTitle(
+            obj.items,
+            title,
+            editor.getText().length > 15
+          );
+
+          if (filteredItems.length > 0) {
+            acc.push({
+              ...obj,
+              items: filteredItems,
+            });
+          }
+        }
+
+        return acc;
+      }, []);
+
+      return filteredResults;
     }
 
     return arr.reduce((acc, obj) => {
-      if (obj.title.toLowerCase().includes(title.toLowerCase())) {
+      if (
+        obj.searchTags.some(tag =>
+          tag.toLowerCase().includes(title.toLowerCase())
+        )
+      ) {
         // If the object's title matches the filter, filter its nested items recursively
         const filteredItems = obj.items; //? filterByTitle(obj.items, title) : null;
 
