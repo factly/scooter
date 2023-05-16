@@ -105,9 +105,8 @@ export const TagoreComponent = props => {
     if (title.length === 0 && showImprovingOptions) return arr;
     if (!showImprovingOptions) {
       const draftWithAiArray = arr.filter(item =>
-        item.searchTags.some(tag => tag.toLowerCase().includes("draft with ai"))
+        item.title.toLowerCase().includes("draft with ai")
       );
-      // console.log({draftWithAiArray})
       const result = draftWithAiArray[0]
         ? [...draftWithAiArray, ...draftWithAiArray[0].items]
         : draftWithAiArray;
@@ -131,11 +130,7 @@ export const TagoreComponent = props => {
         } else if (Array.isArray(obj.items)) {
           // If the object's title doesn't match the filter but it has nested items,
           // filter the nested items recursively and add them to a new copy of the object
-          const filteredItems = filterByTitle(
-            obj.items,
-            title,
-            editor.getText().length > 15
-          );
+          const filteredItems = filterByTitle(obj.items, title, true);
 
           if (filteredItems.length > 0) {
             acc.push({

@@ -32,7 +32,6 @@ import Typography from "./Typography/EditorConfig";
 // import InsertRawHTML from './InsertRawHTML';
 import { TagoreCommandsExtension } from "@factly/scooter-tagore";
 import { AiOutlineEdit } from "react-icons/ai";
-import axios from "axios";
 
 const useCustomExtensions = ({
   forceTitle,

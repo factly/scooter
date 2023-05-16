@@ -42,56 +42,20 @@ export const TagoreCommandsExtension = Node.create({
   addCommands() {
     return {
       setTagoreContent: options => props => {
-        const { state, view } = props;
+        const { state } = props;
+        const { from, to } = state.selection;
 
-        // props.view.state.selection
-        // const node = props.editor.state.schema.nodes.paragraph.create(
-        //   { content: "replaced content" }
-        // );
-        // console.log({ node })
-        const { from, to } = props.view.state.selection;
-        // props.editor.chain().focus().insertContentAt({
-        //   from: selection.from,
-        //   to: selection.to
-        // }, "").insertContentAt(selection.from, 'Replaced content').run();
         const text = state.doc.textBetween(from, to, " ");
 
-        // const node = props.editor.state.schema.nodes.tagore.create(
-        //   { content: "replaced content" }
-        // );
-        // if (state.selection) {
-        //   let node = view.nodeDOM(from)
-        //   console.log()
+        const nodePos = state.selection.$to.nodeAfter
+          ? state.selection.$to.nodeAfter.nodeSize + to
+          : to;
 
-        //   // const nodeViewWrapper = node?.dataset?.nodeViewWrapper ? node : node.querySelector('[data-node-view-wrapper]')
+        props.commands.insertContentAt(nodePos, {
+          type: "tagore",
+          attrs: { content: text, type: "float", from, to },
+        });
 
-        //   // if (nodeViewWrapper) {
-        //   //   node = nodeViewWrapper.firstChild
-        //   // }
-
-        //   if (node) {
-        //     console.log({ rect: node.getBoundingClientRect() })
-        //     return node.getBoundingClientRect()
-        //   }
-        // }
-
-        // props.editor.commands.insertContentAt("helloooooooooo");
-        // .chain()
-        //.deleteSelection()
-        props.editor.commands
-          //.deleteRange(from, to)
-          .insertContentAt(to + 1, {
-            type: this.name,
-            attrs: { content: text, type: "float", from, to },
-          });
-        // .run();
-
-        //return posToDOMRect(view, from, to)
-
-        // return props.tr.replaceSelectionWith(node)//props.commands.insertContent({
-        //   type: this.name,
-        //   content: null,
-        // });
         return true;
       },
       setTagoreComponent: options => props => {
