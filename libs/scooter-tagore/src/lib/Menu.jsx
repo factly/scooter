@@ -174,7 +174,7 @@ export const TagoreCommandsMenu = props => {
         }
 
         const data = await fetchData(
-          `${selectedContent}`,
+          `${selectedContent?.length > 0 ? selectedContent : editor.getText()}`,
           selectedItem.promptId
         );
         if (data) {
