@@ -2485,20 +2485,18 @@ code {
 
   margin: 1rem 0;
   &.float-tagore {
-    position: absolute;
+    // position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    padding: 12px 32px;
-    .content {
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+    // padding: 12px 32px;
+    // .content {
+    //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    // }
   }
   .generated-content {
     margin-bottom: 1rem;
   }
-
-  position: relative;
 
   .label {
     background-color: #fff;

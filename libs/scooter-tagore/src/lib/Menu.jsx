@@ -18,7 +18,7 @@ const MenuItem = forwardRef(
             active: index === selectedIndex,
           }
         )}
-        onClick={selectItem}
+        onClick={() => selectItem(index)}
         ref={ref}
         data-cy={`scooter-editor-command-list-item-${index}`}
         onMouseEnter={onHover}
@@ -63,6 +63,8 @@ export const TagoreCommandsMenu = props => {
     range,
     to,
     from,
+    currentSelectedItem,
+    setCurrentSelectedItem,
   } = props;
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -99,6 +101,11 @@ export const TagoreCommandsMenu = props => {
 
   const selectItem = async index => {
     const selectedItem = items[index];
+
+    if (selectedItem.title !== "Try Again") {
+      setCurrentSelectedItem(selectedItem);
+    }
+
     const hasCommand = selectedItem && selectedItem.command;
     const hasCommandType = selectedItem && selectedItem.commandType;
     const isLeafNode = isNilOrEmpty(selectedItem.items);
@@ -116,7 +123,8 @@ export const TagoreCommandsMenu = props => {
         // );
         //  console.log("generate");
         const data = await fetchData(
-          `${selectedItem.prompt} ${editor.getText()}`
+          `${selectedContent?.length > 0 ? selectedContent : editor.getText()}`,
+          selectedItem.promptId
         );
         //   console.log({ "g": "generate", data })
         if (data) {
@@ -141,6 +149,17 @@ export const TagoreCommandsMenu = props => {
           setContent("");
           return;
         }
+        if (selectedItem.title === "Try Again") {
+          const data = await fetchData(
+            `${selectedContent}`,
+            currentSelectedItem.promptId
+          );
+          if (data) {
+            setContent(data.output);
+            showMenu();
+          }
+          return;
+        }
 
         if (selectedItem.title === "Replace Selection") {
           const pos = props.getPos();
@@ -155,7 +174,8 @@ export const TagoreCommandsMenu = props => {
         }
 
         const data = await fetchData(
-          `${selectedItem.prompt} ${selectedContent}`
+          `${selectedContent}`,
+          selectedItem.promptId
         );
         if (data) {
           //    console.log({ "g": "generate", data })
@@ -222,7 +242,9 @@ export const TagoreCommandsMenu = props => {
               key={item.title}
               className="scooter-editor-tagore-commands__section-heading"
             >
-              {item.title}
+              {selectedContent?.length > 0
+                ? item.title.replace(/page|Page/, "Selection")
+                : item.title}
             </div>
           );
         }

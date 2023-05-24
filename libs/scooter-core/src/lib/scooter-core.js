@@ -155,6 +155,19 @@ export const ScooterCore = React.forwardRef(
 
     editor && editorInstance(editor);
 
+    const checkForTagoreNodes = e => {
+      const { state } = e.contentComponent;
+
+      return (
+        state?.renderers &&
+        Object.values(state.renderers)?.filter(
+          ({ props }) => props?.node?.type.name === "tagore"
+        ).length > 0
+      );
+    };
+
+    const [isTagoreNodePresent, setIsTagoreNodePresent] = useState(false);
+
     /* Make editor object available to the parent */
     React.useImperativeHandle(ref, () => ({ editor }));
 
@@ -166,6 +179,12 @@ export const ScooterCore = React.forwardRef(
         );
       }
     }, [initialValue]);
+
+    useEffect(() => {
+      if (editor) {
+        setIsTagoreNodePresent(checkForTagoreNodes(editor));
+      }
+    }, [editor]);
 
     return (
       <ErrorWrapper error={error} isFixedMenuActive={isFixedMenuActive}>
@@ -180,7 +199,7 @@ export const ScooterCore = React.forwardRef(
             showImageInMention={showImageInMention}
           />
         )}
-        {isBubbleMenuActive && (
+        {isBubbleMenuActive && !isTagoreNodePresent && (
           <BubbleMenu editor={editor} options={addonOptions} />
         )}
         <ImageUploader

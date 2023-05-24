@@ -1,5 +1,4 @@
-import { RiBoldLine, RiPlayListAddFill } from "react-icons/ri";
-import axios from "axios";
+import { RiPlayListAddFill } from "react-icons/ri";
 import React from "react";
 import { AiOutlineEdit, AiOutlineReload } from "react-icons/ai";
 import {
@@ -14,22 +13,6 @@ import {
 import { GiMicrophone } from "react-icons/gi";
 import { TbBlockquote, TbWand } from "react-icons/tb";
 import { MdShortText, MdDone } from "react-icons/md";
-
-// async function fetchData(inputValue) {
-//   try {
-//     const response = await axios.post("http://localhost:8080/prompts/generate", { input: inputValue, max_tokens: 200 }, { headers: { 'X-User': '20' } });
-
-//     console.log({ response })
-//     return response.data;
-//   } catch (error) {
-//     console.log("Couldn't fetch data");
-//   }
-// }
-
-// TODO: Add tags for searching options
-// TODO: Ask AI icon
-// TODO: Remove border
-// TODO: Add all the options from notion
 
 export const MENU_ITEMS = [
   {
@@ -52,6 +35,7 @@ export const MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "continue-writing",
       },
     ],
   },
@@ -81,6 +65,7 @@ export const MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "summary",
       },
       {
         title: "Find action Items",
@@ -95,6 +80,7 @@ export const MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "find-action-items",
       },
       {
         title: "Translate",
@@ -116,6 +102,7 @@ export const MENU_ITEMS = [
               // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
             },
             type: "command",
+            promptId: "translate-spanish",
           },
           {
             title: "Chinese",
@@ -130,6 +117,7 @@ export const MENU_ITEMS = [
               // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
             },
             type: "command",
+            promptId: "translate-chinese",
           },
         ],
       },
@@ -146,6 +134,7 @@ export const MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "explain-this",
       },
     ],
   },
@@ -182,6 +171,7 @@ export const MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "improve-writing",
       },
       {
         title: "Fix spelling & Grammar",
@@ -196,6 +186,7 @@ export const MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "fix-spelling-and-grammar",
       },
       {
         title: "Make Shorter",
@@ -210,6 +201,7 @@ export const MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "make-shorter",
       },
       {
         title: "Make longer",
@@ -224,6 +216,7 @@ export const MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "make-longer",
       },
       {
         title: "Change tone",
@@ -245,6 +238,7 @@ export const MENU_ITEMS = [
               // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
             },
             type: "command",
+            promptId: "change-tone-professional",
           },
           {
             title: "Casual",
@@ -259,6 +253,7 @@ export const MENU_ITEMS = [
               // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
             },
             type: "command",
+            promptId: "change-tone-casual",
           },
           {
             title: "Straightforward",
@@ -274,6 +269,7 @@ export const MENU_ITEMS = [
               // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
             },
             type: "command",
+            promptId: "change-tone-straightforward",
           },
           {
             title: "Confident",
@@ -288,6 +284,7 @@ export const MENU_ITEMS = [
               // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
             },
             type: "command",
+            promptId: "change-tone-confident",
           },
           {
             title: "Friendly",
@@ -302,6 +299,7 @@ export const MENU_ITEMS = [
               // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
             },
             type: "command",
+            promptId: "change-tone-friendly",
           },
         ],
       },
@@ -319,6 +317,7 @@ export const MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "simplify-language",
       },
     ],
   },
@@ -359,6 +358,7 @@ export const MENU_ITEMS = [
           // // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "brainstorm-ideas",
       },
       {
         title: "Blog Post..",
@@ -370,6 +370,7 @@ export const MENU_ITEMS = [
           setInputValue(`Write a blog post about: `);
         },
         type: "command",
+        promptId: "blog-post",
       },
       {
         title: "Outline..",
@@ -381,6 +382,7 @@ export const MENU_ITEMS = [
           setInputValue(`Write Outline for: `);
         },
         type: "command",
+        promptId: "outline",
       },
       {
         title: "Social media post..",
@@ -392,6 +394,7 @@ export const MENU_ITEMS = [
           setInputValue(`Write Social Media Post for: `);
         },
         type: "command",
+        promptId: "social-media-post",
       },
       {
         title: "Press Release..",
@@ -403,6 +406,7 @@ export const MENU_ITEMS = [
           setInputValue(`Write a press release for: `);
         },
         type: "command",
+        promptId: "press-release",
       },
       {
         title: "Creative Story..",
@@ -414,6 +418,7 @@ export const MENU_ITEMS = [
           setInputValue(`Write a creative story for: `);
         },
         type: "command",
+        promptId: "creative-story",
       },
       {
         title: "Essay..",
@@ -425,6 +430,7 @@ export const MENU_ITEMS = [
           setInputValue(`Write an essay for: `);
         },
         type: "command",
+        promptId: "essay",
       },
       {
         title: "See more",
@@ -445,6 +451,7 @@ export const MENU_ITEMS = [
               setInputValue(`Write a poem for: `);
             },
             type: "command",
+            promptId: "poem",
           },
           {
             title: "To-do list..",
@@ -456,6 +463,7 @@ export const MENU_ITEMS = [
               setInputValue(`Write a to-do list for: `);
             },
             type: "command",
+            promptId: "to-do-list",
           },
           {
             title: "Meeting agenda..",
@@ -467,6 +475,7 @@ export const MENU_ITEMS = [
               setInputValue(`Write a meeting agenda for: `);
             },
             type: "command",
+            promptId: "meeting-agenda",
           },
           {
             title: "Pros and cons list..",
@@ -478,6 +487,7 @@ export const MENU_ITEMS = [
               setInputValue(`Write a pros and cons list for: `);
             },
             type: "command",
+            promptId: "pros-and-cons",
           },
           {
             title: "Job Description..",
@@ -489,6 +499,7 @@ export const MENU_ITEMS = [
               setInputValue(`Write a job description for: `);
             },
             type: "command",
+            promptId: "job-description",
           },
           {
             title: "Sales email..",
@@ -500,6 +511,7 @@ export const MENU_ITEMS = [
               setInputValue(`Write a Sales email for: `);
             },
             type: "command",
+            promptId: "sales-email",
           },
           {
             title: "Recruiting email..",
@@ -511,6 +523,7 @@ export const MENU_ITEMS = [
               setInputValue(`Write a recruiting email for: `);
             },
             type: "command",
+            promptId: "recruiting-email",
           },
         ],
       },
@@ -557,6 +570,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "continue-writing",
       },
     ],
   },
@@ -585,6 +599,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "summary",
       },
       {
         title: "Find action Items",
@@ -599,6 +614,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "find-action-items",
       },
 
       {
@@ -614,6 +630,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "explain-this",
       },
     ],
   },
@@ -644,6 +661,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "improve-writing",
       },
       {
         title: "Fix Spelling & Grammar",
@@ -658,6 +676,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "fix-spelling-and-grammar",
       },
       {
         title: "Make Shorter",
@@ -672,6 +691,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "make-shorter",
       },
       {
         title: "Make longer",
@@ -686,6 +706,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "make-longer",
       },
 
       {
@@ -702,6 +723,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "simplify-language",
       },
     ],
   },
@@ -742,6 +764,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "brainstorm-ideas",
       },
       {
         title: "Blog Post..",
@@ -753,6 +776,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write a blog post about: `);
         },
         type: "command",
+        promptId: "blog-post",
       },
       {
         title: "Outline..",
@@ -764,6 +788,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write Outline for: `);
         },
         type: "command",
+        promptId: "outline",
       },
       {
         title: "Social media post..",
@@ -775,6 +800,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write Social Media Post for: `);
         },
         type: "command",
+        promptId: "social-media-post",
       },
       {
         title: "Press Release..",
@@ -786,6 +812,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write a press release for: `);
         },
         type: "command",
+        promptId: "press-release",
       },
       {
         title: "Creative Story..",
@@ -797,6 +824,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write a creative story for: `);
         },
         type: "command",
+        promptId: "creative-story",
       },
       {
         title: "Essay..",
@@ -808,6 +836,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write an essay for: `);
         },
         type: "command",
+        promptId: "essay",
       },
       {
         title: "Poem..",
@@ -819,6 +848,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write a poem for: `);
         },
         type: "command",
+        promptId: "poem",
       },
       {
         title: "To-do list..",
@@ -830,6 +860,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write a to-do list for: `);
         },
         type: "command",
+        promptId: "to-do-list",
       },
       {
         title: "Meeting agenda..",
@@ -841,6 +872,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write a meeting agenda for: `);
         },
         type: "command",
+        promptId: "meeting-agenda",
       },
       {
         title: "Pros and cons list..",
@@ -852,6 +884,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write a pros and cons list for: `);
         },
         type: "command",
+        promptId: "pros-and-cons",
       },
       {
         title: "Job Description..",
@@ -863,6 +896,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write a job description for: `);
         },
         type: "command",
+        promptId: "job-description",
       },
       {
         title: "Sales email..",
@@ -874,6 +908,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write a Sales email for: `);
         },
         type: "command",
+        promptId: "sales-email",
       },
       {
         title: "Recruiting email..",
@@ -885,6 +920,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           setInputValue(`Write a recruiting email for: `);
         },
         type: "command",
+        promptId: "recruiting-email",
       },
     ],
   },
@@ -915,6 +951,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "change-tone-professional",
       },
       {
         title: "Casual",
@@ -929,6 +966,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "change-tone-casual",
       },
       {
         title: "Straightforward",
@@ -943,6 +981,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "change-tone-straightforward",
       },
       {
         title: "Confident",
@@ -957,6 +996,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "change-tone-confident",
       },
       {
         title: "Friendly",
@@ -971,6 +1011,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "change-tone-friendly",
       },
     ],
   },
@@ -994,6 +1035,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "translate-spanish",
       },
       {
         title: "Chinese",
@@ -1008,6 +1050,7 @@ export const SEARCHABLE_MENU_ITEMS = [
           // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
         },
         type: "command",
+        promptId: "translate-chinese",
       },
     ],
   },
@@ -1079,7 +1122,7 @@ export const FINISHED_MENU_ITEMS = [
     commandType: "replace",
     command: async ({ editor, range, fetchData, content }) => {
       // update fetch content
-      await fetchData(`Try again and write about :${content}`);
+      await fetchData(`${content}`);
       // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
     },
   },
@@ -1095,6 +1138,7 @@ export const FINISHED_MENU_ITEMS = [
       // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
     },
     type: "command",
+    promptId: "make-longer",
   },
   {
     title: "Make Shorter",
@@ -1107,6 +1151,7 @@ export const FINISHED_MENU_ITEMS = [
       // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
     },
     type: "command",
+    promptId: "make-shorter",
   },
   {
     title: "Delete",

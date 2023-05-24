@@ -38,7 +38,7 @@ export const TagoreComponent = props => {
 
   const [content, setContent] = React.useState("");
   const [activeMenuIndex, setActiveMenuIndex] = React.useState(0);
-  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(true);
   const [items, setItems] = React.useState(
     filterByTitle(
       menuItems.MENU ? [...MENU_ITEMS, ...menuItems.MENU] : MENU_ITEMS,
@@ -48,6 +48,7 @@ export const TagoreComponent = props => {
   );
   const [loading, setLoading] = React.useState(false);
   const [showImprovingOptions, setShowImprovingOptions] = React.useState(false);
+  const [currentSelectedItem, setCurrentSelectedItem] = React.useState(null);
 
   React.useEffect(() => {
     const { node, editor } = props;
@@ -75,12 +76,15 @@ export const TagoreComponent = props => {
     }
   }, [inputValue]);
 
-  async function fetchData(input) {
+  async function fetchData(input, selectedOption) {
     try {
       setLoading(true);
       setError(null);
       setContent("");
-      const data = await fetcher(content ? content : input || inputValue);
+      const data = await fetcher(
+        content ? `${input} ${content}` : input || inputValue.split(":")[1],
+        selectedOption
+      );
 
       // axios.post(
       //   `${apiUrl}/prompts/generate`,
@@ -221,7 +225,10 @@ export const TagoreComponent = props => {
 
   const handleEnter = async e => {
     if (e.key === "Enter") {
-      const data = await fetchData();
+      const data = await fetchData(
+        inputValue.split(":")[1],
+        currentSelectedItem.promptId
+      );
       editor.commands.insertContentAt(
         props.getPos(),
         //props.getPos(),
@@ -240,10 +247,16 @@ export const TagoreComponent = props => {
         props.deleteNode();
       }
     }
+    if (e.key === "Backspace" && inputValue.length === 0) {
+      props.deleteNode();
+    }
   };
 
   const handleSubmit = async () => {
-    const data = await fetchData();
+    const data = await fetchData(
+      inputValue.split(":")[1],
+      currentSelectedItem.promptId
+    );
     editor.commands.insertContentAt(
       props.getPos(),
       //props.getPos(),
@@ -285,11 +298,13 @@ export const TagoreComponent = props => {
       className={
         type === "float" ? "react-component float-tagore" : "react-component"
       }
-      style={{
-        transform: `translate(${getPosition()?.left}px, ${
-          getPosition()?.bottom
-        }px)`,
-      }}
+      style={
+        {
+          // transform: `translate(${getPosition()?.left}px, ${
+          //   getPosition()?.bottom
+          // }px)`,
+        }
+      }
     >
       {/* { console.log(`translate(${getPosition()?.left}px, ${getPosition()?.bottom}px)`)} */}
       <div className="content">
@@ -317,6 +332,7 @@ export const TagoreComponent = props => {
             //onBlur={}
             onSubmit={fetchData}
             ref={inputRef}
+            autoFocus={true}
           />
           <button
             onClick={handleSubmit}
@@ -352,6 +368,8 @@ export const TagoreComponent = props => {
           deleteNode={props.deleteNode}
           hideMenu={hideMenu}
           showMenu={showMenu}
+          setCurrentSelectedItem={setCurrentSelectedItem}
+          currentSelectedItem={currentSelectedItem}
         />
       )}
     </NodeViewWrapper>

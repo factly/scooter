@@ -2,9 +2,15 @@ import { mergeAttributes, Node, posToDOMRect } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 
 import Component from "./Component.jsx";
-import axios from "axios";
-import { TextSelection } from "prosemirror-state";
 
+const deleteTagoreNodes = e => {
+  const { state } = e.contentComponent;
+
+  state?.renderers &&
+    Object.values(state.renderers)
+      ?.filter(({ props }) => props?.node?.type.name == "tagore")
+      .forEach(({ props }) => props?.deleteNode());
+};
 export const TagoreCommandsExtension = Node.create({
   name: "tagore",
 
@@ -42,7 +48,8 @@ export const TagoreCommandsExtension = Node.create({
   addCommands() {
     return {
       setTagoreContent: options => props => {
-        const { state } = props;
+        const { state, editor } = props;
+
         const { from, to } = state.selection;
 
         const text = state.doc.textBetween(from, to, " ");
@@ -53,34 +60,17 @@ export const TagoreCommandsExtension = Node.create({
 
         props.commands.insertContentAt(nodePos, {
           type: "tagore",
-          attrs: { content: text, type: "float", from, to },
+          attrs: {
+            content: text,
+            type: "float",
+            from,
+            to,
+          },
         });
 
+        //   deleteTagoreNodes(editor)
+
         return true;
-      },
-      setTagoreComponent: options => props => {
-        const { state } = props;
-
-        // props.view.state.selection
-        // const node = props.editor.state.schema.nodes.paragraph.create(
-        //   { content: "replaced content" }
-        // );
-        // console.log({ node })
-        const { from, to } = props.view.state.selection;
-        // props.editor.chain().focus().insertContentAt({
-        //   from: selection.from,
-        //   to: selection.to
-        // }, "").insertContentAt(selection.from, 'Replaced content').run();
-        // create tagore node with content
-
-        props.editor.chain().focus().insertContent("hello").run();
-        //.setSelection(new TextSelection(from, to))
-        //  .insertContent([
-        //   {
-        //     type: this.name,
-        //     attrs: { content: options.content, type: options.type, from, to }
-        //   },
-        // ]);
       },
     };
   },
