@@ -127,7 +127,13 @@ export const ScooterCore = React.forwardRef(
     });
 
     const editorStyles = getEditorStyles({ heightStrategy, rows });
-
+    const removeEmptyTagoreTags = (node) => {
+      if (node.type.name === 'tagore' && node.childCount === 0) {
+        console.log("executed")
+        return false; // Ignore empty <tagore></tagore> tags
+      }
+      return true;
+    };
     const editor = useEditor({
       extensions: customExtensions,
       content: initialValue,
@@ -143,12 +149,22 @@ export const ScooterCore = React.forwardRef(
       parseOptions: {
         preserveWhitespace: true,
       },
-      onUpdate: ({ editor }) =>
+      onUpdate: ({ editor }) =>{
+        // const { state } = editor;
+        // state.doc.descendants((node, pos) => {
+        //   if (!removeEmptyTagoreTags(node)) {
+        //     editor.commands.deleteRange(pos, pos + node.nodeSize);
+        //   }
+        // });
         onChange({
           html: editor.getHTML(),
           json: editor.getJSON(),
           text: editor.getText(),
-        }),
+        })
+      }
+     
+
+       ,
       onFocus,
       onBlur,
     });

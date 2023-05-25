@@ -229,6 +229,7 @@ export const TagoreComponent = props => {
         inputValue.split(":")[1],
         currentSelectedItem.promptId
       );
+      console.log("data @@@@@@@@@@", data)
       editor.commands.insertContentAt(
         props.getPos(),
         //props.getPos(),
@@ -257,6 +258,7 @@ export const TagoreComponent = props => {
       inputValue.split(":")[1],
       currentSelectedItem.promptId
     );
+    console.log("data @@@@@@@@@@", data)
     editor.commands.insertContentAt(
       props.getPos(),
       //props.getPos(),
@@ -293,7 +295,26 @@ export const TagoreComponent = props => {
 
   //getPosition();
 
-  return (
+  const ref = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(true);
+  React.useEffect(() => {
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+  return isOpen? (
     <NodeViewWrapper
       className={
         type === "float" ? "react-component float-tagore" : "react-component"
@@ -305,6 +326,7 @@ export const TagoreComponent = props => {
           // }px)`,
         }
       }
+      ref={ref}
     >
       {/* { console.log(`translate(${getPosition()?.left}px, ${getPosition()?.bottom}px)`)} */}
       <div className="content">
@@ -373,7 +395,7 @@ export const TagoreComponent = props => {
         />
       )}
     </NodeViewWrapper>
-  );
+  ):null;
 };
 
 export default TagoreComponent;

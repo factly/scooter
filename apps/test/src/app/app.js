@@ -1,9 +1,45 @@
 import { ScooterCore } from '@factly/scooter-core';
+import { useState } from 'react';
+import axios from 'axios';
+
 export function App() {
+  const [value, setValue] = useState("<p>hello tagore</p>");
   return (
     <>
       <h1 className="">Scooter demo</h1>
-      <ScooterCore />
+      <ScooterCore 
+       initialValue={value}
+       menuType="bubble"
+       heightStrategy="flexible"
+       rows={20}
+       onChange={data => {
+         setValue(data.html);
+       }}
+       editorInstance={editor => {
+         return;
+       }}
+       tagoreConfig={{
+         fetcher: async (input, options) => {
+            const response = await axios.post(
+              `http://localhost:8080/prompts/generate`,
+              {
+                input: `${input}\n Return the response as a valid HTML without html, head or body tags`,
+                max_tokens: 200,
+              },
+              { headers: { "X-User": "20" } }
+            );
+          
+            // Handle the response here
+            console.log(response.data);
+          
+           const data = response.data;
+           console.log(data, "data from tagore")
+           return data;
+         },
+         menuItems: {},
+       }}
+      />
+       {value.toString()}
     </>
   );
 }
