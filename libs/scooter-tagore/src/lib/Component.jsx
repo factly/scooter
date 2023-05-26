@@ -18,6 +18,7 @@ export const TagoreComponent = props => {
     editor,
     node,
     menuIndex = 0,
+    deleteNode,
     extension: {
       options: {
         // apiUrl = "http://localhost:8080",
@@ -300,7 +301,8 @@ export const TagoreComponent = props => {
   React.useEffect(() => {
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
-        setIsOpen(false);
+        setIsOpen(false)
+        deleteNode();
       }
     }
 
