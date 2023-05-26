@@ -13,6 +13,7 @@ export const IFRAMELY_BASE_URL =
 
 export const EDITOR_OPTIONS = {
   // DEFAULT EDITOR OPTIONS
+  ASK_AI: "ask-ai",
   FONT_COLOR: "font-color",
   BOLD: "bold",
   ITALIC: "italic",
@@ -51,6 +52,7 @@ export const EDITOR_OPTIONS = {
 
 export const DEFAULT_EDITOR_OPTIONS = [
   EDITOR_OPTIONS.FONT_COLOR,
+  EDITOR_OPTIONS.ASK_AI,
   EDITOR_OPTIONS.BOLD,
   EDITOR_OPTIONS.ITALIC,
   EDITOR_OPTIONS.UNDERLINE,

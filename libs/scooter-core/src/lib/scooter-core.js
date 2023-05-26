@@ -127,9 +127,9 @@ export const ScooterCore = React.forwardRef(
     });
 
     const editorStyles = getEditorStyles({ heightStrategy, rows });
-    const removeEmptyTagoreTags = (node) => {
-      if (node.type.name === 'tagore' && node.childCount === 0) {
-        console.log("executed")
+    const removeEmptyTagoreTags = node => {
+      if (node.type.name === "tagore" && node.childCount === 0) {
+        console.log("executed");
         return false; // Ignore empty <tagore></tagore> tags
       }
       return true;
@@ -149,22 +149,18 @@ export const ScooterCore = React.forwardRef(
       parseOptions: {
         preserveWhitespace: true,
       },
-      onUpdate: ({ editor }) =>{
-        // const { state } = editor;
-        // state.doc.descendants((node, pos) => {
-        //   if (!removeEmptyTagoreTags(node)) {
-        //     editor.commands.deleteRange(pos, pos + node.nodeSize);
-        //   }
-        // });
-        onChange({
+      onUpdate: ({ editor }) => {
+        const a = checkForTagoreNodes(editor);
+        setIsTagoreNodePresent(a);
+
+        console.log({ editor, a });
+
+        return onChange({
           html: editor.getHTML(),
           json: editor.getJSON(),
           text: editor.getText(),
-        })
-      }
-     
-
-       ,
+        });
+      },
       onFocus,
       onBlur,
     });
@@ -173,6 +169,12 @@ export const ScooterCore = React.forwardRef(
 
     const checkForTagoreNodes = e => {
       const { state } = e.contentComponent;
+      console.log(
+        state?.renderers &&
+          Object.values(state.renderers)?.filter(
+            ({ props }) => props?.node?.type.name === "tagore"
+          ).length
+      );
 
       return (
         state?.renderers &&
@@ -198,7 +200,7 @@ export const ScooterCore = React.forwardRef(
 
     useEffect(() => {
       if (editor) {
-        setIsTagoreNodePresent(checkForTagoreNodes(editor));
+        // setIsTagoreNodePresent(checkForTagoreNodes(editor));
       }
     }, [editor]);
 

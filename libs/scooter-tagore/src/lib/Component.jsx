@@ -83,7 +83,9 @@ export const TagoreComponent = props => {
       setError(null);
       setContent("");
       const data = await fetcher(
-        content ? `${input} ${content}` : input || inputValue.split(":")[1],
+        content
+          ? `${input} ${content}`
+          : input || inputValue.split(":")[1] || inputValue,
         selectedOption
       );
 
@@ -97,7 +99,12 @@ export const TagoreComponent = props => {
       setLoading(false);
       setGenerated(true);
       setInputValue("");
-      return data;
+      const modifiedData = {
+        ...data,
+        output: data.output.replace(/\n|\t|(?<=>)\s*/g, ""),
+      };
+      console.log({ modifiedData, data });
+      return modifiedData;
     } catch (error) {
       hideMenu();
       setLoading(false);
@@ -227,14 +234,14 @@ export const TagoreComponent = props => {
   const handleEnter = async e => {
     if (e.key === "Enter") {
       const data = await fetchData(
-        inputValue.split(":")[1],
-        currentSelectedItem.promptId
+        inputValue.split(":")[1] || inputValue,
+        currentSelectedItem?.promptId || "default"
       );
-      console.log("data @@@@@@@@@@", data)
+      console.log("data @@@@@@@@@@", data);
       editor.commands.insertContentAt(
         props.getPos(),
         //props.getPos(),
-        `${data.output}`
+        `${data.output.replace(/\n|\t|(?<=>)\s*/g, "")}`
       );
 
       hideMenu();
@@ -256,14 +263,14 @@ export const TagoreComponent = props => {
 
   const handleSubmit = async () => {
     const data = await fetchData(
-      inputValue.split(":")[1],
-      currentSelectedItem.promptId
+      inputValue.split(":")[1] || inputValue,
+      currentSelectedItem?.promptId || "default"
     );
-    console.log("data @@@@@@@@@@", data)
+    console.log("data @@@@@@@@@@", data);
     editor.commands.insertContentAt(
       props.getPos(),
       //props.getPos(),
-      `${data.output}`
+      `${data.output.replace(/\n|\t|(?<=>)\s*/g, "")}`
     );
 
     hideMenu();
@@ -301,22 +308,23 @@ export const TagoreComponent = props => {
   React.useEffect(() => {
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
-        setIsOpen(false)
-        deleteNode();
+        setIsOpen(false);
       }
     }
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
+      props.deleteNode();
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
-  return isOpen? (
+
+  return (
     <NodeViewWrapper
       className={
         type === "float" ? "react-component float-tagore" : "react-component"
@@ -397,7 +405,7 @@ export const TagoreComponent = props => {
         />
       )}
     </NodeViewWrapper>
-  ):null;
+  );
 };
 
 export default TagoreComponent;

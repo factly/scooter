@@ -124,17 +124,18 @@ export const TagoreCommandsMenu = props => {
         //  console.log("generate");
         const data = await fetchData(
           `${selectedContent?.length > 0 ? selectedContent : editor.getText()}`,
-          selectedItem.promptId
+          selectedItem?.promptId || "default"
         );
         //   console.log({ "g": "generate", data })
         if (data) {
+          deleteNode();
           editor.commands.insertContentAt(
             props.getPos(),
             //props.getPos(),
-            `${data.output}`
+            `${data.output.replace(/\n|\t|(?<=>)\s*/g, "")}`
           );
           hideMenu();
-          deleteNode();
+
           setContent("");
         }
       }
@@ -152,34 +153,35 @@ export const TagoreCommandsMenu = props => {
         if (selectedItem.title === "Try Again") {
           const data = await fetchData(
             `${selectedContent}`,
-            currentSelectedItem.promptId
+            currentSelectedItem?.promptId || "default"
           );
           if (data) {
-            setContent(data.output);
+            setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
             showMenu();
           }
           return;
         }
 
         if (selectedItem.title === "Replace Selection") {
+          console.log({ content });
           const pos = props.getPos();
           editor.commands.insertContentAt(
             { from, to },
             //props.getPos(),
-            content
+            content.replace(/\n|\t|(?<=>)\s*/g, "")
           );
-          deleteNode();
+          //deleteNode();
           setContent("");
           return;
         }
 
         const data = await fetchData(
           `${selectedContent?.length > 0 ? selectedContent : editor.getText()}`,
-          selectedItem.promptId
+          selectedItem?.promptId || "default"
         );
         if (data) {
           //    console.log({ "g": "generate", data })
-          setContent(data.output);
+          setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
           showMenu();
         }
 
