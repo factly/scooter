@@ -150,16 +150,16 @@ export const ScooterCore = React.forwardRef(
         preserveWhitespace: true,
       },
       onUpdate: ({ editor }) => {
-        const a = checkForTagoreNodes(editor);
-        setIsTagoreNodePresent(a);
-
-        console.log({ editor, a });
-
         return onChange({
           html: editor.getHTML(),
           json: editor.getJSON(),
           text: editor.getText(),
         });
+      },
+      onTransaction({ editor, transaction }) {
+        const a = checkForTagoreNodes(editor);
+        setIsTagoreNodePresent(a);
+        // Transaction occurred.
       },
       onFocus,
       onBlur,
@@ -169,12 +169,6 @@ export const ScooterCore = React.forwardRef(
 
     const checkForTagoreNodes = e => {
       const { state } = e.contentComponent;
-      console.log(
-        state?.renderers &&
-          Object.values(state.renderers)?.filter(
-            ({ props }) => props?.node?.type.name === "tagore"
-          ).length
-      );
 
       return (
         state?.renderers &&

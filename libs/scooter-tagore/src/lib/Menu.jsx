@@ -6,7 +6,7 @@ import { RiArrowRightLine } from "react-icons/ri";
 import { BsArrowReturnLeft, BsArrowUpLeft } from "react-icons/bs";
 
 const MenuItem = forwardRef(
-  ({ item, selectedIndex, index, selectItem, onHover }, ref) => {
+  ({ item, selectedIndex, index, selectItem, onHover, selected }, ref) => {
     const { Icon } = item;
     const hasSubItems = item && !isNilOrEmpty(item.items);
 
@@ -25,7 +25,13 @@ const MenuItem = forwardRef(
       >
         {Icon && <Icon size={20} />}
         <div className="scooter-editor-slash-commands__item-content scooter-editor-tagore-commands__item-content">
-          <h5>{item.title}</h5>
+          <h5>
+            {item.title === "Replace Selection"
+              ? selected
+                ? item.title
+                : "Done"
+              : item.title}
+          </h5>
           <div className="tagore-command-icon">
             {hasSubItems && <RiArrowRightLine size={20} />}
             {!hasSubItems ? (
@@ -52,6 +58,8 @@ export const TagoreCommandsMenu = props => {
     inputValue,
     setInputValue,
     fetchData,
+    stream,
+    streamData,
     pos,
     deleteNode,
     content,
@@ -59,6 +67,7 @@ export const TagoreCommandsMenu = props => {
     selectedContent,
     hideMenu,
     showMenu,
+    setGenerated,
     className,
     range,
     to,
@@ -100,6 +109,7 @@ export const TagoreCommandsMenu = props => {
   };
 
   const selectItem = async index => {
+    setGenerated(false);
     const selectedItem = items[index];
 
     if (selectedItem.title !== "Try Again") {
@@ -115,31 +125,31 @@ export const TagoreCommandsMenu = props => {
         //  setInputValue(selectItem.prompt);
         setInputValue(selectedItem.prompt);
       }
-      if (hasCommandType === "generate") {
-        //   editor.commands.insertContentAt(
-        //   pos,
-        //   //props.getPos(),
-        //   content
-        // );
-        //  console.log("generate");
-        const data = await fetchData(
-          `${selectedContent?.length > 0 ? selectedContent : editor.getText()}`,
-          selectedItem?.promptId || "default"
-        );
-        //   console.log({ "g": "generate", data })
-        if (data) {
-          deleteNode();
-          editor.commands.insertContentAt(
-            props.getPos(),
-            //props.getPos(),
-            `${data.output.replace(/\n|\t|(?<=>)\s*/g, "")}`
-          );
-          hideMenu();
+      // if (hasCommandType === "generate") {
+      //   //   editor.commands.insertContentAt(
+      //   //   pos,
+      //   //   //props.getPos(),
+      //   //   content
+      //   // );
+      //   //  console.log("generate");
+      //   const data = await fetchData(
+      //     `${selectedContent?.length > 0 ? selectedContent : editor.getText()}`,
+      //     selectedItem?.promptId || "default"
+      //   );
+      //   //   console.log({ "g": "generate", data })
+      //   if (data) {
+      //     deleteNode();
+      //     editor.commands.insertContentAt(
+      //       props.getPos(),
+      //       //props.getPos(),
+      //       `${data.output.replace(/\n|\t|(?<=>)\s*/g, "")}`
+      //     );
+      //     hideMenu();
 
-          setContent("");
-        }
-      }
-      if (hasCommandType === "replace") {
+      //     setContent("");
+      //   }
+      // }
+      if (hasCommandType === "replace" || hasCommandType === "generate") {
         if (selectedItem.title === "Insert Below") {
           editor.commands.insertContentAt(
             props.getPos(),
@@ -151,38 +161,60 @@ export const TagoreCommandsMenu = props => {
           return;
         }
         if (selectedItem.title === "Try Again") {
-          const data = await fetchData(
-            `${selectedContent}`,
-            currentSelectedItem?.promptId || "default"
-          );
-          if (data) {
-            setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
-            showMenu();
+          hideMenu();
+          if (stream) {
+            streamData(
+              `${selectedContent}`,
+              currentSelectedItem?.promptId || "default",
+              showMenu
+            );
+            return;
+          } else {
+            const data = await fetchData(
+              `${selectedContent}`,
+              currentSelectedItem?.promptId || "default"
+            );
+            if (data) {
+              setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
+              showMenu();
+            }
           }
+
           return;
         }
 
         if (selectedItem.title === "Replace Selection") {
-          console.log({ content });
           const pos = props.getPos();
+          deleteNode();
           editor.commands.insertContentAt(
             { from, to },
             //props.getPos(),
             content.replace(/\n|\t|(?<=>)\s*/g, "")
           );
-          //deleteNode();
           setContent("");
           return;
         }
-
-        const data = await fetchData(
-          `${selectedContent?.length > 0 ? selectedContent : editor.getText()}`,
-          selectedItem?.promptId || "default"
-        );
-        if (data) {
-          //    console.log({ "g": "generate", data })
-          setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
-          showMenu();
+        if (stream) {
+          streamData(
+            `${
+              selectedContent?.length > 0 ? selectedContent : editor.getText()
+            }`,
+            selectedItem?.promptId || "default",
+            showMenu
+          );
+          return;
+        } else {
+          const data = await fetchData(
+            `${
+              selectedContent?.length > 0 ? selectedContent : editor.getText()
+            }`,
+            selectedItem?.promptId || "default"
+          );
+          if (data) {
+            //    console.log({ "g": "generate", data })
+            setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
+            showMenu();
+          }
         }
 
         // editor.commands.insertContentAt(
@@ -259,6 +291,7 @@ export const TagoreCommandsMenu = props => {
             selectedIndex={isCurrentMenuActive ? selectedIndex : -1}
             selectItem={() => isLeafNode && selectItem(index)}
             onHover={() => setSelectedIndex(index)}
+            selected={selectedContent?.length > 0}
           />
         );
 

@@ -82,6 +82,8 @@ export const TagoreCommandsExtension = Node.create({
       content: null,
       menuItems: {},
       fetcher: null,
+      sse: null,
+      stream: false,
     };
   },
 

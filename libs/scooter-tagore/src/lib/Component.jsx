@@ -1,5 +1,5 @@
 import { NodeViewWrapper } from "@tiptap/react";
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { Input } from "@factly/scooter-ui";
 import TagoreCommandsMenu from "./Menu";
@@ -26,6 +26,8 @@ export const TagoreComponent = props => {
         menuItems = {},
         //systemPrompt=` Return the response as a valid HTML without html, head or body tags`,
         fetcher,
+        sse,
+        stream,
       } = {},
     },
   } = props;
@@ -103,7 +105,6 @@ export const TagoreComponent = props => {
         ...data,
         output: data.output.replace(/\n|\t|(?<=>)\s*/g, ""),
       };
-      console.log({ modifiedData, data });
       return modifiedData;
     } catch (error) {
       hideMenu();
@@ -111,6 +112,49 @@ export const TagoreComponent = props => {
       setError(error);
       console.log("Couldn't fetch data");
     }
+  }
+
+  async function streamData(input, selectedOption, callback) {
+    setLoading(true);
+    setGenerated(false);
+    setError(null);
+    setContent("");
+    let source = sse(input, selectedOption);
+
+    source.addEventListener("message", event => {
+      let text = JSON.parse(event.data);
+      setContent(text.output);
+    });
+
+    source.addEventListener("error", event => {
+      source.close();
+      setLoading(false);
+      callback(); //showmenu
+
+      if (!String(event.data).includes("[DONE]")) {
+        setError(true);
+        hideMenu();
+
+        setLoading(false);
+        console.log("Couldn't fetch data");
+        return;
+      } else {
+        setGenerated(true);
+      }
+    });
+
+    source.stream();
+
+    // setLoading(false);
+
+    setInputValue("");
+
+    // catch (error) {
+    //   hideMenu();
+    //   setLoading(false);
+    //   setError(error);
+    //   console.log("Couldn't fetch data");
+    // }
   }
 
   function filterByTitle(arr, title = "", showImprovingOptions = false) {
@@ -233,20 +277,21 @@ export const TagoreComponent = props => {
 
   const handleEnter = async e => {
     if (e.key === "Enter") {
-      const data = await fetchData(
-        inputValue.split(":")[1] || inputValue,
-        currentSelectedItem?.promptId || "default"
-      );
-      console.log("data @@@@@@@@@@", data);
-      editor.commands.insertContentAt(
-        props.getPos(),
-        //props.getPos(),
-        `${data.output.replace(/\n|\t|(?<=>)\s*/g, "")}`
-      );
+      // const data = await fetchData(
+      //   inputValue.split(":")[1] || inputValue,
+      //   currentSelectedItem?.promptId || "default"
+      // );
+      // console.log("data @@@@@@@@@@", data);
+      // editor.commands.insertContentAt(
+      //   props.getPos(),
+      //   //props.getPos(),
+      //   `${data.output.replace(/\n|\t|(?<=>)\s*/g, "")}`
+      // );
 
-      hideMenu();
-      props.deleteNode();
-      setContent("");
+      // hideMenu();
+      // props.deleteNode();
+      // setContent("");
+      handleSubmit();
     }
     if (e.key === "Escape") {
       hideMenu();
@@ -261,21 +306,63 @@ export const TagoreComponent = props => {
     }
   };
 
-  const handleSubmit = async () => {
-    const data = await fetchData(
-      inputValue.split(":")[1] || inputValue,
-      currentSelectedItem?.promptId || "default"
-    );
-    console.log("data @@@@@@@@@@", data);
-    editor.commands.insertContentAt(
-      props.getPos(),
-      //props.getPos(),
-      `${data.output.replace(/\n|\t|(?<=>)\s*/g, "")}`
-    );
+  function selectElementContents(el) {
+    if (window.getSelection && document.createRange) {
+      const sel = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    } else if (document.selection && document.body.createTextRange) {
+      const textRange = document.body.createTextRange();
+      textRange.moveToElementText(el);
+      textRange.select();
+    }
+  }
 
-    hideMenu();
-    props.deleteNode();
-    setContent("");
+  const handleSubmit = async () => {
+    if (stream) {
+      setContent("");
+      setLoading(true);
+      setError(false);
+
+      let source = sse(
+        inputValue.split(":")[1] || inputValue,
+        currentSelectedItem?.promptId || "default"
+      );
+
+      source.addEventListener("message", event => {
+        let text = JSON.parse(event.data);
+        setContent(text.output);
+      });
+
+      source.addEventListener("error", event => {
+        source.close();
+        setLoading(false);
+        if (!String(event.data).includes("[DONE]")) {
+          setError(true);
+          return;
+        } else {
+          return;
+        }
+      });
+
+      source.stream();
+    } else {
+      const data = await fetchData(
+        inputValue.split(":")[1] || inputValue,
+        currentSelectedItem?.promptId || "default"
+      );
+      if (data) {
+        //    console.log({ "g": "generate", data })
+        setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
+        showMenu();
+      }
+
+      hideMenu();
+      props.deleteNode();
+      setContent("");
+    }
   };
 
   const showMenu = () => {
@@ -315,14 +402,36 @@ export const TagoreComponent = props => {
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
+      if (generated) {
+        props.editor.commands.insertContentAt(
+          { from, to },
+          //props.getPos(),
+          content.replace(/\n|\t|(?<=>)\s*/g, "")
+        );
+        props.deleteNode();
+      } else {
+        props.deleteNode();
+      }
       document.removeEventListener("mousedown", handleClickOutside);
-      props.deleteNode();
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (generated) {
+      const element = document.querySelector(".generated-content");
+      selectElementContents(element);
+    } else {
+      window.getSelection().removeAllRanges();
+    }
+
+    return () => {
+      // window.getSelection().removeAllRanges();
+    };
+  }, [generated]);
 
   return (
     <NodeViewWrapper
@@ -346,12 +455,14 @@ export const TagoreComponent = props => {
         ></div>
         {error && (
           <div
-            className="generated-content"
+            className="tagore-error-container"
             dangerouslySetInnerHTML={{ __html: "try again" }}
           ></div>
         )}
 
-        {loading && <div className="generated-content">Generating...</div>}
+        {loading && (
+          <div className="tagore-loading-container">Generating...</div>
+        )}
         <div className="tagore-input-container">
           <BsStars className="icon" size={"1rem"} />
           <input
@@ -362,7 +473,7 @@ export const TagoreComponent = props => {
             placeholder="Ask AI to write anything..."
             onFocus={showMenu}
             //onBlur={}
-            onSubmit={fetchData}
+            onSubmit={handleSubmit}
             ref={inputRef}
             autoFocus={true}
           />
@@ -391,6 +502,9 @@ export const TagoreComponent = props => {
           inputValue={inputValue}
           setInputValue={setInputValue}
           fetchData={fetchData}
+          streamData={streamData}
+          setGenerated={setGenerated}
+          stream={stream}
           setContent={setContent}
           selectedContent={selectedContent}
           to={to}
