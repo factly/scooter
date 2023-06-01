@@ -2494,7 +2494,9 @@ code {
     //   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     // }
   }
-  .generated-content {
+  .generated-content,
+  .tagore-loading-container,
+  .tagore-error-container {
     margin-bottom: 1rem;
   }
 
@@ -2578,4 +2580,9 @@ code {
   min-height: 0 !important;
   right: 0 !important;
   left: auto !important;
+}
+
+.generated-content *::selection,
+.generated-content::selection {
+  background: rgba(35, 131, 226, 0.28) !important;
 }

@@ -68,6 +68,7 @@
     "react-paginate": "^8.1.5",
     "react-popper": "^2.3.0",
     "react-router-dom": "6.10.0",
+    "sse": "https://github.com/mpetazzoni/sse.js",
     "tippy.js": "^6.3.7",
     "tslib": "^2.3.0"
   },

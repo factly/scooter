@@ -931,7 +931,7 @@ export const SEARCHABLE_MENU_ITEMS = [
       "Professional",
       "Casual",
       "Friendly",
-      " Straightforward",
+      "Straightforward",
       "Confident",
     ],
     Icon: GiMicrophone,
