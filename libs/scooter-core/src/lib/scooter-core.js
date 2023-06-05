@@ -168,6 +168,7 @@ export const ScooterCore = React.forwardRef(
     editor && editorInstance(editor);
 
     const checkForTagoreNodes = e => {
+      if (!e.contentComponent) return false;
       const { state } = e.contentComponent;
 
       return (
