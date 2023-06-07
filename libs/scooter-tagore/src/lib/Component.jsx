@@ -38,6 +38,7 @@ export const TagoreComponent = props => {
   const inputRef = React.useRef(null);
   const [generated, setGenerated] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const [sourceClient, setSourceClient] = React.useState(null);
 
   const [content, setContent] = React.useState("");
   const [activeMenuIndex, setActiveMenuIndex] = React.useState(0);
@@ -120,6 +121,7 @@ export const TagoreComponent = props => {
     setError(null);
     setContent("");
     let source = sse(input, selectedOption);
+    setSourceClient(source);
 
     source.addEventListener("message", event => {
       let text = JSON.parse(event.data);
@@ -357,11 +359,11 @@ export const TagoreComponent = props => {
         //    console.log({ "g": "generate", data })
         setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
         showMenu();
+      } else {
+        hideMenu();
+        setError(true);
+        setContent("");
       }
-
-      hideMenu();
-      props.deleteNode();
-      setContent("");
     }
   };
 
@@ -371,6 +373,13 @@ export const TagoreComponent = props => {
 
   const hideMenu = () => {
     setMenuOpen(false);
+  };
+
+  const handleStop = () => {
+    if (stream && sourceClient) {
+      sourceClient?.close();
+      setLoading(false);
+    }
   };
 
   const getPosition = () => {
@@ -477,12 +486,22 @@ export const TagoreComponent = props => {
             ref={inputRef}
             autoFocus={true}
           />
-          <button
-            onClick={handleSubmit}
-            className={inputValue?.length > 0 ? "active" : ""}
-          >
-            <BiUpArrowCircle size={"1.5rem"} />
-          </button>
+          {loading ? (
+            <button className="tagore-stop-button" onClick={handleStop}>
+              Stop
+            </button>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              className={
+                inputValue?.length > 0
+                  ? "active tagore-submit-button"
+                  : "tagore-submit-button"
+              }
+            >
+              <BiUpArrowCircle size={"1.5rem"} />
+            </button>
+          )}
         </div>
       </div>
       {/* {!loading && content.length >0 &&

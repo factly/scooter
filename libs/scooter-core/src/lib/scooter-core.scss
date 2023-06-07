@@ -2525,7 +2525,21 @@ code {
   }
   .tagore-input-container {
     position: relative;
-    button {
+    .tagore-stop-button {
+      position: absolute;
+      right: 12px;
+      top: 6px;
+      color: #37352f;
+      border-radius: 4px;
+      padding: 6px 8px;
+      border: 1px solid transparent;
+      &:hover,
+      &:focus,
+      &.active {
+        border-color: #37352f;
+      }
+    }
+    .tagore-submit-button {
       position: absolute;
       right: 12px;
       top: 6px;
