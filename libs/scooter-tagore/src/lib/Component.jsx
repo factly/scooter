@@ -123,7 +123,7 @@ export const TagoreComponent = props => {
 
     source.addEventListener("message", event => {
       let text = JSON.parse(event.data);
-      setContent(text.output);
+      setContent(text.output.replace(/\n|\t|(?<=>)\s*/g, ""));
     });
 
     source.addEventListener("error", event => {
@@ -333,7 +333,7 @@ export const TagoreComponent = props => {
 
       source.addEventListener("message", event => {
         let text = JSON.parse(event.data);
-        setContent(text.output);
+        setContent(text.output.replace(/\n|\t|(?<=>)\s*/g, ""));
       });
 
       source.addEventListener("error", event => {

@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-shared-utils",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "peerDependencies": {
     "react": "^18.0.0"
   },
