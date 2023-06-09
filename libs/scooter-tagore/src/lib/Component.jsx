@@ -53,6 +53,7 @@ export const TagoreComponent = props => {
   const [loading, setLoading] = React.useState(false);
   const [showImprovingOptions, setShowImprovingOptions] = React.useState(false);
   const [currentSelectedItem, setCurrentSelectedItem] = React.useState(null);
+  const [currentInputValue, setCurrentInputValue] = React.useState("");
 
   React.useEffect(() => {
     const { node, editor } = props;
@@ -323,15 +324,22 @@ export const TagoreComponent = props => {
   }
 
   const handleSubmit = async () => {
+    setCurrentInputValue(inputValue.split(":")[1] || inputValue);
+
+    let value = inputValue.split(":")[1] || inputValue;
+    let promptId =
+      value !== inputValue
+        ? currentSelectedItem?.promptId || "default"
+        : "default";
+
+    setCurrentSelectedItem({ promptId });
     if (stream) {
       setContent("");
       setLoading(true);
       setError(false);
 
-      let source = sse(
-        inputValue.split(":")[1] || inputValue,
-        currentSelectedItem?.promptId || "default"
-      );
+      let source = sse(value, promptId);
+      setSourceClient(source);
 
       source.addEventListener("message", event => {
         let text = JSON.parse(event.data);
@@ -351,10 +359,7 @@ export const TagoreComponent = props => {
 
       source.stream();
     } else {
-      const data = await fetchData(
-        inputValue.split(":")[1] || inputValue,
-        currentSelectedItem?.promptId || "default"
-      );
+      const data = await fetchData(value, promptId);
       if (data) {
         //    console.log({ "g": "generate", data })
         setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
@@ -535,6 +540,8 @@ export const TagoreComponent = props => {
           showMenu={showMenu}
           setCurrentSelectedItem={setCurrentSelectedItem}
           currentSelectedItem={currentSelectedItem}
+          currentInputValue={currentInputValue}
+          setCurrentInputValue={setCurrentInputValue}
         />
       )}
     </NodeViewWrapper>

@@ -1061,12 +1061,39 @@ export const SEARCHABLE_MENU_ITEMS_FLATTENED = flattenMenuItems(
 );
 
 export const FINISHED_MENU_ITEMS = [
+  // {
+  //   title: "Continue writing",
+  //   searchTags: ["Continue writing"],
+  //   Icon: AiOutlineEdit,
+  //   type: "command",
+  //   commandType: "finished",
+  //   command: async ({
+  //     editor,
+  //     range,
+  //     fetchData,
+  //     from,
+  //     to,
+  //     pos,
+  //     content,
+  //     setContent,
+  //     deleteNode,
+  //   }) => {
+  //     editor.commands.insertContentAt(
+  //       pos,
+  //       //props.getPos(),
+  //       content
+  //     );
+  //     deleteNode();
+  //     setContent("");
+  //     // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
+  //   },
+  // },
   {
     title: "Replace Selection",
     searchTags: ["Replace Selection"],
     Icon: MdDone,
     type: "command",
-    commandType: "replace",
+    commandType: "finished",
     command: async ({
       editor,
       range,
@@ -1093,7 +1120,7 @@ export const FINISHED_MENU_ITEMS = [
     searchTags: ["Insert Below"],
     Icon: RiPlayListAddFill,
     type: "command",
-    commandType: "replace",
+    commandType: "finished",
 
     command: async ({
       editor,
@@ -1119,7 +1146,7 @@ export const FINISHED_MENU_ITEMS = [
     searchTags: ["Try Again"],
     Icon: AiOutlineReload,
     type: "command",
-    commandType: "replace",
+    commandType: "finished",
     command: async ({ editor, range, fetchData, content }) => {
       // update fetch content
       await fetchData(`${content}`);
@@ -1131,7 +1158,7 @@ export const FINISHED_MENU_ITEMS = [
     title: "Make Longer",
     searchTags: ["Make Longer"],
     Icon: BsTextLeft,
-    commandType: "replace",
+    commandType: "finished",
     prompt: "Make the following content longer: \n",
     command: async ({ editor, range, fetchData, content }) => {
       await fetchData(`Make the following content longer: \n ${content}`);
@@ -1144,7 +1171,7 @@ export const FINISHED_MENU_ITEMS = [
     title: "Make Shorter",
     searchTags: ["Make Shorter"],
     Icon: MdShortText,
-    commandType: "replace",
+    commandType: "finished",
     prompt: "Make the following content shorter: \n",
     command: async ({ editor, range, fetchData, content }) => {
       await fetchData(`Make the following content shorter: \n ${content}`);

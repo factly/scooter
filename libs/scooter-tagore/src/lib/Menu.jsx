@@ -74,6 +74,8 @@ export const TagoreCommandsMenu = props => {
     from,
     currentSelectedItem,
     setCurrentSelectedItem,
+    currentInputValue,
+    setCurrentInputValue,
   } = props;
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -112,44 +114,27 @@ export const TagoreCommandsMenu = props => {
     setGenerated(false);
     const selectedItem = items[index];
 
-    if (selectedItem.title !== "Try Again") {
-      setCurrentSelectedItem(selectedItem);
-    }
-
     const hasCommand = selectedItem && selectedItem.command;
     const hasCommandType = selectedItem && selectedItem.commandType;
     const isLeafNode = isNilOrEmpty(selectedItem.items);
+
+    if (
+      selectedItem.title !== "Try Again" &&
+      hasCommandType !== "finished" &&
+      hasCommandType !== "prompt"
+    ) {
+      setCurrentSelectedItem(selectedItem);
+    }
+
     if (hasCommand && isLeafNode) {
       if (hasCommandType === "prompt") {
         //  console.log("prompt ran", selectedItem.prompt)
         //  setInputValue(selectItem.prompt);
         setInputValue(selectedItem.prompt);
       }
-      // if (hasCommandType === "generate") {
-      //   //   editor.commands.insertContentAt(
-      //   //   pos,
-      //   //   //props.getPos(),
-      //   //   content
-      //   // );
-      //   //  console.log("generate");
-      //   const data = await fetchData(
-      //     `${selectedContent?.length > 0 ? selectedContent : editor.getText()}`,
-      //     selectedItem?.promptId || "default"
-      //   );
-      //   //   console.log({ "g": "generate", data })
-      //   if (data) {
-      //     deleteNode();
-      //     editor.commands.insertContentAt(
-      //       props.getPos(),
-      //       //props.getPos(),
-      //       `${data.output.replace(/\n|\t|(?<=>)\s*/g, "")}`
-      //     );
-      //     hideMenu();
+      if (hasCommandType === "finished") {
+        let input = "";
 
-      //     setContent("");
-      //   }
-      // }
-      if (hasCommandType === "replace" || hasCommandType === "generate") {
         if (selectedItem.title === "Insert Below") {
           editor.commands.insertContentAt(
             props.getPos(),
@@ -164,14 +149,14 @@ export const TagoreCommandsMenu = props => {
           hideMenu();
           if (stream) {
             streamData(
-              `${selectedContent}`,
+              `${currentInputValue}`,
               currentSelectedItem?.promptId || "default",
               showMenu
             );
             return;
           } else {
             const data = await fetchData(
-              `${selectedContent}`,
+              `${currentInputValue}`,
               currentSelectedItem?.promptId || "default"
             );
             if (data) {
@@ -182,7 +167,6 @@ export const TagoreCommandsMenu = props => {
 
           return;
         }
-
         if (selectedItem.title === "Replace Selection") {
           const pos = props.getPos();
           deleteNode();
@@ -194,20 +178,21 @@ export const TagoreCommandsMenu = props => {
           setContent("");
           return;
         }
+        if (selectedItem.title === "Continue writing") {
+          input = `previous_content:[${content}] `;
+        }
+        if (
+          selectedItem.title === "Make Longer" ||
+          selectedItem.title === "Make Shorter"
+        ) {
+          input = content;
+        }
         if (stream) {
-          streamData(
-            `${
-              selectedContent?.length > 0 ? selectedContent : editor.getText()
-            }`,
-            selectedItem?.promptId || "default",
-            showMenu
-          );
+          streamData(`${input}`, selectedItem?.promptId || "default", showMenu);
           return;
         } else {
           const data = await fetchData(
-            `${
-              selectedContent?.length > 0 ? selectedContent : editor.getText()
-            }`,
+            `${input}`,
             selectedItem?.promptId || "default"
           );
           if (data) {
@@ -215,16 +200,41 @@ export const TagoreCommandsMenu = props => {
             setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
             showMenu();
           }
+          return;
         }
+      }
 
-        // editor.commands.insertContentAt(
-        //   props.getPos(),
-        //   //props.getPos(),
-        //   `${data.output}`
-        // );
-        // hideMenu();
-        // deleteNode();
-        // setContent("");
+      if (hasCommandType === "replace" || hasCommandType === "generate") {
+        let value =
+          selectedContent?.length > 0 ? selectedContent : editor.getText();
+        const promptId = selectedItem?.promptId || "default";
+        if (selectedItem.title === "Continue writing") {
+          const textBefore = editor?.state?.doc?.textBetween(0, pos, "") || "";
+          const textAfter =
+            editor?.state?.doc?.textBetween(
+              pos,
+              editor.state.doc.content.size,
+              ""
+            ) || "";
+
+          value =
+            selectedContent.length > 0
+              ? `previous_content:[${selectedContent}]`
+              : `previous_content:[${textBefore}] after_content:[${textAfter}]`;
+        }
+        setCurrentInputValue(value);
+        if (stream) {
+          streamData(`${value}`, promptId, showMenu);
+          return;
+        } else {
+          const data = await fetchData(`${value}`, promptId);
+          if (data) {
+            //    console.log({ "g": "generate", data })
+            setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
+            showMenu();
+          }
+          return;
+        }
       }
       if (hasCommandType === "delete") {
         setContent("");

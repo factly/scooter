@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-tagore",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "peerDependencies": {
     "react": "^18.0.0"
   },
