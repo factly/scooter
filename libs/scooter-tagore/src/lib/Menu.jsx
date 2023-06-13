@@ -117,11 +117,10 @@ export const TagoreCommandsMenu = props => {
     const hasCommand = selectedItem && selectedItem.command;
     const hasCommandType = selectedItem && selectedItem.commandType;
     const isLeafNode = isNilOrEmpty(selectedItem.items);
-
     if (
       selectedItem.title !== "Try Again" &&
-      hasCommandType !== "finished" &&
-      hasCommandType !== "prompt"
+      hasCommandType !== "finished" //&&
+      // hasCommandType !== "prompt"
     ) {
       setCurrentSelectedItem(selectedItem);
     }
@@ -218,7 +217,7 @@ export const TagoreCommandsMenu = props => {
             ) || "";
 
           value =
-            selectedContent.length > 0
+            selectedContent?.length > 0
               ? `previous_content:[${selectedContent}]`
               : `previous_content:[${textBefore}] after_content:[${textAfter}]`;
         }

@@ -6,7 +6,7 @@ import { followCursor } from "tippy.js";
 export const Tooltip = ({
   content,
   children,
-  theme = "dark",
+  theme = "light",
   disabled = false,
   placement,
   position = "auto",

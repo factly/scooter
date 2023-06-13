@@ -417,8 +417,9 @@ export const TagoreComponent = props => {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       if (generated) {
+        const pos = from && to ? { from, to } : props.getPos();
         props.editor.commands.insertContentAt(
-          { from, to },
+          pos,
           //props.getPos(),
           content.replace(/\n|\t|(?<=>)\s*/g, "")
         );
