@@ -112,10 +112,12 @@ export const BubbleMenu = ({ editor, options: textOptions }) => {
       <BubbleMenuTipTap
         editor={editor}
         tippyOptions={{
+          theme: "light",
           arrow: roundArrow,
           zIndex: 99999,
           onHide: () => setIsLinkOptionActive(false),
           placement: "top-start", // isTableSelection ? "top-start" : isRowSelection ? "left-start" : "top",
+          maxWidth: "none",
         }}
         className={classnames("scooter-editor-bubble-menu", {
           "scooter-editor-bubble-menu-animate-shake": isInvalidLink,
