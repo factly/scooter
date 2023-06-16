@@ -167,10 +167,10 @@ export const TagoreCommandsMenu = props => {
           return;
         }
         if (selectedItem.title === "Replace Selection") {
-          const pos = props.getPos();
+          const pos = from && to ? { from, to } : props.getPos();
           deleteNode();
           editor.commands.insertContentAt(
-            { from, to },
+            pos,
             //props.getPos(),
             content.replace(/\n|\t|(?<=>)\s*/g, "")
           );
