@@ -9,6 +9,19 @@ export const ClaimExtension = Node.create({
   group: "block",
 
   atom: true,
+  addAttributes() { 
+    return {
+          id: {
+            default: null,
+            parseHTML: element => element.getAttribute('id')
+          },
+          order: {
+            default: null,
+            parseHTML: element => element.getAttribute('order')
+          },
+        }
+
+  },
   parseHTML() {
     return [
       {
@@ -16,7 +29,7 @@ export const ClaimExtension = Node.create({
       },
     ];
   },
-
+ 
   renderHTML({ HTMLAttributes }) {
     return ["claim", mergeAttributes(HTMLAttributes)];
   },

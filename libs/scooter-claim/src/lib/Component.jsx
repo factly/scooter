@@ -8,6 +8,7 @@ const Claim = ({
   moveClaim = () => {},
   isTop = true,
   isBottom = true,
+  ...props
 }) => {
   return (
     <NodeViewWrapper>
