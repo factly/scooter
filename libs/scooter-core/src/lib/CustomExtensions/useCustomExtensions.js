@@ -31,6 +31,8 @@ import Typography from "./Typography/EditorConfig";
 // import Variable from './Variable/ExtensionConfig';
 // import InsertRawHTML from './InsertRawHTML';
 import { TagoreCommandsExtension } from "@factly/scooter-tagore";
+import { ClaimsExtension } from "@factly/scooter-claims";
+import { ClaimExtension } from "@factly/scooter-claim";
 import { AiOutlineEdit } from "react-icons/ai";
 
 const useCustomExtensions = ({
@@ -95,6 +97,8 @@ const useCustomExtensions = ({
     TableRow,
     TableHeadCell,
     TableCell,
+    ClaimExtension,
+    ClaimsExtension,
     TagoreCommandsExtension.configure({
       apiUrl: tagoreEndpoint,
       userId,

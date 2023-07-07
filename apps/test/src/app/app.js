@@ -4,7 +4,10 @@ import axios from "axios";
 export function App() {
   //<div data-type='embed' class='embed-wrapper'><div style='left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.5%;'><iframe src='https://www.youtube.com/embed/7OO5uGvNZpM?feature=oembed' style='border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;' allowfullscreen='' scrolling='no' allow='encrypted-media; accelerometer; clipboard-write; gyroscope; picture-in-picture'></iframe></div></div><p>hello</p><img src='https://pbs.twimg.com/media/FqAnDvEWAAIXd6l?format=jpg&name=medium' style='background: red;' /><ol class='yo'><li>1.</li><li>hello</li><li>hello</li></ol>
   const [value, setValue] = useState(
-    `
+    `<claims>
+    <claim> </claim>
+    <claim> </claim>
+    <claims>
     <h1>How to Enjoy India's Beautiful Tourism</h1>
     <ul>
         <li>Introduction
