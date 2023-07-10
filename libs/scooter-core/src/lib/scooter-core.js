@@ -67,6 +67,7 @@ export const ScooterCore = React.forwardRef(
       tagoreEndpoint,
       userId,
       tagoreConfig,
+      meta , 
       ...otherProps
     },
     ref
@@ -90,6 +91,7 @@ export const ScooterCore = React.forwardRef(
     });
 
     const customExtensions = useCustomExtensions({
+      meta,
       contentClassName,
       forceTitle,
       placeholder,

@@ -31,7 +31,7 @@ export const ClaimExtension = Node.create({
   },
  
   renderHTML({ HTMLAttributes }) {
-    return ["claim", mergeAttributes(HTMLAttributes)];
+    return ["claim", mergeAttributes(HTMLAttributes),0];
   },
 
   addNodeView() {

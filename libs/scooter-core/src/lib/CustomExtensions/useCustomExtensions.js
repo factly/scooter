@@ -36,6 +36,7 @@ import { ClaimExtension } from "@factly/scooter-claim";
 import { AiOutlineEdit } from "react-icons/ai";
 
 const useCustomExtensions = ({
+  meta = {},
   forceTitle,
   placeholder,
   extensions,
@@ -97,7 +98,9 @@ const useCustomExtensions = ({
     TableRow,
     TableHeadCell,
     TableCell,
-    ClaimExtension,
+    ClaimExtension.configure({
+      claims : meta?.claims??{},
+    }),
     ClaimsExtension,
     TagoreCommandsExtension.configure({
       apiUrl: tagoreEndpoint,

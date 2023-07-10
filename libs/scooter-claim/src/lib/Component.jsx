@@ -8,6 +8,11 @@ const Claim = ({
   moveClaim = () => {},
   isTop = true,
   isBottom = true,
+  extension: {
+    options: {
+     claims
+    } = {},
+  },
   ...props
 }) => {
   return (
@@ -28,7 +33,7 @@ const Claim = ({
             padding: "12px 24px",
           }}
         >
-          <h3 style={{ margin: 0 }}>{claim?.claim}</h3>
+          <h3 style={{ margin: 0 }}>{claims[props.node.attrs.id]?.claim??"Claim not found"}</h3>
           <div>
             <button
               style={{ marginRight: "5px" }}
@@ -42,7 +47,7 @@ const Claim = ({
             </button>
           </div>
         </div>
-        <div style={{ padding: "24px" }}>{claim.fact}</div>
+        <div style={{ padding: "24px" }}>{claims[props.node.attrs.id]?.fact??"fact not found"}</div>
       </div>
     </NodeViewWrapper>
   );
