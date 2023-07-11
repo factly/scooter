@@ -7,8 +7,10 @@ export const ClaimExtension = Node.create({
   name: "claim",
 
   group: "block",
+  
+  draggable: true,
+  content: 'inline*',
 
-  atom: true,
   addAttributes() { 
     return {
           id: {

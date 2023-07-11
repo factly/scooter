@@ -10,7 +10,7 @@ function Collapsible({ title, children }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div>
+    <div   contentEditable="false">
       <div
         style={{
           margin: "10px 0",

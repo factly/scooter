@@ -6,7 +6,10 @@ export function App() {
   //<div data-type='embed' class='embed-wrapper'><div style='left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.5%;'><iframe src='https://www.youtube.com/embed/7OO5uGvNZpM?feature=oembed' style='border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;' allowfullscreen='' scrolling='no' allow='encrypted-media; accelerometer; clipboard-write; gyroscope; picture-in-picture'></iframe></div></div><p>hello</p><img src='https://pbs.twimg.com/media/FqAnDvEWAAIXd6l?format=jpg&name=medium' style='background: red;' /><ol class='yo'><li>1.</li><li>hello</li><li>hello</li></ol>
   const [value, setValue] = useState(
     ` 
-    <claims><claim id="1" order="1"></claim><claim id="2" order="2"></claim></claims>
+    <claims><claim id="1" order="1"></claim>
+    <claim id="2" order="2"></claim>
+    <claim id="3" order="3"></claim>
+    <claim id="4" order="4"></claim></claims>
     <h1>How to Enjoy India's Beautiful Tourism</h1>
     <ul>
         <li>Introduction
@@ -60,10 +63,14 @@ export function App() {
         editorInstance={editor => {
           return;
         }}
-       meta = {{claims: {
-        1: { id: 1, claim: "Claim 1", fact: "Fact 1" },
-        2: { id: 2, claim: "Claim 2", fact: "Fact 2" }
-      }}
+       meta = {{
+        claims: {
+          1: { id: 1, claim: "Claim 1", fact: "Fact 1" },
+          2: { id: 2, claim: "Claim 2", fact: "Fact 2" },
+          3: { id: 3, claim: "Claim 3", fact: "Fact 3" },
+          4: { id: 4, claim: "Claim 4", fact: "Fact 4" }
+        }
+      }
        }
         tagoreConfig={{
           stream: true,
