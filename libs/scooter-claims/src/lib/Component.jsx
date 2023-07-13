@@ -10,22 +10,11 @@ function Collapsible({ title, children }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div   contentEditable="false">
+    <div className="scooter-editor-claims" contentEditable="false">
       <div
-        style={{
-          margin: "10px 0",
-          padding: "10px",
-          borderRadius: "5px",
-          cursor: "pointer",
-          border: "1px solid #ccc",
-        }}
+        className="collapsible-container"
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
+        <div className="header"
         >
           <h3 style={{ margin: 0 }}>{title}</h3>
           <span onClick={() => setIsOpen(!isOpen)}>
@@ -34,8 +23,7 @@ function Collapsible({ title, children }) {
           </span>
         </div>
         {isOpen && (
-          <div
-            style={{ margin: "10px 0", padding: "10px", borderRadius: "5px" }}
+          <div className="content"
           >
             {children}
           </div>
