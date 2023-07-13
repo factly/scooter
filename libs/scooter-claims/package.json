@@ -1,5 +1,6 @@
 {
   "name": "@factly/scooter-claims",
+  "version": "0.0.25",
   "peerDependencies": {
     "react": "^18.0.0"
   },
