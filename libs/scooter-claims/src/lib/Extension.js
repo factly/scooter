@@ -17,7 +17,7 @@ export const ClaimsExtension = Node.create({
   },
 
   renderHTML({ HTMLAttributes }) {
-    return ["claims", mergeAttributes(HTMLAttributes)];
+    return ["claims", mergeAttributes(HTMLAttributes),0];
   },
 
   addNodeView() {
