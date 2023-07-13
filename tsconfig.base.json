@@ -16,6 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@factly/scooter-bubble-menu": ["libs/scooter-bubble-menu/src/index.js"],
+      "@factly/scooter-claim": ["libs/scooter-claim/src/index.js"],
+      "@factly/scooter-claims": ["libs/scooter-claims/src/index.js"],
       "@factly/scooter-code-block": ["libs/scooter-code-block/src/index.js"],
       "@factly/scooter-core": ["libs/scooter-core/src/index.js"],
       "@factly/scooter-embed": ["libs/scooter-embed/src/index.js"],
