@@ -111,6 +111,7 @@ export const BubbleMenu = ({ editor, options: textOptions }) => {
     <div>
       <BubbleMenuTipTap
         editor={editor}
+        shouldShow={({ editor,from, to }) => from !== to && !(editor.isActive("claims") || editor.isActive("claim"))}
         tippyOptions={{
           theme: "light",
           arrow: roundArrow,

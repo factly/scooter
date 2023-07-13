@@ -1,10 +1,15 @@
 import { ScooterCore } from "@factly/scooter-core";
 import React, { useState, useEffect } from "react";
+import { SSE } from "sse";
 import axios from "axios";
 export function App() {
   //<div data-type='embed' class='embed-wrapper'><div style='left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.5%;'><iframe src='https://www.youtube.com/embed/7OO5uGvNZpM?feature=oembed' style='border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;' allowfullscreen='' scrolling='no' allow='encrypted-media; accelerometer; clipboard-write; gyroscope; picture-in-picture'></iframe></div></div><p>hello</p><img src='https://pbs.twimg.com/media/FqAnDvEWAAIXd6l?format=jpg&name=medium' style='background: red;' /><ol class='yo'><li>1.</li><li>hello</li><li>hello</li></ol>
   const [value, setValue] = useState(
-    `
+    ` 
+    <claims><claim id="1" order="1"></claim>
+    <claim id="2" order="2"></claim>
+    <claim id="3" order="3"></claim>
+    <claim id="4" order="4"></claim></claims>
     <h1>How to Enjoy India's Beautiful Tourism</h1>
     <ul>
         <li>Introduction
@@ -58,7 +63,39 @@ export function App() {
         editorInstance={editor => {
           return;
         }}
+       meta = {{
+        claims: {
+          1: { id: 1, claim: "Claim 1", fact: "Fact 1" },
+          2: { id: 2, claim: "Claim 2", fact: "Fact 2" },
+          3: { id: 3, claim: "Claim 3", fact: "Fact 3" },
+          4: { id: 4, claim: "Claim 4", fact: "Fact 4" }
+        }
+      }
+       }
         tagoreConfig={{
+          stream: true,
+          sse: (input, selectedOption) => {
+            let source = new SSE("http://localhost:8080/prompts/generate", {
+              headers: {
+                "X-User": "20",
+                //  max_tokens: 2000
+              },
+              method: "POST",
+              payload: JSON.stringify({
+                input: input,
+                generate_for: selectedOption,
+                provider: "openai",
+                stream: true,
+                model: "text-davinci-003", //"gpt-3.5-turbo",
+                additional_instructions:
+                  "The generated text should be valid html body tags(IMPORTANT). Avoid other tags like <html>, <body>. avoid using newlines in the generated text.",
+                max_tokens: 2000,
+              }),
+            });
+
+            return source;
+          },
+
           fetcher: async (input, selectedOption) => {
             const response = await axios.post(
               `http://localhost:8080/prompts/generate`,

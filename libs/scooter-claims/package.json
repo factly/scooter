@@ -1,13 +1,16 @@
 {
-  "name": "@factly/scooter-tagore",
+  "name": "@factly/scooter-claims",
   "version": "0.0.26",
   "peerDependencies": {
     "react": "^18.0.0"
   },
+  "dependencies": {
+    "react-icons": "^4.7.1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/factly/scooter.git",
-    "directory": "libs/scooter-bubble-menu"
+    "directory": "libs/scooter-claims"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
