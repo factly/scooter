@@ -7,10 +7,11 @@ export const ClaimExtension = Node.create({
   name: "claim",
 
   group: "block",
+  // atom: true,
   
-  draggable: true,
+  // draggable: true,
   content: 'inline*',
-
+ 
   addAttributes() { 
     return {
           id: {
@@ -21,9 +22,23 @@ export const ClaimExtension = Node.create({
             default: null,
             parseHTML: element => element.getAttribute('order')
           },
+          claim : {
+            default: null,
+            parseHTML: element => element.getAttribute('claim')
+          } ,
+          fact : {
+            default: null,
+            parseHTML: element => element.getAttribute('fact')
+          }
         }
 
   },
+  addStorage() {
+    return {
+       claims : 100,
+    }
+  },
+
   parseHTML() {
     return [
       {
@@ -39,6 +54,16 @@ export const ClaimExtension = Node.create({
   addNodeView() {
     return ReactNodeViewRenderer(Component);
   },
+  addCommands() {
+    return {
+      setClaim: options =>
+      ({ commands , chain }) => {
+        return commands.insertContentAt(this.editor.state.selection.head,{
+          type: this.name,
+          attrs: options,
+        });
+      },
+    } },
 });
 
 export default ClaimExtension;

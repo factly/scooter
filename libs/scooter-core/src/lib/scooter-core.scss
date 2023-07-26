@@ -2661,3 +2661,14 @@ code {
     padding: 24px;
   }
 }
+
+.scooter-editor-add-existing-claim {
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  .scooter-editor-add-existing-claim__content {
+    flex-grow: 1;
+    display: flex;
+    padding: 16px;
+}
+}

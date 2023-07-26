@@ -6,45 +6,8 @@ export function App() {
   //<div data-type='embed' class='embed-wrapper'><div style='left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.5%;'><iframe src='https://www.youtube.com/embed/7OO5uGvNZpM?feature=oembed' style='border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;' allowfullscreen='' scrolling='no' allow='encrypted-media; accelerometer; clipboard-write; gyroscope; picture-in-picture'></iframe></div></div><p>hello</p><img src='https://pbs.twimg.com/media/FqAnDvEWAAIXd6l?format=jpg&name=medium' style='background: red;' /><ol class='yo'><li>1.</li><li>hello</li><li>hello</li></ol>
   const [value, setValue] = useState(
     ` 
-    <claims><claim id="1" order="1"></claim>
-    <claim id="2" order="2"></claim>
-    <claim id="3" order="3"></claim>
-    <claim id="4" order="4"></claim></claims>
-    <h1>How to Enjoy India's Beautiful Tourism</h1>
-    <ul>
-        <li>Introduction
-            <ul>
-                <li>Overview of India</li>
-                <li>Popularity of India's tourism destinations over the years</li>
-            </ul>
-        </li>
-        <li>Why India?
-            <ul>
-                <li>Variety of attractions and experiences</li>
-                <li>Welcoming culture and great hospitality</li>
-                <li>Affordable yet diverse pricing</li>
-            </ul>
-        </li>
-        <li>Top Attractions in India
-            <ul>
-                <li>Taj Mahal (Agra)</li>
-                <li>Jaipur City Palace ​</li>
-                <li>Golden Temple (Amritsar)</li>
-                <li>Matheran Hill Station</li>
-                <li>Andamans and Nicobar Islands</li>
-            </ul>
-        </li>
-        <li>Tips for Visiting India
-            <ul>
-                <li>Packing essentials</li>
-                <li>Prepare yourself for the diversity</li>
-                <li>Go easy on bargaining</li>
-                <li>Managing finances​</li>
-                <li>Stay safe and enjoy!</li>
-            </ul>
-        </li>
-        <li>Conclusion​</li>
-    </ul> <h1 class='hello' style='background: red;' id='idname'>hello</h1>`
+    <p></p>
+   `
     // <tagore-component>hello</tagore-component>`
     //<table><tbody > <tr class='classsss'>  <th>Name</th>  <th colspan='3'>Description</th> </tr> <tr> <td>Cyndi Lauper</td>      <td>singer</td>    <td>songwriter</td>    <td>actress</td>   </tr></tbody></table>  "
   );
@@ -61,6 +24,9 @@ export function App() {
           setValue(data.html);
         }}
         editorInstance={editor => {
+          const { from, to } = editor.state.selection;
+          console.log(editor.state.selection);
+          console.log("const { from, to } = this.editor.state.selection;" , from , to);
           return;
         }}
        meta = {{

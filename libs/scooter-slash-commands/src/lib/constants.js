@@ -15,6 +15,7 @@ import {
   RiSeparator,
   RiVideoLine,
   RiTableLine,
+  RiTaskLine,
 } from "react-icons/ri";
 
 import { BiChip } from "react-icons/bi";
@@ -51,6 +52,8 @@ export const EDITOR_OPTIONS = {
   EMBED: "embed",
   RAW_HTML: "raw-html",
   WRITE_WITH_AI: "write-with-ai",
+  ADD_EXISTING_CLAIM: "add-existing-claim",
+  ADD_NEW_CLAIM: "add-new-claim",
 
   // OTHER AVAILABLE OPTIONS
   H3: "h3",
@@ -72,6 +75,22 @@ export const MENU_ITEMS = {
         .insertContent("<tagore-component></tagore-component>")
         .run();
     },
+  },
+  ADD_EXISTING_CLAIM: {
+    optionName: EDITOR_OPTIONS.ADD_EXISTING_CLAIM,
+    title: "Add existing claim",
+    description: "Add existing claim",
+    Icon: RiTaskLine, 
+    command: ({ editor, range }) =>
+    editor.chain().focus().deleteRange(range).run(),
+  },
+  ADD_NEW_CLAIM: {
+    optionName: EDITOR_OPTIONS.ADD_NEW_CLAIM,
+    title: "Add new claim",
+    description: "Add new claim",
+    Icon: RiTaskLine,
+    command: ({ editor, range }) =>
+    editor.chain().focus().deleteRange(range).run(),
   },
   PARAGRAPH: {
     optionName: EDITOR_OPTIONS.PARAGRAPH,

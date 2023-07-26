@@ -14,6 +14,8 @@ export const SlashCommandsExtension = {
   configure: ({
     setImageUploadVisible,
     setEmbedFetcherVisible,
+    setAddNewClaimVisible,
+    setAddExistingClaimVisible,
     addonCommands,
     options: allowedCommandOptions,
   }) => {
@@ -37,6 +39,20 @@ export const SlashCommandsExtension = {
           MENU_ITEMS.IMAGE.command(...args);
         },
       },
+      {
+        ...MENU_ITEMS.ADD_EXISTING_CLAIM,
+        command: (...args) => {
+          setAddExistingClaimVisible(true);
+          MENU_ITEMS.ADD_EXISTING_CLAIM.command(...args);
+        },
+      },
+      {
+        ...MENU_ITEMS.ADD_NEW_CLAIM,
+        command: (...args) => {
+          setAddNewClaimVisible(true);
+          MENU_ITEMS.ADD_NEW_CLAIM.command(...args);
+        },
+      },
       MENU_ITEMS.CODE,
       MENU_ITEMS.EMOJI,
       MENU_ITEMS.DIVIDER,
@@ -49,6 +65,7 @@ export const SlashCommandsExtension = {
         },
       },
     ];
+   
 
     if (!isNilOrEmpty(allowedCommandOptions)) {
       commandItems = commandItems.filter(({ optionName }) =>
@@ -59,7 +76,7 @@ export const SlashCommandsExtension = {
     if (!isNilOrEmpty(addonCommands)) {
       commandItems = commandItems.concat(addonCommands);
     }
-
+   
     return Extension.create({
       addOptions() {
         return {
