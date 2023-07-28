@@ -19,7 +19,6 @@ const Claim = ({
   ...props
 }) => {
   // const claims = editor.storage.claims
-  console.log("claims inside the extensions component",claims);
   return (
     <NodeViewWrapper className="scooter-editor-claim" 
     // contentEditable={false}

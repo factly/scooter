@@ -12,24 +12,23 @@ function maker(string) {
     .replace(/^-+/, '')
     .replace(/-+$/, '');
 }
-   // Simulate posting data and receiving form data with ID
-   const simulatePostData = (values) => {
-    // Replace this with your actual API call to post data and receive the form data with ID
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const generatedId = '12345'; // Replace '12345' with the generated ID from the backend
-        const formDataWithId = {
-          ...values,
-          id: generatedId,
-        };
-        resolve(formDataWithId);
-      }, 1000); // Simulating a delay of 1 second
-    });
+
+  const getFormattedDate = (date) => {
+    // Convert the input date to a Date object
+    const inputDate = new Date(date);
+
+    // Calculate the IST time (Hyderabad timezone)
+    const hyderabadTimezoneOffset = 330; // IST offset in minutes (UTC+05:30)
+    const istTime = new Date(inputDate.getTime() + (hyderabadTimezoneOffset * 60 * 1000));
+
+    // Format the date in the desired format
+    const formattedDate = istTime.toISOString().slice(0, 19) + "+05:30";
+    return formattedDate;
   };
 
 
-//({ editor , setIsVisible , setMeta }) => {
-const AddNewClaimForm = ({editor , setIsVisible}) => {
+
+const AddNewClaimForm = ({editor , setIsVisible , claimConfig}) => {
   const [claim, setClaim] = useState('');
   const [slug, setSlug] = useState('');
   const [fact, setFact] = useState('');
@@ -39,23 +38,27 @@ const AddNewClaimForm = ({editor , setIsVisible}) => {
   const [ratings, setRatings] = useState([]);
   const [claimDate, setClaimDate] = useState('');
   const [checkedDate, setCheckedDate] = useState('');
+  const { claimantsFetcher, addClaim ,  ratingsFetcher  } = claimConfig 
+  
 
 
   const handleSubmit = (event) => {
+    event.stopPropagation()
     event.preventDefault();
+    
     // Perform form submission logic
     const formData = {
       claim,
       slug,
       fact,
-      claimant,
-      rating,
-      claimDate,
-      checkedDate,
+      claimant_id:claimant,
+      rating_id:rating,
+      claim_date:getFormattedDate(claimDate),
+      checked_date:getFormattedDate(checkedDate)
     };
-    console.log(formData);
-    simulatePostData(formData).then((claim) => {
-      console.log('Received Form Data with ID:', claim);
+  
+    addClaim(formData).then((claim) => {
+   
       editor
       .chain()  
       .setClaim({ id: claim.id, order: claim?.order??1 , claim: claim.claim , fact: claim.fact })
@@ -66,30 +69,6 @@ const AddNewClaimForm = ({editor , setIsVisible}) => {
     });
    };
 
-  // Function to fetch claimants
-  const fetchClaimants = (page) => {
-    // Replace this with your actual API call to fetch claimants
-    const newClaimants = Array.from({ length: 20 }, (_, index) => `Claimant ${index + 1 + (page - 1) * 20}`);
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(newClaimants);
-      }, 1000);
-    });
-  };
-
-  // Function to fetch ratings
-  const fetchRatings = (page) => {
-    // Replace this with your actual API call to fetch ratings
-    const newRatings = Array.from({ length: 20 }, (_, index) => `Rating ${index + 1 + (page - 1) * 20}`);
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(newRatings);
-      }, 1000);
-    });
-  };
-
-
-
   const onClaimChange = (event) => {
     const claim = event.target.value;
     const truncatedClaim = claim.length > 150 ? claim.substring(0, 150) : claim;
@@ -99,11 +78,13 @@ const AddNewClaimForm = ({editor , setIsVisible}) => {
   };
 
   useEffect(() => {
-    fetchClaimants(1).then((newClaimants) => {
-      setClaimants(newClaimants);
+    claimantsFetcher(1).then((newClaimants) => {
+      const {nodes : claimantData , total } = newClaimants ;
+      setClaimants(claimantData);
     });
-    fetchRatings(1).then((newRatings) => {
-      setRatings(newRatings);
+    ratingsFetcher(1).then((newRatings) => {
+      const {nodes : ratingData , total } = newRatings ;
+      setRatings(ratingData);
     });
   }, []);
 
@@ -146,9 +127,10 @@ const AddNewClaimForm = ({editor , setIsVisible}) => {
         onChange={(e) => setClaimant(e.target.value)}
         style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
       >
+        <option style={{display:"none"}}value="">Select Claimant</option>
         {claimants.map((claimant) => (
-          <option key={claimant} value={claimant}>
-            {claimant}
+          <option key={claimant.id} value={claimant.id}>
+            {claimant.name}
           </option>
         ))}
       </select>
@@ -160,9 +142,10 @@ const AddNewClaimForm = ({editor , setIsVisible}) => {
         onChange={(e) => setRating(e.target.value)}
         style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
       >
+         <option style={{display:"none"}} value="">Select Rating</option>
         {ratings.map((rating) => (
-          <option key={rating} value={rating}>
-            {rating}
+          <option key={rating.id} value={rating.id}>
+            {rating.name}
           </option>
         ))}
       </select>
@@ -196,17 +179,17 @@ const AddNewClaimForm = ({editor , setIsVisible}) => {
 
 
 
-export const AddNewClaim  = ({ editor, setIsVisible , isVisible , setMeta }) => { 
+export const AddNewClaim  = ({ editor, setIsVisible , isVisible , setMeta , claimConfig }) => { 
   return(<Modal
       isOpen={isVisible}
       onClose={() => {
-        setIsVisible(()=>{ console.log("this is called"); return false });
+        setIsVisible(()=>{ return false });
       }}
      closeButton={false}
     >
         <div className="scooter-editor-add-existing-claim">
             <div className="scooter-editor-add-existing-claim__content ">
-               <AddNewClaimForm editor={editor} setIsVisible={setIsVisible} />
+               <AddNewClaimForm editor={editor} setIsVisible={setIsVisible} claimConfig={claimConfig} />
             </div>
         </div>
         </Modal>)

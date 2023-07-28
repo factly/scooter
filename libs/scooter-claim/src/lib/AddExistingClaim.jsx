@@ -2,41 +2,12 @@ import { Modal } from "@factly/scooter-ui";
 import { useState, useRef , useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
-function convertArrayToObject(array) {
-    const result = {};
-    
-    for (const item of array) {
-      result[item.id] = { ...item };
-    }
-    
-    return result;
-  }
 
-  const fetchClaimsFromAPI = (searchTerm, page) => {
-    return new Promise((resolve, reject) => {
-      // Check if page is a valid number, default to 1 if not provided or invalid
-      const pageNumber = Number.isInteger(page) && page > 0 ? page : 1;
-  
-      // Simulating API delay with setTimeout
-      setTimeout(() => {
-        // Simulated API response
-        const claims = [
-          { id: pageNumber, order:pageNumber ,claim: "Claim" + pageNumber + (searchTerm ? searchTerm : ""), fact: "Fact" + pageNumber },
-          { id: pageNumber + 1, order:pageNumber+1 , claim: "Claim" + (pageNumber + 1) + (searchTerm ? searchTerm : ""), fact: "Fact" + (pageNumber + 1) },
-          { id: pageNumber + 2, order:pageNumber+2, claim: "Claim" + (pageNumber + 2) + (searchTerm ? searchTerm : ""), fact: "Fact" + (pageNumber + 2) },
-        ];
-        resolve(claims);
-      }, 1000);
-    });
-  };
-const  claimsFetecher = (searchTerm , page) => {
-    return fetchClaimsFromAPI(searchTerm , page) }
 
-const SearchClaimsComponent = ({ editor , setIsVisible , setMeta }) => {
+const SearchClaimsComponent = ({ editor , setIsVisible , setMeta , claimsFetcher , itemsPerPage }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [claims, setClaims] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-   
     const [pageCount, setPageCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
    
@@ -45,8 +16,12 @@ const SearchClaimsComponent = ({ editor , setIsVisible , setMeta }) => {
         setClaims([]);
         return;
       }
-      claimsFetecher &&
-        claimsFetecher(searchTerm , currentPage).then(data => setClaims(data));
+      claimsFetcher &&
+        claimsFetcher(searchTerm , currentPage).then((claims) => {
+          const {nodes : claimData , total } = claims ;
+          setClaims(claimData);
+        }
+        )
     }, [currentPage]);
 
     const handlePageClick = event => {
@@ -64,7 +39,7 @@ const SearchClaimsComponent = ({ editor , setIsVisible , setMeta }) => {
     const handleSelectClaim = (claim) => {
       editor
       .chain()  
-      .setClaim({ id: claim.id, order: claim.order , claim: claim.claim , fact: claim.fact })
+      .setClaim({ id: claim.id, order: claim?.order??1 , claim: claim.claim , fact: claim.fact })
       .insertContentAt(editor.state.selection.head+1,"<p></p>")
       .focus(editor.state.selection.head+1)
       .run();
@@ -73,9 +48,11 @@ const SearchClaimsComponent = ({ editor , setIsVisible , setMeta }) => {
   
     const handleSearch = () => {
       setIsLoading(true);
-      claimsFetecher(searchTerm)
+      claimsFetcher(searchTerm)
         .then((claims) => {
-          setClaims(claims);
+          const {nodes : claimData , total } = claims ;
+          setPageCount(Math.ceil( total / itemsPerPage));
+          setClaims(claimData);
         }
         )
         .catch((error) => {
@@ -119,35 +96,81 @@ const SearchClaimsComponent = ({ editor , setIsVisible , setMeta }) => {
         {isLoading ? 'Searching...' : 'Search'}
              </button>
             </div>
-        {isLoading ? ( <div style={{ marginTop: '10px' }}>Loading...</div>) : ( <table style={{ marginTop: '10px', borderCollapse: 'collapse' }}>
-            {claims.length?<thead>
-              <tr>
-                <th style={{ padding: '5px', border: '1px solid #ccc', borderRadius: '5px' }}>Claims</th>
-              </tr>
-            </thead>:null}
-            <tbody>
-              {claims.map((claim) => (
-                <tr
-                  key={claim.id}
-                  onClick={() => handleSelectClaim(claim)}
-                  style={{
-                    marginBottom: '5px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <td style={{ padding: '5px', border: '1px solid #ccc', borderRadius: '5px' }}>{claim.claim}</td>
-                </tr>
-              
-              ))}
-            </tbody>
-            {claims.length?<>
-             <ReactPaginate
+        {isLoading ? ( <div style={{ marginTop: '10px' }}>Loading...</div>) : ( <>  <table
+    style={{
+      marginBottom: '10px',
+      marginTop: '10px',
+      borderCollapse: 'collapse',
+      width: '100%', // Set table width to 100%
+    }}
+  >
+    {claims.length ? (
+      <thead>
+        <tr>
+          <th
+            style={{
+              padding: '5px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              width: '10%', // Set width of S.No column
+            }}
+          >
+            S.No
+          </th>
+          <th
+            style={{
+              padding: '5px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+            }}
+          >
+            Claim
+          </th>
+        </tr>
+      </thead>
+    ) : null}
+    <tbody>
+      {claims?.map((claim, index) => (
+        <tr
+          key={claim.id}
+          onClick={() => handleSelectClaim(claim)}
+          style={{
+            marginBottom: '5px',
+            cursor: 'pointer',
+          }}
+        >
+          <td
+            style={{
+              padding: '5px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              width: '10%', // Set width of S.No column
+            }}
+          >
+            {index + 1}
+          </td>
+          <td
+            style={{
+              padding: '5px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+            }}
+          >
+            {claim.claim}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+            {claims.length?
+            <div style={{marginLeft:'auto'}}>
+            <ReactPaginate
                 breakLabel="..."
                 nextLabel=">"
                 previousLabel="<"
                 onPageChange={handlePageClick}
                 pageRangeDisplayed={5}
-                pageCount={5}
+                pageCount={pageCount}
                 renderOnZeroPageCount={null}
                 pageLinkClassName="page-link"
                 pageClassName="page-item"
@@ -160,9 +183,9 @@ const SearchClaimsComponent = ({ editor , setIsVisible , setMeta }) => {
                 containerClassName="pagination"
                 activeClassName="active"
               />
-              </>
+            </div>
               :null}
-          </table>
+        </>
         )}
       </div>
     );
@@ -170,17 +193,18 @@ const SearchClaimsComponent = ({ editor , setIsVisible , setMeta }) => {
 
 
 
-export const AddExistingClaim  = ({ editor, setIsVisible , isVisible , setMeta }) => { 
+export const AddExistingClaim  = ({ editor, setIsVisible , isVisible , setMeta , claimConfig }) => { 
+  const { claimsFetcher } = claimConfig  
     return(<Modal
         isOpen={isVisible}
         onClose={() => {
-          setIsVisible(()=>{ console.log("this is called"); return false });
+          setIsVisible(()=>{ return false });
         }}
        closeButton={false}
       >
           <div className="scooter-editor-add-existing-claim">
               <div className="scooter-editor-add-existing-claim__content ">
-                 <SearchClaimsComponent editor={editor} setIsVisible={setIsVisible} setMeta={setMeta}  />
+                 <SearchClaimsComponent claimsFetcher={claimsFetcher} editor={editor} setIsVisible={setIsVisible} setMeta={setMeta} itemsPerPage={10}  />
               </div>
           </div>
           </Modal>)

@@ -25,8 +25,6 @@ export function App() {
         }}
         editorInstance={editor => {
           const { from, to } = editor.state.selection;
-          console.log(editor.state.selection);
-          console.log("const { from, to } = this.editor.state.selection;" , from , to);
           return;
         }}
        meta = {{
@@ -36,8 +34,63 @@ export function App() {
           3: { id: 3, claim: "Claim 3", fact: "Fact 3" },
           4: { id: 4, claim: "Claim 4", fact: "Fact 4" }
         }
-      }
-       }
+      }}
+      claimConfig={{
+          ratingsFetcher : (page=1) => {
+            // Replace this with your actual API call to fetch ratings
+            const newRatings = Array.from({ length: 20 }, (_, index) => ({
+              id: index + 1 + (page - 1) * 20,
+              name: `Rating ${index + 1 + (page - 1) * 20}`
+            }));
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve({nodes:newRatings,total:100});
+              }, 1000);
+            });
+          },
+          claimantsFetcher : (page=1) => {
+            // Replace this with your actual API call to fetch claimants
+            const newClaimants = Array.from({ length: 1 }, (_, index) => ({
+              id: index + 1 + (page - 1) * 1,
+              name: `Claimant ${index + 1 + (page - 1) * 1}`
+            }));
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve({nodes:newClaimants,total:100});
+              }, 1000);
+            });
+          },
+          claimsFetcher : (searchTerm, page=1 , limit=10 ) => {
+            return new Promise((resolve, reject) => {
+              // Check if page is a valid number, default to 1 if not provided or invalid
+              const pageNumber = Number.isInteger(page) && page > 0 ? page : 1;
+          
+              // Simulating API delay with setTimeout
+              setTimeout(() => {
+                // Simulated API response
+                const claims = [
+                  { id: pageNumber, order:pageNumber ,claim: "Claim" + pageNumber + (searchTerm ? searchTerm : ""), fact: "Fact" + pageNumber },
+                  { id: pageNumber + 1, order:pageNumber+1 , claim: "Claim" + (pageNumber + 1) + (searchTerm ? searchTerm : ""), fact: "Fact" + (pageNumber + 1) },
+                  { id: pageNumber + 2, order:pageNumber+2, claim: "Claim" + (pageNumber + 2) + (searchTerm ? searchTerm : ""), fact: "Fact" + (pageNumber + 2) },
+                ];
+                resolve({nodes:claims , total : 100});
+              }, 1000);
+            });
+          },
+          addClaim : (values) => {
+            // Replace this with your actual API call to post data and receive the form data with ID
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                const generatedId = '12345'; // Replace '12345' with the generated ID from the backend
+                const formDataWithId = {
+                  ...values,
+                  id: generatedId,
+                };
+                resolve(formDataWithId);
+              }, 1000); // Simulating a delay of 1 second
+            });
+          },
+       }}
         tagoreConfig={{
           stream: true,
           sse: (input, selectedOption) => {

@@ -69,6 +69,7 @@ export const ScooterCore = React.forwardRef(
       tagoreEndpoint,
       userId,
       tagoreConfig,
+      claimConfig,
       meta : metaData , 
       ...otherProps
     },
@@ -231,8 +232,8 @@ export const ScooterCore = React.forwardRef(
         {isBubbleMenuActive && !isTagoreNodePresent && (
           <BubbleMenu editor={editor} options={addonOptions} />
         )}
-        <AddNewClaim  isVisible={isAddNewClaimVisible} setIsVisible={setAddNewClaimVisible} editor={editor} /> 
-        <AddExistingClaim editor={editor} setIsVisible={setAddExistingClaimVisible}  setMeta={setMeta} isVisible={isAddExistingClaimVisible} /> 
+        <AddNewClaim claimConfig={claimConfig} isVisible={isAddNewClaimVisible} setIsVisible={setAddNewClaimVisible} editor={editor} /> 
+        <AddExistingClaim editor={editor} claimConfig={claimConfig} setIsVisible={setAddExistingClaimVisible}  setMeta={setMeta} isVisible={isAddExistingClaimVisible} /> 
         <ImageUploader
           isVisible={isImageUploadVisible}
           setIsVisible={setImageUploadVisible}
