@@ -79,7 +79,7 @@ export const ScooterCore = React.forwardRef(
     const [ isAddNewClaimVisible, setAddNewClaimVisible] = useState(false);
     const [ isAddExistingClaimVisible, setAddExistingClaimVisible] = useState(false);
     const [meta, setMeta] = useState(metaData);
-    console.log("meta", meta);
+  
     const [isEmbedFetcherVisible, setEmbedFetcherVisible] = useState(false);
 
     const isFixedMenuActive = menuType === "fixed";
