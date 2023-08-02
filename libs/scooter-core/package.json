@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-core",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "peerDependencies": {
     "react": "^18.0.0"
   },
