@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
+console.log("ReactPaginate", ReactPaginate)
+
 const InputComponent = ({ searchTerm, setSearchTerm }) => {
   const inputRef = useRef(null);
 
@@ -125,9 +127,11 @@ const TableComponent = ({ claims, handleSelectClaim }) => {
 
 const PaginationComponent = ({ claims, pageCount, handlePageClick }) => {
     console.log("claimsss", claims)
+    console.log("pageCount", pageCount)
+    console.log("handlePageClick", handlePageClick)
+
   return (
     <>
-      {claims.length ?
         <div style={{ marginLeft: 'auto' }}>
           <ReactPaginate
             breakLabel="..."
@@ -149,7 +153,6 @@ const PaginationComponent = ({ claims, pageCount, handlePageClick }) => {
             activeClassName="active"
           />
         </div>
-        : null}
     </>
   );
 };
