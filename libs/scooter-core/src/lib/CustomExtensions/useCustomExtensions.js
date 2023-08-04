@@ -47,6 +47,8 @@ const useCustomExtensions = ({
   showImageInMention,
   setImageUploadVisible,
   setEmbedFetcherVisible,
+  setAddNewClaimVisible,
+  setAddExistingClaimVisible,
   options,
   addonCommands,
   characterLimit,
@@ -117,6 +119,8 @@ const useCustomExtensions = ({
         setEmbedFetcherVisible,
         options,
         addonCommands,
+        setAddNewClaimVisible,
+        setAddExistingClaimVisible,
       })
     );
   }

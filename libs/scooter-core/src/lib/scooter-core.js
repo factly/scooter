@@ -10,6 +10,8 @@ import { EmbedFetcher } from "@factly/scooter-embed";
 import { FixedMenu } from "@factly/scooter-fixed-menu";
 import { Uploader as ImageUploader } from "@factly/scooter-image";
 import useCustomExtensions from "./CustomExtensions/useCustomExtensions";
+import { AddNewClaim } from "@factly/scooter-claim";
+import { AddExistingClaim } from "@factly/scooter-claim";
 import {
   generateAddonOptions,
   getEditorStyles,
@@ -67,12 +69,17 @@ export const ScooterCore = React.forwardRef(
       tagoreEndpoint,
       userId,
       tagoreConfig,
-      meta , 
+      claimConfig,
+      meta : metaData , 
       ...otherProps
     },
     ref
   ) => {
     const [isImageUploadVisible, setImageUploadVisible] = useState(false);
+    const [ isAddNewClaimVisible, setAddNewClaimVisible] = useState(false);
+    const [ isAddExistingClaimVisible, setAddExistingClaimVisible] = useState(false);
+    const [meta, setMeta] = useState(metaData);
+  
     const [isEmbedFetcherVisible, setEmbedFetcherVisible] = useState(false);
 
     const isFixedMenuActive = menuType === "fixed";
@@ -102,6 +109,8 @@ export const ScooterCore = React.forwardRef(
       showImageInMention,
       setImageUploadVisible,
       setEmbedFetcherVisible,
+      setAddNewClaimVisible,
+      setAddExistingClaimVisible,
       options: addonOptions,
       addonCommands,
       characterLimit,
@@ -182,6 +191,12 @@ export const ScooterCore = React.forwardRef(
     };
 
     const [isTagoreNodePresent, setIsTagoreNodePresent] = useState(false);
+    
+    // useEffect(() => {
+    //   if (isA)
+
+
+
 
     /* Make editor object available to the parent */
     React.useImperativeHandle(ref, () => ({ editor }));
@@ -217,6 +232,8 @@ export const ScooterCore = React.forwardRef(
         {isBubbleMenuActive && !isTagoreNodePresent && (
           <BubbleMenu editor={editor} options={addonOptions} />
         )}
+        <AddNewClaim claimConfig={claimConfig} isVisible={isAddNewClaimVisible} setIsVisible={setAddNewClaimVisible} editor={editor} /> 
+        <AddExistingClaim editor={editor} claimConfig={claimConfig} setIsVisible={setAddExistingClaimVisible}  setMeta={setMeta} isVisible={isAddExistingClaimVisible} /> 
         <ImageUploader
           isVisible={isImageUploadVisible}
           setIsVisible={setImageUploadVisible}

@@ -13,6 +13,7 @@ const sizes = {
   xs: "xs",
   sm: "sm",
   md: "md",
+  md620: "md620",
 };
 
 export const Modal = ({
@@ -48,6 +49,7 @@ export const Modal = ({
               "sc-modal__wrapper--xs": size === sizes.xs,
               "sc-modal__wrapper--sm": size === sizes.sm,
               "sc-modal__wrapper--md": size === sizes.md,
+              "sc-modal__wrapper--md620": size === sizes.md620,
               [className]: className,
             })}
             {...otherProps}

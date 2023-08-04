@@ -6,45 +6,8 @@ export function App() {
   //<div data-type='embed' class='embed-wrapper'><div style='left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.5%;'><iframe src='https://www.youtube.com/embed/7OO5uGvNZpM?feature=oembed' style='border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;' allowfullscreen='' scrolling='no' allow='encrypted-media; accelerometer; clipboard-write; gyroscope; picture-in-picture'></iframe></div></div><p>hello</p><img src='https://pbs.twimg.com/media/FqAnDvEWAAIXd6l?format=jpg&name=medium' style='background: red;' /><ol class='yo'><li>1.</li><li>hello</li><li>hello</li></ol>
   const [value, setValue] = useState(
     ` 
-    <claims><claim id="1" order="1"></claim>
-    <claim id="2" order="2"></claim>
-    <claim id="3" order="3"></claim>
-    <claim id="4" order="4"></claim></claims>
-    <h1>How to Enjoy India's Beautiful Tourism</h1>
-    <ul>
-        <li>Introduction
-            <ul>
-                <li>Overview of India</li>
-                <li>Popularity of India's tourism destinations over the years</li>
-            </ul>
-        </li>
-        <li>Why India?
-            <ul>
-                <li>Variety of attractions and experiences</li>
-                <li>Welcoming culture and great hospitality</li>
-                <li>Affordable yet diverse pricing</li>
-            </ul>
-        </li>
-        <li>Top Attractions in India
-            <ul>
-                <li>Taj Mahal (Agra)</li>
-                <li>Jaipur City Palace ​</li>
-                <li>Golden Temple (Amritsar)</li>
-                <li>Matheran Hill Station</li>
-                <li>Andamans and Nicobar Islands</li>
-            </ul>
-        </li>
-        <li>Tips for Visiting India
-            <ul>
-                <li>Packing essentials</li>
-                <li>Prepare yourself for the diversity</li>
-                <li>Go easy on bargaining</li>
-                <li>Managing finances​</li>
-                <li>Stay safe and enjoy!</li>
-            </ul>
-        </li>
-        <li>Conclusion​</li>
-    </ul> <h1 class='hello' style='background: red;' id='idname'>hello</h1>`
+    <p></p>
+   `
     // <tagore-component>hello</tagore-component>`
     //<table><tbody > <tr class='classsss'>  <th>Name</th>  <th colspan='3'>Description</th> </tr> <tr> <td>Cyndi Lauper</td>      <td>singer</td>    <td>songwriter</td>    <td>actress</td>   </tr></tbody></table>  "
   );
@@ -61,6 +24,7 @@ export function App() {
           setValue(data.html);
         }}
         editorInstance={editor => {
+          const { from, to } = editor.state.selection;
           return;
         }}
        meta = {{
@@ -70,8 +34,63 @@ export function App() {
           3: { id: 3, claim: "Claim 3", fact: "Fact 3" },
           4: { id: 4, claim: "Claim 4", fact: "Fact 4" }
         }
-      }
-       }
+      }}
+      claimConfig={{
+          ratingsFetcher : (page=1) => {
+            // Replace this with your actual API call to fetch ratings
+            const newRatings = Array.from({ length: 20 }, (_, index) => ({
+              id: index + 1 + (page - 1) * 20,
+              name: `Rating ${index + 1 + (page - 1) * 20}`
+            }));
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve({nodes:newRatings,total:100});
+              }, 1000);
+            });
+          },
+          claimantsFetcher : (page=1) => {
+            // Replace this with your actual API call to fetch claimants
+            const newClaimants = Array.from({ length: 1 }, (_, index) => ({
+              id: index + 1 + (page - 1) * 1,
+              name: `Claimant ${index + 1 + (page - 1) * 1}`
+            }));
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                resolve({nodes:newClaimants,total:100});
+              }, 1000);
+            });
+          },
+          claimsFetcher : (searchTerm, page=1 , limit=10 ) => {
+            return new Promise((resolve, reject) => {
+              // Check if page is a valid number, default to 1 if not provided or invalid
+              const pageNumber = Number.isInteger(page) && page > 0 ? page : 1;
+          
+              // Simulating API delay with setTimeout
+              setTimeout(() => {
+                // Simulated API response
+                const claims = [
+                  { id: pageNumber, order:pageNumber ,claim: "Claim" + pageNumber + (searchTerm ? searchTerm : ""), fact: "Fact" + pageNumber },
+                  { id: pageNumber + 1, order:pageNumber+1 , claim: "Claim" + (pageNumber + 1) + (searchTerm ? searchTerm : ""), fact: "Fact" + (pageNumber + 1) },
+                  { id: pageNumber + 2, order:pageNumber+2, claim: "Claim" + (pageNumber + 2) + (searchTerm ? searchTerm : ""), fact: "Fact" + (pageNumber + 2) },
+                ];
+                resolve({nodes:claims , total : 100});
+              }, 1000);
+            });
+          },
+          addClaim : (values) => {
+            // Replace this with your actual API call to post data and receive the form data with ID
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                const generatedId = '12345'; // Replace '12345' with the generated ID from the backend
+                const formDataWithId = {
+                  ...values,
+                  id: generatedId,
+                };
+                resolve(formDataWithId);
+              }, 1000); // Simulating a delay of 1 second
+            });
+          },
+       }}
         tagoreConfig={{
           stream: true,
           sse: (input, selectedOption) => {
