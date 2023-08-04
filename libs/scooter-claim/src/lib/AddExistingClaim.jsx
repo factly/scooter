@@ -4,10 +4,7 @@ import SearchClaimsComponent from "./SearchClaims";
 
 
 export const AddExistingClaim  = ({ editor, setIsVisible , isVisible , setMeta , claimConfig }) => { 
-  console.log("existing claim  - config", claimConfig)
   const { claimsFetcher } = claimConfig 
-  console.log("existing claim - editor" , editor) 
-  console.log("existing claim - editor claimsFetcher " , claimsFetcher)
     return(<Modal
         isOpen={isVisible}
         onClose={() => {
@@ -15,7 +12,7 @@ export const AddExistingClaim  = ({ editor, setIsVisible , isVisible , setMeta ,
         }}
        closeButton={false}
       >
-          <div className="scooter-editor-add-existing-claim">
+          <div style={{alignItems:"unset"}} className="scooter-editor-add-existing-claim">
               <div className="scooter-editor-add-existing-claim__content ">
                  <SearchClaimsComponent claimsFetcher={claimsFetcher} editor={editor} setIsVisible={setIsVisible} setMeta={setMeta} itemsPerPage={10}  />
               </div>

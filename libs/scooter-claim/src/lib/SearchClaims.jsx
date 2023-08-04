@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
-console.log("ReactPaginate", ReactPaginate)
 
 const InputComponent = ({ searchTerm, setSearchTerm }) => {
   const inputRef = useRef(null);
@@ -54,7 +53,6 @@ const LoadingComponent = () => {
 };
 
 const TableComponent = ({ claims, handleSelectClaim }) => {
-    console.log("claimss", claims)
   return (
     <table
       style={{
@@ -126,10 +124,6 @@ const TableComponent = ({ claims, handleSelectClaim }) => {
 };
 
 const PaginationComponent = ({ claims, pageCount, handlePageClick }) => {
-    console.log("claimsss", claims)
-    console.log("pageCount", pageCount)
-    console.log("handlePageClick", handlePageClick)
-
   return (
     <>
         <div style={{ marginLeft: 'auto' }}>
@@ -184,8 +178,11 @@ const SearchClaimsComponent = ({ editor, setIsVisible, setMeta, claimsFetcher, i
     editor
       .chain()
       .setClaim({ id: claim.id, order: claim?.order ?? 1, claim: claim.claim, fact: claim.fact })
-      .insertContentAt(editor.state.selection.head + 1, "<p></p>")
-      .focus(editor.state.selection.head + 1)
+      .run();
+    editor
+      .chain()
+      .insertContentAt(editor.state.selection.head+1, "<p></p>")
+      .focus(editor.state.selection.head+1)
       .run();
     setIsVisible(false);
   };
@@ -205,7 +202,6 @@ const SearchClaimsComponent = ({ editor, setIsVisible, setMeta, claimsFetcher, i
         setIsLoading(false);
       });
   };
-  console.log("claims", claims)
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flexGrow: "1" }}>
     <div style={{ display: 'flex', flexDirection: 'row', justifyContent:"space-between" }}>

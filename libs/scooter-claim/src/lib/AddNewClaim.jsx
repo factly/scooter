@@ -60,9 +60,12 @@ const AddNewClaimForm = ({editor , setIsVisible , claimConfig}) => {
     addClaim(formData).then((claim) => {
    
       editor
-      .chain()  
-      .setClaim({ id: claim.id, order: claim?.order??1 , claim: claim.claim , fact: claim.fact })
-      .insertContentAt(editor.state.selection.head+1,"<p></p>")
+      .chain()
+      .setClaim({ id: claim.id, order: claim?.order ?? 1, claim: claim.claim, fact: claim.fact })
+      .run();
+    editor
+      .chain()
+      .insertContentAt(editor.state.selection.head+1, "<p></p>")
       .focus(editor.state.selection.head+1)
       .run();
      setIsVisible(false);
@@ -89,7 +92,7 @@ const AddNewClaimForm = ({editor , setIsVisible , claimConfig}) => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit} style={{ width: '75%', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
+    <form onSubmit={handleSubmit} style={{ width: '100%', padding: '20px', border: '1px solid #ccc', borderRadius: '8px' }}>
     <div style={{ marginBottom: '10px' }}>
       <label>Claim</label>
       <textarea
@@ -181,6 +184,7 @@ const AddNewClaimForm = ({editor , setIsVisible , claimConfig}) => {
 
 export const AddNewClaim  = ({ editor, setIsVisible , isVisible , setMeta , claimConfig }) => { 
   return(<Modal
+      size="md620"
       isOpen={isVisible}
       onClose={() => {
         setIsVisible(()=>{ return false });

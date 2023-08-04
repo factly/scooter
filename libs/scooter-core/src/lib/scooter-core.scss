@@ -1133,6 +1133,9 @@ body *::before {
 .sc-modal__backdrop .sc-modal__wrapper.sc-modal__wrapper--md {
   width: 720px;
 }
+.sc-modal__backdrop .sc-modal__wrapper.sc-modal__wrapper--md620 {
+  width: 620px;
+}
 .sc-modal__backdrop .sc-icon__wrapper {
   display: flex;
   flex-direction: row;
@@ -2666,6 +2669,7 @@ code {
   display: flex;
   flex-direction: column;
   min-height: 500px;
+  align-items: center;
   .scooter-editor-add-existing-claim__content {
     flex-grow: 1;
     display: flex;
