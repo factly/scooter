@@ -1218,7 +1218,12 @@ body *::before {
   background-color: #49545c;
   background-color: #cecece;
 }
-
+.scooter-editor-slash-commands__wrapper .group-wrapper {
+ width: 100%;
+}
+.scooter-editor-slash-commands__wrapper .group-title {
+  width: 100%;
+ }
 .scooter-editor-tagore-commands__wrapper
   .scooter-editor-tagore-commands__item:hover,
 .scooter-editor-tagore-commands__wrapper
