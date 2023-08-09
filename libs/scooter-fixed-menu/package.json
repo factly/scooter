@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-fixed-menu",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "peerDependencies": {
     "react": "^18.0.0"
   },
