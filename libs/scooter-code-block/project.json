@@ -23,6 +23,7 @@
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",
+        "extractCss": false,
         "format": ["esm", "cjs"],
         "skipTypeField": true,
         "assets": [

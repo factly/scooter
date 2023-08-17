@@ -1,3 +1,4 @@
+import "./scooter-image.scss";
 export * from "./lib/ScooterImage";
 export * from "./lib/ExtensionConfig";
 export * from "./lib/LocalUploader";

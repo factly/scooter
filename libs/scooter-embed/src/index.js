@@ -1,3 +1,4 @@
+import "./scooter-embed.scss";
 export * from "./lib/ScooterEmbed";
 export * from "./lib/EmbedComponent";
 export * from "./lib/EmbedFetcher";

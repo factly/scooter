@@ -22,6 +22,7 @@
         "entryFile": "libs/scooter-claim/src/index.js",
         "external": ["react/jsx-runtime"],
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "extractCss": false,
         "compiler": "babel",
         "buildableProjectDepsInPackageJsonType": "dependencies",
         "format": ["esm", "cjs"],
