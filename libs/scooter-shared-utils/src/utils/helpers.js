@@ -34,11 +34,32 @@ export const getEditorStyles = ({ heightStrategy, rows }) => {
 export const generateAddonOptions = (
   defaults,
   addons = [],
+  extensionList = {},
+  extensionUI = {},
   { includeImageUpload }
 ) => {
   const userAddonOptions = addons.map(option => option.toLowerCase());
   if (includeImageUpload) userAddonOptions.push(EDITOR_OPTIONS.IMAGE_UPLOAD);
-
+  if (extensionList.TagoreCommandsExtension) {
+    userAddonOptions.push(EDITOR_OPTIONS.WRITE_WITH_AI);
+    userAddonOptions.push(EDITOR_OPTIONS.ASK_AI);
+  }
+  if (extensionList.ClaimExtension) {
+    userAddonOptions.push(EDITOR_OPTIONS.ADD_EXISTING_CLAIM);
+    userAddonOptions.push(EDITOR_OPTIONS.ADD_NEW_CLAIM);
+  }
+  if (extensionList.EmbedExtension) {
+    userAddonOptions.push(EDITOR_OPTIONS.EMBED);
+  }
+  if (extensionList.ImageExtensionConfig) {
+    userAddonOptions.push(EDITOR_OPTIONS.IMAGE_UPLOAD);
+  }
+  if (extensionList.CodeBlockExtension) {
+    userAddonOptions.push(EDITOR_OPTIONS.CODE_BLOCK);
+  }
+  if (extensionList.Table&&extensionList.TableRow&&extensionList.TableCell&&extensionList.TableHeadCell) {
+    userAddonOptions.push(EDITOR_OPTIONS.TABLE);
+  }
   return [].concat(defaults, userAddonOptions);
 };
 
