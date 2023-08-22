@@ -65,6 +65,7 @@ export const MENU_ITEMS = {
   WRITE_WITH_AI: {
     optionName: EDITOR_OPTIONS.WRITE_WITH_AI,
     title: "Write with AI",
+    group : "Basic Blocks",
     description: "Write with AI",
     Icon: BiChip,
     command: ({ editor, range }) => {
@@ -78,6 +79,7 @@ export const MENU_ITEMS = {
   },
   ADD_EXISTING_CLAIM: {
     optionName: EDITOR_OPTIONS.ADD_EXISTING_CLAIM,
+    group : "Fact Check",
     title: "Add existing claim",
     description: "Add existing claim",
     Icon: RiTaskLine, 
@@ -86,6 +88,7 @@ export const MENU_ITEMS = {
   },
   ADD_NEW_CLAIM: {
     optionName: EDITOR_OPTIONS.ADD_NEW_CLAIM,
+    group : "Fact Check",
     title: "Add new claim",
     description: "Add new claim",
     Icon: RiTaskLine,
@@ -94,6 +97,7 @@ export const MENU_ITEMS = {
   },
   PARAGRAPH: {
     optionName: EDITOR_OPTIONS.PARAGRAPH,
+    group : "Basic Blocks",
     title: "Paragraph",
     description: "Add a plain text block.",
     Icon: RiParagraph,
@@ -103,6 +107,7 @@ export const MENU_ITEMS = {
   },
   H1: {
     optionName: EDITOR_OPTIONS.H1,
+    group : "Basic Blocks",
     title: "H1",
     description: "Add a big heading.",
     Icon: RiH1,
@@ -117,6 +122,7 @@ export const MENU_ITEMS = {
   },
   H2: {
     optionName: EDITOR_OPTIONS.H2,
+    group : "Basic Blocks",
     title: "H2",
     description: "Add a sub-heading.",
     Icon: RiH2,
@@ -131,6 +137,7 @@ export const MENU_ITEMS = {
   },
   H3: {
     optionName: EDITOR_OPTIONS.H3,
+    group : "Basic Blocks",
     title: "H3",
     description: "Add a sub-heading of level 3.",
     Icon: RiH3,
@@ -145,6 +152,7 @@ export const MENU_ITEMS = {
   },
   H4: {
     optionName: EDITOR_OPTIONS.H4,
+    group : "Basic Blocks",
     title: "H4",
     description: "Add a sub-heading of level 4.",
     Icon: RiH4,
@@ -159,6 +167,7 @@ export const MENU_ITEMS = {
   },
   H5: {
     optionName: EDITOR_OPTIONS.H5,
+    group : "Basic Blocks",
     title: "H5",
     description: "Add a sub-heading of level 5.",
     Icon: RiH5,
@@ -173,6 +182,7 @@ export const MENU_ITEMS = {
   },
   H6: {
     optionName: EDITOR_OPTIONS.H6,
+    group : "Basic Blocks",
     title: "H6",
     description: "Add a sub-heading of level 6.",
     Icon: RiH6,
@@ -187,6 +197,7 @@ export const MENU_ITEMS = {
   },
   LIST_ORDERED: {
     optionName: EDITOR_OPTIONS.LIST_ORDERED,
+    group : "Basic Blocks",
     title: "Numbered list",
     description: "Add a list with numbering.",
     Icon: RiListOrdered,
@@ -196,6 +207,7 @@ export const MENU_ITEMS = {
   },
   LIST_BULLETS: {
     optionName: EDITOR_OPTIONS.LIST_BULLETS,
+    group : "Basic Blocks",
     title: "Bulleted list",
     description: "Add a list with bullets.",
     Icon: RiListUnordered,
@@ -205,6 +217,7 @@ export const MENU_ITEMS = {
   },
   BLOCKQUOTE: {
     optionName: EDITOR_OPTIONS.BLOCKQUOTE,
+    group : "Basic Blocks",
     title: "Blockquote",
     description: "Add a quote.",
     Icon: RiDoubleQuotesL,
@@ -214,6 +227,7 @@ export const MENU_ITEMS = {
   },
   IMAGE: {
     optionName: EDITOR_OPTIONS.IMAGE_UPLOAD,
+    group : "Media",
     title: "Image",
     description: "Add an image.",
     Icon: RiImage2Line,
@@ -222,6 +236,7 @@ export const MENU_ITEMS = {
   },
   CODE: {
     optionName: EDITOR_OPTIONS.CODE_BLOCK,
+    group : "Basic Blocks",
     title: "Code block",
     description: "Add a code block with syntax highlighting.",
     Icon: RiCodeSSlashFill,
@@ -231,6 +246,7 @@ export const MENU_ITEMS = {
   },
   EMOJI: {
     optionName: EDITOR_OPTIONS.EMOJI,
+    group : "Basic Blocks",
     title: "Emoji",
     description: "Add an emoji.",
     Icon: RiEmotionHappyLine,
@@ -240,6 +256,7 @@ export const MENU_ITEMS = {
   },
   TABLE: {
     optionName: EDITOR_OPTIONS.TABLE,
+    group : "Basic Blocks",
     title: "Table",
     description: "Add a table.",
     Icon: RiTableLine,
@@ -254,6 +271,7 @@ export const MENU_ITEMS = {
   },
   DIVIDER: {
     optionName: EDITOR_OPTIONS.DIVIDER,
+    group : "Basic Blocks",
     title: "Divider",
     description: "Add an horizontal line to separate sections.",
     Icon: RiSeparator,
@@ -263,6 +281,7 @@ export const MENU_ITEMS = {
   },
   VIDEO: {
     optionName: EDITOR_OPTIONS.VIDEO_EMBED,
+    group : "Media",
     title: "Embed Youtube/Vimeo",
     description: "Embed a video from major services.",
     Icon: RiVideoLine,
@@ -292,6 +311,7 @@ export const MENU_ITEMS = {
   },
   EMBED: {
     optionName: EDITOR_OPTIONS.EMBED,
+    group : "Basic Blocks",
     title: "Embed",
     description: "Embed anything from major services.",
     Icon: RiVideoLine,
@@ -300,6 +320,7 @@ export const MENU_ITEMS = {
   },
   RAW_HTML: {
     optionName: EDITOR_OPTIONS.RAW_HTML,
+    group : "Basic Blocks",
     title: "Raw HTML",
     description: "Insert Raw HTML",
     Icon: RiCodeSSlashFill,
@@ -310,6 +331,7 @@ export const MENU_ITEMS = {
   // placeholder item when no matching results found
   NO_RESULT: {
     title: "No results",
+    group : "N/A",
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).run();
     },

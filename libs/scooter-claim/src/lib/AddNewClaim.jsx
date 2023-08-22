@@ -1,6 +1,7 @@
 import { Modal } from "@factly/scooter-ui";
 import React, { useState, useEffect, useRef } from 'react';
-
+import SourceList from './SourceList';
+import MetaFields from './MetaFields';
 function maker(string) {
   return string
     .toString()
@@ -38,6 +39,11 @@ const AddNewClaimForm = ({editor , setIsVisible , claimConfig}) => {
   const [ratings, setRatings] = useState([]);
   const [claimDate, setClaimDate] = useState('');
   const [checkedDate, setCheckedDate] = useState('');
+  const [reviewSources, setReviewSources] = useState([{ url: '', description: '' }]);
+  const [claimSources, setClaimSources] = useState([{ url: '', description: '' }]);
+  const [metaTitle, setMetaTitle] = useState('');
+  const [metaDescription, setMetaDescription] = useState('');
+  const [canonicalURL, setCanonicalURL] = useState('');
   const { claimantsFetcher, addClaim ,  ratingsFetcher  } = claimConfig 
   
 
@@ -54,7 +60,14 @@ const AddNewClaimForm = ({editor , setIsVisible , claimConfig}) => {
       claimant_id:claimant,
       rating_id:rating,
       claim_date:getFormattedDate(claimDate),
-      checked_date:getFormattedDate(checkedDate)
+      checked_date:getFormattedDate(checkedDate),
+      claim_sources: claimSources,
+      review_sources: reviewSources,
+      meta: {
+        title: metaTitle,
+        description: metaDescription,
+        canonical_URL: canonicalURL,
+      }
     };
   
     addClaim(formData).then((claim) => {
@@ -79,6 +92,36 @@ const AddNewClaimForm = ({editor , setIsVisible , claimConfig}) => {
     setClaim(truncatedClaim);
     setSlug(newSlug);
   };
+  const handleAddReviewSource = () => {
+    setReviewSources([...reviewSources, { url: '', description: '' }]);
+  };
+
+  const handleRemoveReviewSource = (index) => {
+    const updatedReviewSources = reviewSources.filter((_, i) => i !== index);
+    setReviewSources(updatedReviewSources);
+  };
+
+  const handleChangeReviewSource = (index, field, value) => {
+    const updatedReviewSources = [...reviewSources];
+    updatedReviewSources[index][field] = value;
+    setReviewSources(updatedReviewSources);
+  };
+
+  const handleAddClaimSource = () => {
+    setClaimSources([...claimSources, { url: '', description: '' }]);
+  };
+
+  const handleRemoveClaimSource = (index) => {
+    const updatedClaimSources = claimSources.filter((_, i) => i !== index);
+    setClaimSources(updatedClaimSources);
+  };
+
+  const handleChangeClaimSource = (index, field, value) => {
+    const updatedClaimSources = [...claimSources];
+    updatedClaimSources[index][field] = value;
+    setClaimSources(updatedClaimSources);
+  };
+
 
   useEffect(() => {
     claimantsFetcher(1).then((newClaimants) => {
@@ -173,6 +216,28 @@ const AddNewClaimForm = ({editor , setIsVisible , claimConfig}) => {
           />
         </div>
       </div>
+      <SourceList
+          sources={reviewSources}
+          typeLabel="Review"
+          onAddSource={handleAddReviewSource}
+          onRemoveSource={handleRemoveReviewSource}
+          onChangeSource={handleChangeReviewSource}
+        />
+        <SourceList
+          sources={claimSources}
+          typeLabel="Claim"
+          onAddSource={handleAddClaimSource}
+          onRemoveSource={handleRemoveClaimSource}
+          onChangeSource={handleChangeClaimSource}
+        />
+         <MetaFields
+          metaTitle={metaTitle}
+          setMetaTitle={setMetaTitle}
+          metaDescription={metaDescription}
+          setMetaDescription={setMetaDescription}
+          canonicalURL={canonicalURL}
+          setCanonicalURL={setCanonicalURL}
+        />
     <button type="submit" style={{ width: '100%', padding: '8px', borderRadius: '4px', border: 'none', backgroundColor: '#007BFF', color: '#fff', cursor: 'pointer' }}>
       Submit
     </button>
