@@ -10,3 +10,4 @@ export * from "./lib/UnsplashImagePicker";
 export * from "./lib/Uploader";
 export * from "./lib/constants";
 export * from "./lib/Progress";
+export * from "./Image";

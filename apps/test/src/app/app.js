@@ -2,19 +2,12 @@ import { ScooterCore } from "@factly/scooter-core";
 import React, { useState, useEffect } from "react";
 import { SSE } from "sse";
 import axios from "axios";
-import { AddExistingClaim, AddNewClaim } from "@factly/scooter-claim";
-import { ClaimsExtension } from "@factly/scooter-claims";
-import { ClaimExtension } from "@factly/scooter-claim";
-import { Uploader } from "@factly/scooter-image";
-import { EmbedExtension } from "@factly/scooter-embed";
-import { EmbedFetcher } from "@factly/scooter-embed";
-import { Table } from "@factly/scooter-table";
-import { TableRow } from "@factly/scooter-table-row";
-import { TableCell } from "@factly/scooter-table-cell";
-import { TableHeadCell } from "@factly/scooter-table-head-cell";
-import { CodeBlockExtension } from "@factly/scooter-code-block";
-import { ImageExtensionConfig } from "@factly/scooter-image";
-import { TagoreCommandsExtension } from "@factly/scooter-tagore";
+import { FactCheck } from "@factly/scooter-claim";
+import { Image } from "@factly/scooter-image";
+import { Embed } from "@factly/scooter-embed";
+import { ScooterTable } from "@factly/scooter-table";
+import { CodeBlock } from "@factly/scooter-code-block";
+import { TagoreAI } from "@factly/scooter-tagore";
 
 export function App() {
   //<div data-type='embed' class='embed-wrapper'><div style='left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.5%;'><iframe src='https://www.youtube.com/embed/7OO5uGvNZpM?feature=oembed' style='border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;' allowfullscreen='' scrolling='no' allow='encrypted-media; accelerometer; clipboard-write; gyroscope; picture-in-picture'></iframe></div></div><p>hello</p><img src='https://pbs.twimg.com/media/FqAnDvEWAAIXd6l?format=jpg&name=medium' style='background: red;' /><ol class='yo'><li>1.</li><li>hello</li><li>hello</li></ol>
@@ -41,65 +34,91 @@ export function App() {
           const { from, to } = editor.state.selection;
           return;
         }}
-       extensions= {{
-        extensionList : { ClaimExtension, EmbedExtension , Table , TableRow , TableCell , TableHeadCell , CodeBlockExtension , ImageExtensionConfig , TagoreCommandsExtension} ,
-        extensionUI : {AddExistingClaim,AddNewClaim , EmbedFetcher , Uploader},
-       }}
-       meta = {{
-        claims: {
-          1: { id: 1, claim: "Claim 1", fact: "Fact 1" },
-          2: { id: 2, claim: "Claim 2", fact: "Fact 2" },
-          3: { id: 3, claim: "Claim 3", fact: "Fact 3" },
-          4: { id: 4, claim: "Claim 4", fact: "Fact 4" }
-        }
-      }}
-      claimConfig={{
-          ratingsFetcher : (page=1) => {
+        extensions={[
+          FactCheck,
+          Image,
+          Embed,
+          ScooterTable,
+          TagoreAI,
+          CodeBlock,
+        ]}
+        meta={{
+          claims: {
+            1: { id: 1, claim: "Claim 1", fact: "Fact 1" },
+            2: { id: 2, claim: "Claim 2", fact: "Fact 2" },
+            3: { id: 3, claim: "Claim 3", fact: "Fact 3" },
+            4: { id: 4, claim: "Claim 4", fact: "Fact 4" },
+          },
+        }}
+        claimConfig={{
+          ratingsFetcher: (page = 1) => {
             // Replace this with your actual API call to fetch ratings
             const newRatings = Array.from({ length: 20 }, (_, index) => ({
               id: index + 1 + (page - 1) * 20,
-              name: `Rating ${index + 1 + (page - 1) * 20}`
+              name: `Rating ${index + 1 + (page - 1) * 20}`,
             }));
-            return new Promise((resolve) => {
+            return new Promise(resolve => {
               setTimeout(() => {
-                resolve({nodes:newRatings,total:100});
+                resolve({ nodes: newRatings, total: 100 });
               }, 1000);
             });
           },
-          claimantsFetcher : (page=1) => {
+          claimantsFetcher: (page = 1) => {
             // Replace this with your actual API call to fetch claimants
             const newClaimants = Array.from({ length: 1 }, (_, index) => ({
               id: index + 1 + (page - 1) * 1,
-              name: `Claimant ${index + 1 + (page - 1) * 1}`
+              name: `Claimant ${index + 1 + (page - 1) * 1}`,
             }));
-            return new Promise((resolve) => {
+            return new Promise(resolve => {
               setTimeout(() => {
-                resolve({nodes:newClaimants,total:100});
+                resolve({ nodes: newClaimants, total: 100 });
               }, 1000);
             });
           },
-          claimsFetcher : (searchTerm, page=1 , limit=10 ) => {
+          claimsFetcher: (searchTerm, page = 1, limit = 10) => {
             return new Promise((resolve, reject) => {
               // Check if page is a valid number, default to 1 if not provided or invalid
               const pageNumber = Number.isInteger(page) && page > 0 ? page : 1;
-          
+
               // Simulating API delay with setTimeout
               setTimeout(() => {
                 // Simulated API response
                 const claims = [
-                  { id: pageNumber, order:pageNumber ,claim: "Claim" + pageNumber + (searchTerm ? searchTerm : ""), fact: "Fact" + pageNumber },
-                  { id: pageNumber + 1, order:pageNumber+1 , claim: "Claim" + (pageNumber + 1) + (searchTerm ? searchTerm : ""), fact: "Fact" + (pageNumber + 1) },
-                  { id: pageNumber + 2, order:pageNumber+2, claim: "Claim" + (pageNumber + 2) + (searchTerm ? searchTerm : ""), fact: "Fact" + (pageNumber + 2) },
+                  {
+                    id: pageNumber,
+                    order: pageNumber,
+                    claim:
+                      "Claim" + pageNumber + (searchTerm ? searchTerm : ""),
+                    fact: "Fact" + pageNumber,
+                  },
+                  {
+                    id: pageNumber + 1,
+                    order: pageNumber + 1,
+                    claim:
+                      "Claim" +
+                      (pageNumber + 1) +
+                      (searchTerm ? searchTerm : ""),
+                    fact: "Fact" + (pageNumber + 1),
+                  },
+                  {
+                    id: pageNumber + 2,
+                    order: pageNumber + 2,
+                    claim:
+                      "Claim" +
+                      (pageNumber + 2) +
+                      (searchTerm ? searchTerm : ""),
+                    fact: "Fact" + (pageNumber + 2),
+                  },
                 ];
-                resolve({nodes:claims , total : 100});
+                resolve({ nodes: claims, total: 100 });
               }, 1000);
             });
           },
-          addClaim : (values) => {
+          addClaim: values => {
             // Replace this with your actual API call to post data and receive the form data with ID
-            return new Promise((resolve) => {
+            return new Promise(resolve => {
               setTimeout(() => {
-                const generatedId = '12345'; // Replace '12345' with the generated ID from the backend
+                const generatedId = "12345"; // Replace '12345' with the generated ID from the backend
                 const formDataWithId = {
                   ...values,
                   id: generatedId,
@@ -108,7 +127,7 @@ export function App() {
               }, 1000); // Simulating a delay of 1 second
             });
           },
-       }}
+        }}
         tagoreConfig={{
           stream: true,
           sse: (input, selectedOption) => {
