@@ -2,6 +2,20 @@ import { ScooterCore } from "@factly/scooter-core";
 import React, { useState, useEffect } from "react";
 import { SSE } from "sse";
 import axios from "axios";
+import { AddExistingClaim, AddNewClaim } from "@factly/scooter-claim";
+import { ClaimsExtension } from "@factly/scooter-claims";
+import { ClaimExtension } from "@factly/scooter-claim";
+import { Uploader } from "@factly/scooter-image";
+import { EmbedExtension } from "@factly/scooter-embed";
+import { EmbedFetcher } from "@factly/scooter-embed";
+import { Table } from "@factly/scooter-table";
+import { TableRow } from "@factly/scooter-table-row";
+import { TableCell } from "@factly/scooter-table-cell";
+import { TableHeadCell } from "@factly/scooter-table-head-cell";
+import { CodeBlockExtension } from "@factly/scooter-code-block";
+import { ImageExtensionConfig } from "@factly/scooter-image";
+import { TagoreCommandsExtension } from "@factly/scooter-tagore";
+
 export function App() {
   //<div data-type='embed' class='embed-wrapper'><div style='left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.5%;'><iframe src='https://www.youtube.com/embed/7OO5uGvNZpM?feature=oembed' style='border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;' allowfullscreen='' scrolling='no' allow='encrypted-media; accelerometer; clipboard-write; gyroscope; picture-in-picture'></iframe></div></div><p>hello</p><img src='https://pbs.twimg.com/media/FqAnDvEWAAIXd6l?format=jpg&name=medium' style='background: red;' /><ol class='yo'><li>1.</li><li>hello</li><li>hello</li></ol>
   const [value, setValue] = useState(
@@ -27,6 +41,10 @@ export function App() {
           const { from, to } = editor.state.selection;
           return;
         }}
+       extensions= {{
+        extensionList : { ClaimExtension, EmbedExtension , Table , TableRow , TableCell , TableHeadCell , CodeBlockExtension , ImageExtensionConfig , TagoreCommandsExtension} ,
+        extensionUI : {AddExistingClaim,AddNewClaim , EmbedFetcher , Uploader},
+       }}
        meta = {{
         claims: {
           1: { id: 1, claim: "Claim 1", fact: "Fact 1" },
