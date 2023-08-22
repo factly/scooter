@@ -78,6 +78,7 @@ export const SlashCommandsExtension = {
     }
    
     return Extension.create({
+      name: "SlashCommandsExtension",
       addOptions() {
         return {
           HTMLAttributes: {
