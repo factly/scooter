@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-bubble-menu",
-  "version": "0.0.40",
+  "version": "0.0.41",
   "peerDependencies": {
     "react": "^18.0.0"
   },
