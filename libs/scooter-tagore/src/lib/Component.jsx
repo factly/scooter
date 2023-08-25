@@ -324,14 +324,20 @@ export const TagoreComponent = props => {
   }
 
   const handleSubmit = async () => {
-    setCurrentInputValue(inputValue.split(":")[1] || inputValue);
-
-    let value = inputValue.split(":")[1] || inputValue;
-    let promptId =
-      value !== inputValue
-        ? currentSelectedItem?.promptId || "default"
-        : "default";
-
+    const parts = inputValue.split(":");
+    const defaultPromptId = currentSelectedItem?.promptId || "default";
+    
+    let value;
+    let promptId;
+    
+    if (currentSelectedItem?.promptId === "summarise-url") {
+      value = (parts[1] + parts[2])?.trim() || inputValue;
+      promptId = "summarise-url";
+    } else {
+      value = parts[1] || inputValue;
+      promptId = value !== inputValue ? defaultPromptId : "default";
+    }
+    setCurrentInputValue(value);
     setCurrentSelectedItem({ promptId });
     if (stream) {
       setContent("");
