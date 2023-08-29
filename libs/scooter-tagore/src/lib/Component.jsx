@@ -331,7 +331,7 @@ export const TagoreComponent = props => {
     let promptId;
     
     if (currentSelectedItem?.promptId === "summarise-url") {
-      value = (parts[1] + parts[2])?.trim() || inputValue;
+      value = (parts[1] + ":" + parts[2])?.trim() || inputValue;
       promptId = "summarise-url";
     } else {
       value = parts[1] || inputValue;
