@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-tasklist",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "peerDependencies": {
     "react": "^18.0.0"
   },
