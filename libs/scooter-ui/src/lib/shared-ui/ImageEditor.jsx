@@ -20,7 +20,7 @@ export const ImageEditor = ({ url, editor, onClose, alt, caption }) => {
   };
 
   return (
-    <div className="scooter-editor-image-editor" onKeyDown={handleKeyDown}>
+    <div className="sc-scooter-editor-image-editor" onKeyDown={handleKeyDown}>
       <img src={url} />
       <Input
         value={captionText}
@@ -34,7 +34,7 @@ export const ImageEditor = ({ url, editor, onClose, alt, caption }) => {
         placeholder="Brand Image"
         label="Alt Text"
       />
-      <div className="scooter-editor-image-editor__footer">
+      <div className="sc-scooter-editor-image-editor__footer">
         <Button label="Save Changes" onClick={handleSubmit} />
         <Button label="Cancel" variant="text" onClick={onClose} />
       </div>

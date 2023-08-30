@@ -2,7 +2,7 @@ import React from "react";
 
 import { Modal } from "@factly/scooter-ui";
 
-import { ImageEditor } from "@factly/scooter-image";
+import { ImageEditor } from "@factly/scooter-ui";
 
 export const ImageEditorModal = ({ editor, isOpen, onClose }) => {
   const node = editor && editor.view.state.selection.node;

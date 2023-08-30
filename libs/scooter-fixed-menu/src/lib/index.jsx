@@ -22,7 +22,7 @@ import LinkOption from "./LinkOption";
 import TextColorOption from "./TextColorOption";
 
 import { helpers } from "@factly/scooter-bubble-menu";
-import { ImageEditor } from "@factly/scooter-image";
+import { ImageEditor } from "@factly/scooter-ui";
 // import Mentions from '../Mention';
 // import Variables from '../Variable';
 
