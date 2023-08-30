@@ -1,3 +1,4 @@
+import "./scooter-image.scss";
 export * from "./lib/ScooterImage";
 export * from "./lib/ExtensionConfig";
 export * from "./lib/LocalUploader";
@@ -9,3 +10,4 @@ export * from "./lib/UnsplashImagePicker";
 export * from "./lib/Uploader";
 export * from "./lib/constants";
 export * from "./lib/Progress";
+export * from "./Image";

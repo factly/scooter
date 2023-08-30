@@ -1,17 +1,18 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import classNames from "classnames";
 import { ErrorWrapper } from "@factly/scooter-ui";
 import { EditorView } from "@tiptap/pm/view";
 import { BubbleMenu } from "@factly/scooter-bubble-menu";
 import CharacterCount from "./CustomExtensions/CharacterCount";
-import { EmbedFetcher } from "@factly/scooter-embed";
+// import { EmbedFetcher } from "@factly/scooter-embed";
 import { FixedMenu } from "@factly/scooter-fixed-menu";
-import { Uploader as ImageUploader } from "@factly/scooter-image";
+// import { Uploader as ImageUploader } from "@factly/scooter-image";
 import useCustomExtensions from "./CustomExtensions/useCustomExtensions";
-import { AddNewClaim } from "@factly/scooter-claim";
-import { AddExistingClaim } from "@factly/scooter-claim";
+// import { AddNewClaim } from "@factly/scooter-claim";
+// import { AddExistingClaim } from "@factly/scooter-claim";
+import { mergeExtensions } from "./CustomExtensions/mergeExtensions";
 import {
   generateAddonOptions,
   getEditorStyles,
@@ -70,16 +71,26 @@ export const ScooterCore = React.forwardRef(
       userId,
       tagoreConfig,
       claimConfig,
-      meta : metaData , 
+      meta: metaData,
       ...otherProps
     },
     ref
   ) => {
+    const mergedExtensions = mergeExtensions(extensions);
+    const { extensionList, extensionUI } = mergedExtensions || {};
+    const {
+      AddExistingClaim,
+      AddNewClaim,
+      Uploader: ImageUploader,
+      EmbedFetcher,
+      ...otherExtensionUI
+    } = extensionUI || {};
     const [isImageUploadVisible, setImageUploadVisible] = useState(false);
-    const [ isAddNewClaimVisible, setAddNewClaimVisible] = useState(false);
-    const [ isAddExistingClaimVisible, setAddExistingClaimVisible] = useState(false);
+    const [isAddNewClaimVisible, setAddNewClaimVisible] = useState(false);
+    const [isAddExistingClaimVisible, setAddExistingClaimVisible] =
+      useState(false);
     const [meta, setMeta] = useState(metaData);
-  
+
     const [isEmbedFetcherVisible, setEmbedFetcherVisible] = useState(false);
 
     const isFixedMenuActive = menuType === "fixed";
@@ -93,16 +104,21 @@ export const ScooterCore = React.forwardRef(
     );
     const isCharacterCountActive = characterCountStrategy !== "hidden";
 
-    const addonOptions = generateAddonOptions(defaults, addons, {
-      includeImageUpload: isUnsplashImageUploadActive,
-    });
-
+    const addonOptions = generateAddonOptions(
+      defaults,
+      addons,
+      extensionList,
+      extensionUI,
+      {
+        includeImageUpload: isUnsplashImageUploadActive,
+      }
+    );
     const customExtensions = useCustomExtensions({
       meta,
       contentClassName,
       forceTitle,
       placeholder,
-      extensions,
+      extensions: extensionList,
       mentions,
       variables,
       isSlashCommandsActive,
@@ -191,12 +207,9 @@ export const ScooterCore = React.forwardRef(
     };
 
     const [isTagoreNodePresent, setIsTagoreNodePresent] = useState(false);
-    
+
     // useEffect(() => {
     //   if (isA)
-
-
-
 
     /* Make editor object available to the parent */
     React.useImperativeHandle(ref, () => ({ editor }));
@@ -232,28 +245,47 @@ export const ScooterCore = React.forwardRef(
         {isBubbleMenuActive && !isTagoreNodePresent && (
           <BubbleMenu editor={editor} options={addonOptions} />
         )}
-        <AddNewClaim claimConfig={claimConfig} isVisible={isAddNewClaimVisible} setIsVisible={setAddNewClaimVisible} editor={editor} /> 
-        <AddExistingClaim editor={editor} claimConfig={claimConfig} setIsVisible={setAddExistingClaimVisible}  setMeta={setMeta} isVisible={isAddExistingClaimVisible} /> 
-        <ImageUploader
-          isVisible={isImageUploadVisible}
-          setIsVisible={setImageUploadVisible}
-          editor={editor}
-          imageUploadUrl={uploadEndpoint}
-          uploadConfig={uploadConfig}
-          isUnsplashImageUploadActive={isUnsplashImageUploadActive}
-          unsplashApiKey={editorSecrets?.unsplash}
-          imagesFetcher={imagesFetcher}
-          itemsPerPage={itemsPerPage}
-          onFileAdded={onFileAdded}
-          onUploadComplete={onUploadComplete}
-        />
-        <EmbedFetcher
-          isVisible={isEmbedFetcherVisible}
-          setIsVisible={setEmbedFetcherVisible}
-          editor={editor}
-          iframelyEndpoint={iframelyEndpoint}
-          embedConfig={embedConfig}
-        />
+        {AddNewClaim && extensionList.ClaimExtension && (
+          <AddNewClaim
+            claimConfig={claimConfig}
+            isVisible={isAddNewClaimVisible}
+            setIsVisible={setAddNewClaimVisible}
+            editor={editor}
+          />
+        )}
+        {AddExistingClaim && extensionList.ClaimExtension && (
+          <AddExistingClaim
+            editor={editor}
+            claimConfig={claimConfig}
+            setIsVisible={setAddExistingClaimVisible}
+            setMeta={setMeta}
+            isVisible={isAddExistingClaimVisible}
+          />
+        )}
+        {ImageUploader && extensionList.ImageExtensionConfig && (
+          <ImageUploader
+            isVisible={isImageUploadVisible}
+            setIsVisible={setImageUploadVisible}
+            editor={editor}
+            imageUploadUrl={uploadEndpoint}
+            uploadConfig={uploadConfig}
+            isUnsplashImageUploadActive={isUnsplashImageUploadActive}
+            unsplashApiKey={editorSecrets?.unsplash}
+            imagesFetcher={imagesFetcher}
+            itemsPerPage={itemsPerPage}
+            onFileAdded={onFileAdded}
+            onUploadComplete={onUploadComplete}
+          />
+        )}
+        {EmbedFetcher && extensionList.EmbedExtension && (
+          <EmbedFetcher
+            isVisible={isEmbedFetcherVisible}
+            setIsVisible={setEmbedFetcherVisible}
+            editor={editor}
+            iframelyEndpoint={iframelyEndpoint}
+            embedConfig={embedConfig}
+          />
+        )}
         <EditorContent editor={editor} {...otherProps} />
         {isCharacterCountActive && (
           <CharacterCount

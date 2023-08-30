@@ -1,3 +1,4 @@
+import "./scooter-ui.scss";
 export * from "./lib/Avatar";
 export * from "./lib/Backdrop";
 export * from "./lib/Button";
