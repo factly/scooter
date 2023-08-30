@@ -133,7 +133,8 @@ export function App() {
           sse: (input, selectedOption) => {
             let source = new SSE("http://localhost:8080/prompts/generate", {
               headers: {
-                "X-User": "20",
+                "X-User": "1",
+                "X-Organisation": "1",
                 //  max_tokens: 2000
               },
               method: "POST",

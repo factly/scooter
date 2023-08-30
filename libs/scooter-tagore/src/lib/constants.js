@@ -397,6 +397,18 @@ export const MENU_ITEMS = [
         promptId: "social-media-post",
       },
       {
+        title: "Summarise Link..",
+        searchTags: ["Summarise Link.."],
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Add link to summarize: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Add link to summarize: `);
+        },
+        type: "command",
+        promptId: "summarise-url",
+      },
+      {
         title: "Press Release..",
         searchTags: ["Press Release.."],
         commandType: "prompt",
@@ -735,6 +747,7 @@ export const SEARCHABLE_MENU_ITEMS = [
       "Blog Post..",
       "Outline..",
       "Social media post..",
+      "Summarise Link..",
       "Press Release..",
       "Creative Story..",
       "Essay..",
@@ -801,6 +814,18 @@ export const SEARCHABLE_MENU_ITEMS = [
         },
         type: "command",
         promptId: "social-media-post",
+      },
+      {
+        title: "Summarise Link..",
+        searchTags: ["Summarise Link.."],
+        commandType: "prompt",
+        Icon: AiOutlineEdit,
+        prompt: "Add link to summarize: \n",
+        command: async ({ editor, range, setInputValue }) => {
+          setInputValue(`Add link to summarize: `);
+        },
+        type: "command",
+        promptId: "summarise-url",
       },
       {
         title: "Press Release..",
