@@ -12,6 +12,7 @@ import Tippy from "@tippyjs/react";
 import { BiUpArrow, BiUpArrowAlt, BiUpArrowCircle } from "react-icons/bi";
 import { TbWand } from "react-icons/tb";
 import { BsStars } from "react-icons/bs";
+import { useTipTapNodeFocus } from "@factly/scooter-shared-utils";
 
 export const TagoreComponent = props => {
   const {
@@ -74,12 +75,13 @@ export const TagoreComponent = props => {
     }
   }, [content, loading]);
 
-  React.useEffect(() => {
-    // if input vaue changes, focus on input
-    if (inputValue && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [inputValue]);
+  // React.useEffect(() => {
+  //   // if input vaue changes, focus on input
+  //   if (inputValue && inputRef.current) {
+  //     inputRef.current.focus();
+  //   }
+  // }, [inputValue]);
+  useTipTapNodeFocus(inputRef)
 
   async function fetchData(input, selectedOption) {
     try {
