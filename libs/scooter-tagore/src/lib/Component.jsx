@@ -75,12 +75,12 @@ export const TagoreComponent = props => {
     }
   }, [content, loading]);
 
-  // React.useEffect(() => {
-  //   // if input vaue changes, focus on input
-  //   if (inputValue && inputRef.current) {
-  //     inputRef.current.focus();
-  //   }
-  // }, [inputValue]);
+  React.useEffect(() => {
+    // if input vaue changes, focus on input
+    if (inputValue && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [inputValue]);
   useTipTapNodeFocus(inputRef);
 
   async function fetchData(input, selectedOption) {
