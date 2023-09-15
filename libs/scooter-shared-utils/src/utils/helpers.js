@@ -57,7 +57,12 @@ export const generateAddonOptions = (
   if (extensionList.CodeBlockExtension) {
     userAddonOptions.push(EDITOR_OPTIONS.CODE_BLOCK);
   }
-  if (extensionList.Table&&extensionList.TableRow&&extensionList.TableCell&&extensionList.TableHeadCell) {
+  if (
+    extensionList.Table &&
+    extensionList.TableRow &&
+    extensionList.TableCell &&
+    extensionList.TableHeadCell
+  ) {
     userAddonOptions.push(EDITOR_OPTIONS.TABLE);
   }
   return [].concat(defaults, userAddonOptions);

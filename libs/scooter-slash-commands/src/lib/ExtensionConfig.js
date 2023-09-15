@@ -65,7 +65,6 @@ export const SlashCommandsExtension = {
         },
       },
     ];
-   
 
     if (!isNilOrEmpty(allowedCommandOptions)) {
       commandItems = commandItems.filter(({ optionName }) =>
@@ -76,7 +75,7 @@ export const SlashCommandsExtension = {
     if (!isNilOrEmpty(addonCommands)) {
       commandItems = commandItems.concat(addonCommands);
     }
-   
+
     return Extension.create({
       name: "SlashCommandsExtension",
       addOptions() {

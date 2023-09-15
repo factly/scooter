@@ -81,7 +81,7 @@ export const TagoreComponent = props => {
   //     inputRef.current.focus();
   //   }
   // }, [inputValue]);
-  useTipTapNodeFocus(inputRef)
+  useTipTapNodeFocus(inputRef);
 
   async function fetchData(input, selectedOption) {
     try {
@@ -325,7 +325,7 @@ export const TagoreComponent = props => {
     }
   }
 
-  const handleStreamMessage = (event) => {
+  const handleStreamMessage = event => {
     const text = JSON.parse(event.data);
     setContent(text.output.replace(/\n|\t|(?<=>)\s*/g, ""));
   };
@@ -340,7 +340,16 @@ export const TagoreComponent = props => {
     }
   };
 
-  const fetchDataAndHandleErrors = async (value, promptId, setContent, hideMenu, setError, setLoading, showMenu, setGenerated) => {
+  const fetchDataAndHandleErrors = async (
+    value,
+    promptId,
+    setContent,
+    hideMenu,
+    setError,
+    setLoading,
+    showMenu,
+    setGenerated
+  ) => {
     try {
       const data = await fetchData(value, promptId);
       if (data) {
@@ -383,11 +392,11 @@ export const TagoreComponent = props => {
       const source = sse(value, promptId);
       setSourceClient(source);
 
-      source.addEventListener("message", (event) => {
+      source.addEventListener("message", event => {
         handleStreamMessage(event);
       });
 
-      source.addEventListener("error", (event) => {
+      source.addEventListener("error", event => {
         handleStreamError(event, source);
       });
 

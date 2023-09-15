@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
-
 const InputComponent = ({ searchTerm, setSearchTerm }) => {
   const inputRef = useRef(null);
 
@@ -10,18 +9,18 @@ const InputComponent = ({ searchTerm, setSearchTerm }) => {
   }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' , flex:"1" }}>
+    <div style={{ display: "flex", flexDirection: "row", flex: "1" }}>
       <input
         ref={inputRef}
         type="text"
         value={searchTerm}
         placeholder="Search claims"
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={e => setSearchTerm(e.target.value)}
         style={{
-          padding: '5px',
-          border: '1px solid #ccc',
-          borderRadius: '5px',
-          flexGrow: "1"
+          padding: "5px",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+          flexGrow: "1",
         }}
       />
     </div>
@@ -34,32 +33,32 @@ const ButtonComponent = ({ isLoading, handleSearch }) => {
       onClick={handleSearch}
       disabled={isLoading}
       style={{
-        backgroundColor: '#007bff',
-        color: '#fff',
-        border: 'none',
-        padding: '10px 20px',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        marginLeft: '10px',
+        backgroundColor: "#007bff",
+        color: "#fff",
+        border: "none",
+        padding: "10px 20px",
+        borderRadius: "5px",
+        cursor: "pointer",
+        marginLeft: "10px",
       }}
     >
-      {isLoading ? 'Searching...' : 'Search'}
+      {isLoading ? "Searching..." : "Search"}
     </button>
   );
 };
 
 const LoadingComponent = () => {
-  return <div style={{ marginTop: '10px' }}>Loading...</div>;
+  return <div style={{ marginTop: "10px" }}>Loading...</div>;
 };
 
 const TableComponent = ({ claims, handleSelectClaim }) => {
   return (
     <table
       style={{
-        marginBottom: '10px',
-        marginTop: '10px',
-        borderCollapse: 'collapse',
-        width: '100%', // Set table width to 100%
+        marginBottom: "10px",
+        marginTop: "10px",
+        borderCollapse: "collapse",
+        width: "100%", // Set table width to 100%
       }}
     >
       {claims.length ? (
@@ -67,19 +66,19 @@ const TableComponent = ({ claims, handleSelectClaim }) => {
           <tr>
             <th
               style={{
-                padding: '5px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-                width: '10%', // Set width of S.No column
+                padding: "5px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                width: "10%", // Set width of S.No column
               }}
             >
               S.No
             </th>
             <th
               style={{
-                padding: '5px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
+                padding: "5px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
               }}
             >
               Claim
@@ -93,25 +92,25 @@ const TableComponent = ({ claims, handleSelectClaim }) => {
             key={claim.id}
             onClick={() => handleSelectClaim(claim)}
             style={{
-              marginBottom: '5px',
-              cursor: 'pointer',
+              marginBottom: "5px",
+              cursor: "pointer",
             }}
           >
             <td
               style={{
-                padding: '5px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
-                width: '10%', // Set width of S.No column
+                padding: "5px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+                width: "10%", // Set width of S.No column
               }}
             >
               {index + 1}
             </td>
             <td
               style={{
-                padding: '5px',
-                border: '1px solid #ccc',
-                borderRadius: '5px',
+                padding: "5px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
               }}
             >
               {claim.claim}
@@ -126,33 +125,39 @@ const TableComponent = ({ claims, handleSelectClaim }) => {
 const PaginationComponent = ({ claims, pageCount, handlePageClick }) => {
   return (
     <>
-        <div style={{ marginLeft: 'auto' }}>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
-            previousLabel="<"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={5}
-            pageCount={pageCount}
-            renderOnZeroPageCount={null}
-            pageLinkClassName="page-link"
-            pageClassName="page-item"
-            previousClassName="page-item"
-            previousLinkClassName="page-link"
-            nextClassName="page-item"
-            nextLinkClassName="page-link"
-            breakClassName="page-item"
-            breakLinkClassName="page-link"
-            containerClassName="pagination"
-            activeClassName="active"
-          />
-        </div>
+      <div style={{ marginLeft: "auto" }}>
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel=">"
+          previousLabel="<"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={pageCount}
+          renderOnZeroPageCount={null}
+          pageLinkClassName="page-link"
+          pageClassName="page-item"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+        />
+      </div>
     </>
   );
 };
 
-const SearchClaimsComponent = ({ editor, setIsVisible, setMeta, claimsFetcher, itemsPerPage }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const SearchClaimsComponent = ({
+  editor,
+  setIsVisible,
+  setMeta,
+  claimsFetcher,
+  itemsPerPage,
+}) => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [claims, setClaims] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [pageCount, setPageCount] = useState(0);
@@ -164,25 +169,30 @@ const SearchClaimsComponent = ({ editor, setIsVisible, setMeta, claimsFetcher, i
       return;
     }
     claimsFetcher &&
-      claimsFetcher(searchTerm, currentPage).then((claims) => {
+      claimsFetcher(searchTerm, currentPage).then(claims => {
         const { nodes: claimData, total } = claims;
         setClaims(claimData);
       });
   }, [currentPage]);
 
-  const handlePageClick = (event) => {
+  const handlePageClick = event => {
     setCurrentPage(event.selected + 1);
   };
 
-  const handleSelectClaim = (claim) => {
+  const handleSelectClaim = claim => {
     editor
       .chain()
-      .setClaim({ id: claim.id, order: claim?.order ?? 1, claim: claim.claim, fact: claim.fact })
+      .setClaim({
+        id: claim.id,
+        order: claim?.order ?? 1,
+        claim: claim.claim,
+        fact: claim.fact,
+      })
       .run();
     editor
       .chain()
-      .insertContentAt(editor.state.selection.head+1, "<p></p>")
-      .focus(editor.state.selection.head+1)
+      .insertContentAt(editor.state.selection.head + 1, "<p></p>")
+      .focus(editor.state.selection.head + 1)
       .run();
     setIsVisible(false);
   };
@@ -190,30 +200,45 @@ const SearchClaimsComponent = ({ editor, setIsVisible, setMeta, claimsFetcher, i
   const handleSearch = () => {
     setIsLoading(true);
     claimsFetcher(searchTerm)
-      .then((claims) => {
+      .then(claims => {
         const { nodes: claimData, total } = claims;
         setPageCount(Math.ceil(total / itemsPerPage));
         setClaims(claimData);
       })
-      .catch((error) => {
-        console.error('Error fetching claims:', error);
+      .catch(error => {
+        console.error("Error fetching claims:", error);
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', flexGrow: "1" }}>
-    <div style={{ display: 'flex', flexDirection: 'row', justifyContent:"space-between" }}>
-       <InputComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-       <ButtonComponent isLoading={isLoading} handleSearch={handleSearch} />
-         </div>
-      {isLoading ? (<LoadingComponent />) : (
+    <div style={{ display: "flex", flexDirection: "column", flexGrow: "1" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <InputComponent searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <ButtonComponent isLoading={isLoading} handleSearch={handleSearch} />
+      </div>
+      {isLoading ? (
+        <LoadingComponent />
+      ) : (
         <>
-          <TableComponent claims={claims} handleSelectClaim={handleSelectClaim} />
-          {claims.length ?
-            <PaginationComponent claims={claims} pageCount={pageCount} handlePageClick={handlePageClick} />
-            : null}
+          <TableComponent
+            claims={claims}
+            handleSelectClaim={handleSelectClaim}
+          />
+          {claims.length ? (
+            <PaginationComponent
+              claims={claims}
+              pageCount={pageCount}
+              handlePageClick={handlePageClick}
+            />
+          ) : null}
         </>
       )}
     </div>

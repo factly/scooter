@@ -17,7 +17,7 @@ import { isNilOrEmpty } from "@factly/scooter-shared-utils";
 // import { CodeBlockExtension } from "@factly/scooter-code-block";
 import Document from "./Document/ExtensionConfig";
 // import { EmbedExtension } from "@factly/scooter-embed";
-// import EmojiPicker from './Emoji/EmojiPicker/ExtensionConfig'; 
+// import EmojiPicker from './Emoji/EmojiPicker/ExtensionConfig';
 // import EmojiSuggestion from './Emoji/EmojiSuggestion/ExtensionConfig';
 
 import KeyboardShortcuts from "./KeyboardShortcuts/ExtensionConfig";
@@ -58,7 +58,19 @@ const useCustomExtensions = ({
   userId = "20",
   tagoreConfig = {},
 }) => {
-  const {ClaimsExtension,ClaimExtension, EmbedExtension , Table , TableRow , TableCell , TableHeadCell , CodeBlockExtension , ImageExtensionConfig , TagoreCommandsExtension,...otherExtensions} = extensions || {};
+  const {
+    ClaimsExtension,
+    ClaimExtension,
+    EmbedExtension,
+    Table,
+    TableRow,
+    TableCell,
+    TableHeadCell,
+    CodeBlockExtension,
+    ImageExtensionConfig,
+    TagoreCommandsExtension,
+    ...otherExtensions
+  } = extensions || {};
   let customExtensions = [
     Title,
     Document.extend({
@@ -102,7 +114,7 @@ const useCustomExtensions = ({
     TableHeadCell,
     TableCell,
     ClaimExtension?.configure({
-      claims : meta?.claims??{},
+      claims: meta?.claims ?? {},
     }),
     ClaimsExtension,
     TagoreCommandsExtension?.configure({
@@ -143,7 +155,7 @@ const useCustomExtensions = ({
   //     Variable.configure({ suggestion: { items: () => variables } })
   //   );
   // }
- 
+
   if (!isNilOrEmpty(otherExtensions)) {
     customExtensions = customExtensions.concat(otherExtensions);
   }

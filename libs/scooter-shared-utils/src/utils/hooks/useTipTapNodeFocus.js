@@ -1,8 +1,8 @@
 // useTipTapNodeFocus.js
 // https://github.com/ueberdosis/tiptap/issues/4063#issuecomment-1707398735
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 
-export const useTipTapNodeFocus = (nodeRef) => {
+export const useTipTapNodeFocus = nodeRef => {
   const animationIdRef = useRef(null);
 
   useEffect(() => {
@@ -19,6 +19,4 @@ export const useTipTapNodeFocus = (nodeRef) => {
       }
     };
   }, [nodeRef.current]);
-}
-
-
+};
