@@ -40,7 +40,7 @@ export const TagoreCommandsExtension = Node.create({
   },
   addKeyboardShortcuts() {
     return {
-      "Mod-/": () => {
+      "Space": () => {
         return this.editor.commands.setTagoreContent();
       },
     };
