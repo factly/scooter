@@ -1,29 +1,26 @@
 const path = require("path");
 module.exports = {
+  core: { builder: 'webpack5' },
   stories: ["../stories/**/*.mdx", "../stories/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
+    "@nrwl/react/plugins/storybook",
     {
-      name: "@storybook/addon-postcss",
+      name: "@storybook/addon-styling",
       options: {
-        postcssLoaderOptions: {
+        postCss: {
           implementation: require("postcss"),
         },
-        cssLoaderOptions: {
-          // When you have splitted your css over multiple files
-          // and use @import('./other-styles.css')
-          importLoaders: 1,
+        sass: {
+          // Require your preprocessor
+          implementation: require("sass"),
         },
       },
-    },
-    "@storybook/preset-scss",
+    }
+    ,
   ],
-  framework: {
-    name: "@storybook/react-webpack5",
-    options: {},
-  },
   babel: async options => ({
     ...options,
     plugins: ["@babel/plugin-proposal-class-properties"],
