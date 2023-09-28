@@ -1,4 +1,7 @@
-import { EDITOR_CONTENT_CLASSNAME, highlightCode } from "@factly/scooter-shared-utils";
+import {
+  EDITOR_CONTENT_CLASSNAME,
+  highlightCode,
+} from "@factly/scooter-shared-utils";
 
 import React, { useEffect } from "react";
 

@@ -8,4 +8,5 @@ export * from "./utils/scrollhandler";
 export * from "./utils/hooks/useTabBar";
 export * from "./utils/hooks/useOutsideClick";
 export * from "./utils/hooks/useDebounce";
+export * from "./utils/hooks/useTipTapNodeFocus";
 export * from "./utils/tableUtils";

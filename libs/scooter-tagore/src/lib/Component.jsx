@@ -12,6 +12,7 @@ import Tippy from "@tippyjs/react";
 import { BiUpArrow, BiUpArrowAlt, BiUpArrowCircle } from "react-icons/bi";
 import { TbWand } from "react-icons/tb";
 import { BsStars } from "react-icons/bs";
+import { useTipTapNodeFocus } from "@factly/scooter-shared-utils";
 
 export const TagoreComponent = props => {
   const {
@@ -80,6 +81,7 @@ export const TagoreComponent = props => {
       inputRef.current.focus();
     }
   }, [inputValue]);
+  useTipTapNodeFocus(inputRef);
 
   async function fetchData(input, selectedOption) {
     try {
@@ -323,13 +325,53 @@ export const TagoreComponent = props => {
     }
   }
 
+  const handleStreamMessage = event => {
+    const text = JSON.parse(event.data);
+    setContent(text.output.replace(/\n|\t|(?<=>)\s*/g, ""));
+  };
+
+  const handleStreamError = (event, source) => {
+    source.close();
+    setLoading(false);
+    if (!String(event.data).includes("[DONE]")) {
+      setError(true);
+    } else {
+      setGenerated(true);
+    }
+  };
+
+  const fetchDataAndHandleErrors = async (
+    value,
+    promptId,
+    setContent,
+    hideMenu,
+    setError,
+    setLoading,
+    showMenu,
+    setGenerated
+  ) => {
+    try {
+      const data = await fetchData(value, promptId);
+      if (data) {
+        setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
+        showMenu();
+      } else {
+        hideMenu();
+        setError(true);
+      }
+    } catch (error) {
+      hideMenu();
+      setError(true);
+    }
+  };
+
   const handleSubmit = async () => {
     const parts = inputValue.split(":");
     const defaultPromptId = currentSelectedItem?.promptId || "default";
-    
+
     let value;
     let promptId;
-    
+
     if (currentSelectedItem?.promptId === "summarise-url") {
       value = (parts[1] + ":" + parts[2])?.trim() || inputValue;
       promptId = "summarise-url";
@@ -337,44 +379,30 @@ export const TagoreComponent = props => {
       value = parts[1] || inputValue;
       promptId = value !== inputValue ? defaultPromptId : "default";
     }
+
     setCurrentInputValue(value);
     setCurrentSelectedItem({ promptId });
+
     if (stream) {
       setContent("");
       setLoading(true);
+      setGenerated(false);
       setError(false);
 
-      let source = sse(value, promptId);
+      const source = sse(value, promptId);
       setSourceClient(source);
 
       source.addEventListener("message", event => {
-        let text = JSON.parse(event.data);
-        setContent(text.output.replace(/\n|\t|(?<=>)\s*/g, ""));
+        handleStreamMessage(event);
       });
 
       source.addEventListener("error", event => {
-        source.close();
-        setLoading(false);
-        if (!String(event.data).includes("[DONE]")) {
-          setError(true);
-          return;
-        } else {
-          return;
-        }
+        handleStreamError(event, source);
       });
 
       source.stream();
     } else {
-      const data = await fetchData(value, promptId);
-      if (data) {
-        //    console.log({ "g": "generate", data })
-        setContent(data.output.replace(/\n|\t|(?<=>)\s*/g, ""));
-        showMenu();
-      } else {
-        hideMenu();
-        setError(true);
-        setContent("");
-      }
+      fetchDataAndHandleErrors(value, promptId);
     }
   };
 
