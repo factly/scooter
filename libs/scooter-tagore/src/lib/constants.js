@@ -90,6 +90,36 @@ export const MENU_ITEMS = [
         type: "sub-heading",
         items: [
           {
+            title: "Hindi",
+            searchTags: ["Hindi"],
+            Icon: null,
+            commandType: "generate",
+            prompt: "Translate to hindi the following content: \n",
+            command: async ({ editor, range, fetchData }) => {
+              let content = await fetchData(
+                `Translate to hindi the following content: \n ${editor.getText()}`
+              );
+              // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
+            },
+            type: "command",
+            promptId: "translate-hindi",
+          },
+          {
+            title: "Telugu",
+            searchTags: ["Telugu"],
+            Icon: null,
+            commandType: "generate",
+            prompt: "Translate to telugu the following content: \n",
+            command: async ({ editor, range, fetchData }) => {
+              let content = await fetchData(
+                `Translate to telugu the following content: \n ${editor.getText()}`
+              );
+              // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
+            },
+            type: "command",
+            promptId: "translate-telugu",
+          },
+          {
             title: "Spanish",
             searchTags: ["Spanish"],
             Icon: null,
@@ -1047,6 +1077,36 @@ export const SEARCHABLE_MENU_ITEMS = [
     command: null,
     type: "heading",
     items: [
+      {
+        title: "Hindi",
+        searchTags: ["Hindi", "Translate"],
+        Icon: null,
+        commandType: "replace",
+        prompt: "Translate to hindi the following content: \n",
+        command: async ({ editor, range, fetchData }) => {
+          let content = await fetchData(
+            `Translate to hindi the following content: \n ${editor.getText()}`
+          );
+          // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
+        },
+        type: "command",
+        promptId: "translate-hindi",
+      },
+      {
+        title: "Telugu",
+        searchTags: ["Telugu", "Translate"],
+        Icon: null,
+        commandType: "replace",
+        prompt: "Translate to telugu the following content: \n",
+        command: async ({ editor, range, fetchData }) => {
+          let content = await fetchData(
+            `Translate to telugu the following content: \n ${editor.getText()}`
+          );
+          // content ? editor.chain().focus().insertContent(content.output).run() : editor.chain().focus().run();
+        },
+        type: "command",
+        promptId: "translate-telugu",
+      },
       {
         title: "Spanish",
         searchTags: ["Spanish", "Translate"],
