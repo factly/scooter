@@ -1,0 +1,19 @@
+{
+  "name": "@factly/scooter-react",
+  "version": "0.0.45-beta.1",
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "dependencies": {
+    "react-icons": "^4.7.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/factly/scooter.git",
+    "directory": "packages/scooter-react"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}

@@ -1,28 +1,20 @@
-import { ScooterCore } from "@factly/scooter-core";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { SSE } from "sse";
 import axios from "axios";
-import { FactCheck } from "@factly/scooter-claim";
-import { Image } from "@factly/scooter-image";
 import { Embed } from "@factly/scooter-embed";
-import { ScooterTable } from "@factly/scooter-table";
-import { CodeBlock } from "@factly/scooter-code-block";
 import { TagoreAI } from "@factly/scooter-tagore";
-
+import { EditorView as ScooterEditorView } from "@factly/scooter-react";
 export function App() {
-  //<div data-type='embed' class='embed-wrapper'><div style='left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.5%;'><iframe src='https://www.youtube.com/embed/7OO5uGvNZpM?feature=oembed' style='border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;' allowfullscreen='' scrolling='no' allow='encrypted-media; accelerometer; clipboard-write; gyroscope; picture-in-picture'></iframe></div></div><p>hello</p><img src='https://pbs.twimg.com/media/FqAnDvEWAAIXd6l?format=jpg&name=medium' style='background: red;' /><ol class='yo'><li>1.</li><li>hello</li><li>hello</li></ol>
   const [value, setValue] = useState(
     ` 
     <p></p>
    `
-    // <tagore-component>hello</tagore-component>`
-    //<table><tbody > <tr class='classsss'>  <th>Name</th>  <th colspan='3'>Description</th> </tr> <tr> <td>Cyndi Lauper</td>      <td>singer</td>    <td>songwriter</td>    <td>actress</td>   </tr></tbody></table>  "
   );
 
   return (
     <>
       <h1 className="">Scooter demo</h1>
-      <ScooterCore
+      <ScooterEditorView
         initialValue={value}
         menuType="bubble"
         heightStrategy="flexible"
@@ -30,17 +22,13 @@ export function App() {
         onChange={data => {
           setValue(data.html);
         }}
-        editorInstance={editor => {
-          const { from, to } = editor.state.selection;
+        editorInstance={() => {
           return;
         }}
         extensions={[
-          FactCheck,
-          Image,
+          // FactCheck,
           Embed,
-          ScooterTable,
           TagoreAI,
-          CodeBlock,
         ]}
         meta={{
           claims: {

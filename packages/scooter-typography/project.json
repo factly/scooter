@@ -1,0 +1,38 @@
+{
+  "name": "scooter-typography",
+  "sourceRoot": "packages/scooter-typography/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/scooter-typography/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "build": {
+      "executor": "@nrwl/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/scooter-typography",
+        "tsConfig": "packages/scooter-typography/tsconfig.lib.json",
+        "project": "packages/scooter-typography/package.json",
+        "entryFile": "packages/scooter-typography/src/index.js",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "format": ["esm", "cjs"],
+        "skipTypeField": true,
+        "assets": [
+          {
+            "glob": "packages/scooter-typography/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    }
+  }
+}

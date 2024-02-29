@@ -1,0 +1,39 @@
+{
+  "name": "scooter-embed",
+  "sourceRoot": "packages/scooter-embed/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/scooter-embed/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "build": {
+      "executor": "@nrwl/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/scooter-embed",
+        "tsConfig": "packages/scooter-embed/tsconfig.lib.json",
+        "project": "packages/scooter-embed/package.json",
+        "entryFile": "packages/scooter-embed/src/index.js",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "extractCss": false,
+        "format": ["esm", "cjs"],
+        "skipTypeField": true,
+        "assets": [
+          {
+            "glob": "packages/scooter-embed/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    }
+  }
+}

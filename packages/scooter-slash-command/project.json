@@ -1,0 +1,40 @@
+{
+  "name": "scooter-slash-command",
+  "sourceRoot": "packages/scooter-slash-command/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/scooter-slash-command/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "build": {
+      "executor": "@nrwl/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/scooter-slash-command",
+        "tsConfig": "packages/scooter-slash-command/tsconfig.lib.json",
+        "project": "packages/scooter-slash-command/package.json",
+        "entryFile": "packages/scooter-slash-command/src/index.js",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "format": ["esm", "cjs"],
+        "skipTypeField": true,
+        "assets": [
+          {
+            "glob": "packages/scooter-slash-command/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    }
+  }
+}

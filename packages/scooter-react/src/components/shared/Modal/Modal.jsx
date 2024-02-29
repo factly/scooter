@@ -1,0 +1,73 @@
+import React, { useRef } from "react";
+
+import classnames from "classnames";
+import Backdrop from "../Backdrop/Backdrop";
+import Button from "../Button/Button";
+import Portal from "../Portal/Portal";
+import { useOutsideClick } from "@factly/scooter-shared-utils";
+import { useHotkeys } from "react-hotkeys-hook";
+import { RiCloseLine } from "react-icons/ri";
+import { noop } from "../../../utils/constants";
+
+const sizes = {
+  xs: "xs",
+  sm: "sm",
+  md: "md",
+  md620: "md620",
+};
+
+export const Modal = ({
+  size = "md",
+  isOpen = false,
+  onClose = noop,
+  loading = false,
+  children,
+  className = "",
+  closeOnEsc = true,
+  closeButton = true,
+  backdropClassName = "",
+  closeOnOutsideClick = true,
+  ...otherProps
+}) => {
+  const modalWrapper = useRef();
+
+  useOutsideClick(modalWrapper, closeOnOutsideClick ? onClose : noop);
+
+  useHotkeys("esc", closeOnEsc ? onClose : noop);
+
+  return (
+    <Portal className="sc-portal">
+      {isOpen && (
+        <Backdrop
+          key="modal-backdrop"
+          className={classnames("sc-modal__backdrop", backdropClassName)}
+        >
+          <div
+            ref={modalWrapper}
+            key="modal-wrapper"
+            className={classnames("sc-modal__wrapper", {
+              "sc-modal__wrapper--xs": size === sizes.xs,
+              "sc-modal__wrapper--sm": size === sizes.sm,
+              "sc-modal__wrapper--md": size === sizes.md,
+              "sc-modal__wrapper--md620": size === sizes.md620,
+              [className]: className,
+            })}
+            {...otherProps}
+          >
+            {closeButton && (
+              <Button
+                variant="text"
+                icon={RiCloseLine}
+                className="sc-modal__close"
+                onClick={onClose}
+              />
+            )}
+            {loading ? "" : children}
+          </div>
+        </Backdrop>
+      )}
+    </Portal>
+  );
+};
+
+export default Modal;
