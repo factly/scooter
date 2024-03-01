@@ -8,8 +8,6 @@ export const MenuList = React.forwardRef((props, ref) => {
   const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
   const [selectedCommandIndex, setSelectedCommandIndex] = useState(0);
 
-  // Anytime the groups change, i.e. the user types to narrow it down, we want to
-  // reset the current selection to the first menu item
   useEffect(() => {
     setSelectedGroupIndex(0);
     setSelectedCommandIndex(0);
@@ -32,20 +30,20 @@ export const MenuList = React.forwardRef((props, ref) => {
 
         const commands = props.items[selectedGroupIndex].commands;
 
-        let newCommandIndex = selectedCommandIndex + 1;
-        let newGroupIndex = selectedGroupIndex;
+        let commandIndex = selectedCommandIndex + 1;
+        let groupIndex = selectedGroupIndex;
 
-        if (commands.length - 1 < newCommandIndex) {
-          newCommandIndex = 0;
-          newGroupIndex = selectedGroupIndex + 1;
+        if (commands.length - 1 < commandIndex) {
+          commandIndex = 0;
+          groupIndex = selectedGroupIndex + 1;
         }
 
-        if (props.items.length - 1 < newGroupIndex) {
-          newGroupIndex = 0;
+        if (props.items.length - 1 < groupIndex) {
+          groupIndex = 0;
         }
 
-        setSelectedCommandIndex(newCommandIndex);
-        setSelectedGroupIndex(newGroupIndex);
+        setSelectedCommandIndex(commandIndex);
+        setSelectedGroupIndex(groupIndex);
 
         return true;
       }
@@ -55,22 +53,21 @@ export const MenuList = React.forwardRef((props, ref) => {
           return false;
         }
 
-        let newCommandIndex = selectedCommandIndex - 1;
-        let newGroupIndex = selectedGroupIndex;
+        let commandIndex = selectedCommandIndex - 1;
+        let groupIndex = selectedGroupIndex;
 
-        if (newCommandIndex < 0) {
-          newGroupIndex = selectedGroupIndex - 1;
-          newCommandIndex =
-            props.items[newGroupIndex]?.commands.length - 1 || 0;
+        if (commandIndex < 0) {
+          groupIndex = selectedGroupIndex - 1;
+          commandIndex = props.items[groupIndex]?.commands.length - 1 || 0;
         }
 
-        if (newGroupIndex < 0) {
-          newGroupIndex = props.items.length - 1;
-          newCommandIndex = props.items[newGroupIndex].commands.length - 1;
+        if (groupIndex < 0) {
+          groupIndex = props.items.length - 1;
+          commandIndex = props.items[groupIndex].commands.length - 1;
         }
 
-        setSelectedCommandIndex(newCommandIndex);
-        setSelectedGroupIndex(newGroupIndex);
+        setSelectedCommandIndex(commandIndex);
+        setSelectedGroupIndex(groupIndex);
 
         return true;
       }
@@ -102,15 +99,6 @@ export const MenuList = React.forwardRef((props, ref) => {
     }
   }, [selectedCommandIndex, selectedGroupIndex]);
 
-  const createCommandClickHandler = useCallback(
-    (groupIndex, commandIndex) => {
-      return () => {
-        selectItem(groupIndex, commandIndex);
-      };
-    },
-    [selectItem]
-  );
-
   if (!props.items.length) {
     return null;
   }
@@ -136,12 +124,14 @@ export const MenuList = React.forwardRef((props, ref) => {
                 data-cy={`scooter-editor-command-list-item-${index}`}
               >
                 {item.Icon && <item.Icon size={20} />}
-                <div className="scooter-editor-slash-commands__item-content">
-                  <h5>{item.title}</h5>
-                  <p>{item.description}</p>
-                </div>
-                <div className="scooter-editor-slash-commands__keyboard-shortcut">
-                  {item.keyShortcut}
+                <div className="scooter-editor-slash-commands__item-content-wrapper">
+                  <div className="scooter-editor-slash-commands__item-content">
+                    <h5>{item.title}</h5>
+                    <p>{item.description}</p>
+                  </div>
+                  <div className="scooter-editor-slash-commands__keyboard-shortcut">
+                    <span>{item.keyShortcut}</span>
+                  </div>
                 </div>
               </div>
             ))}

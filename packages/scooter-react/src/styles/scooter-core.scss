@@ -626,6 +626,13 @@ body *::before {
   cursor: pointer;
   color: #ffffff;
   color: #49545c;
+  &-content-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+  }
 }
 .scooter-editor-slash-commands__wrapper
   .scooter-editor-slash-commands__item:hover,
@@ -634,6 +641,7 @@ body *::before {
   background-color: #49545c;
   background-color: #cecece;
 }
+
 .scooter-editor-slash-commands__wrapper .group-wrapper {
   width: 100%;
 }

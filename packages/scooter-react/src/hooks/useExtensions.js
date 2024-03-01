@@ -2,6 +2,7 @@ import CharacterCount from "@tiptap/extension-character-count";
 import Color from "@tiptap/extension-color";
 import Document from "@tiptap/extension-document";
 import Highlight from "@tiptap/extension-highlight";
+import BlockQuote from "@tiptap/extension-blockquote";
 import Link from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
 import TextStyle from "@tiptap/extension-text-style";
@@ -29,6 +30,7 @@ export const useExtensions = ({ characterLimit }) => {
       codeBlock: false,
       history: false,
     }),
+    BlockQuote,
     Superscript,
     Subscript,
     // InsertRawHTML,

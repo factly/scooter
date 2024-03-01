@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { EditorContent } from "@tiptap/react";
+import { BubbleMenu, EditorContent } from "@tiptap/react";
 import { EditorView as TiptapEditorView } from "@tiptap/pm/view";
 
 import { useExtensions } from "../hooks/useExtensions";
@@ -21,12 +21,12 @@ import "../styles/scooter-table.scss";
 import { noop } from "../utils/constants";
 import { ErrorWrapper } from "../components/shared/ErrorWrapper";
 import { FixedMenu } from "../FixedMenu";
-import { BubbleMenu } from "../BubbleMenu";
 import { ImageUploader } from "../ImageBlock";
 import { AddNewClaim } from "../components/AddNewClaim";
 import { AddExistingClaim } from "../components/AddExistingClaim";
 import { useBlockEditor } from "../hooks/useBlockEditor";
 import { SideBlockMenu } from "../SideBlockMenu/SideBlockMenu";
+import { TextMenu } from "../TextMenu/TextMenu";
 
 export const EditorView = React.forwardRef(
   (
@@ -106,15 +106,9 @@ export const EditorView = React.forwardRef(
     );
     const isCharacterCountActive = characterCountStrategy !== "hidden";
 
-    // const addonOptions = generateAddonOptions(
-    //   defaults,
-    //   addons,
-    //   // extensionList,
-    //   // extensionUI,
-    //   {
-    //     includeImageUpload: isUnsplashImageUploadActive,
-    //   }
-    // );
+    const addonOptions = generateAddonOptions(defaults, [], {
+      includeImageUpload: isUnsplashImageUploadActive,
+    });
 
     const customExtensions = useExtensions({
       characterLimit,
@@ -152,7 +146,7 @@ export const EditorView = React.forwardRef(
       onBlur,
     });
 
-    // editor && editorInstance(editor);
+    editor && editorInstance(editor);
 
     // const checkForTagoreNodes = e => {
     //   if (!e.contentComponent) return false;
@@ -192,9 +186,6 @@ export const EditorView = React.forwardRef(
             showImageInMention={showImageInMention}
           />
         )} */}
-        {/* {isBubbleMenuActive && !isTagoreNodePresent && (
-          <BubbleMenu editor={editor} options={addonOptions} />
-        )} */}
         {/* {extensionList.ClaimExtension && ( */}
         {/* <AddNewClaim
             claimConfig={claimConfig}
@@ -212,19 +203,6 @@ export const EditorView = React.forwardRef(
           /> */}
 
         {/* {ImageUploader && extensionList.ImageExtensionConfig && ( */}
-        {/* <ImageUploader
-            isVisible={isImageUploadVisible}
-            setIsVisible={setImageUploadVisible}
-            editor={editor}
-            imageUploadUrl={uploadEndpoint}
-            uploadConfig={uploadConfig}
-            isUnsplashImageUploadActive={isUnsplashImageUploadActive}
-            unsplashApiKey={editorSecrets?.unsplash}
-            imagesFetcher={imagesFetcher}
-            itemsPerPage={itemsPerPage}
-            onFileAdded={onFileAdded}
-            onUploadComplete={onUploadComplete}
-          /> */}
         {/* )} */}
         {/* {EmbedFetcher && extensionList.EmbedExtension && ( */}
         {/* <EmbedFetcher
@@ -237,6 +215,20 @@ export const EditorView = React.forwardRef(
 
         <EditorContent editor={editor} {...otherProps} />
         <SideBlockMenu editor={editor} />
+        <TextMenu editor={editor} options={addonOptions} />
+        <ImageUploader
+          isVisible={isImageUploadVisible}
+          setIsVisible={setImageUploadVisible}
+          editor={editor}
+          imageUploadUrl={uploadEndpoint}
+          uploadConfig={uploadConfig}
+          isUnsplashImageUploadActive={isUnsplashImageUploadActive}
+          unsplashApiKey={editorSecrets?.unsplash}
+          imagesFetcher={imagesFetcher}
+          itemsPerPage={itemsPerPage}
+          onFileAdded={onFileAdded}
+          onUploadComplete={onUploadComplete}
+        />
         {/* {isCharacterCountActive && (
           <CharacterCount
             count={editor?.storage.characterCount.characters()}

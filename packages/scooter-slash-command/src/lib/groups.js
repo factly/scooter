@@ -72,6 +72,7 @@ export const GROUPS = [
         optionName: EDITOR_OPTIONS.PARAGRAPH,
         title: "Paragraph",
         description: "Add a plain text block.",
+        keyShortcut: formatKeyboardShortcut("Mod Alt 0"),
         Icon: RiParagraph,
         action: editor => {
           editor.chain().focus().setNode("paragraph").run();
@@ -81,7 +82,7 @@ export const GROUPS = [
         optionName: EDITOR_OPTIONS.H1,
         title: "H1",
         description: "Add a big heading.",
-        keyshortcut: formatKeyboardShortcut("Mod-Alt-1"),
+        keyShortcut: formatKeyboardShortcut("Mod Alt 1"),
         Icon: RiH1,
         action: editor => {
           editor.chain().focus().setHeading({ level: 1 }).run();
@@ -91,6 +92,7 @@ export const GROUPS = [
         optionName: EDITOR_OPTIONS.H2,
         title: "H2",
         description: "Add a sub-heading.",
+        keyShortcut: formatKeyboardShortcut("Mod Alt 2"),
         Icon: RiH2,
         action: editor => {
           editor.chain().focus().setHeading({ level: 2 }).run();
@@ -100,6 +102,7 @@ export const GROUPS = [
         optionName: EDITOR_OPTIONS.H3,
         title: "H3",
         description: "Add a sub-heading of level 3.",
+        keyShortcut: formatKeyboardShortcut("Mod Alt 3"),
         Icon: RiH3,
         action: editor => {
           editor.chain().focus().setHeading({ level: 3 }).run();
@@ -109,6 +112,7 @@ export const GROUPS = [
         optionName: EDITOR_OPTIONS.LIST_ORDERED,
         title: "Numbered list",
         description: "Add a list with numbering.",
+        keyShortcut: formatKeyboardShortcut("Mod Shift 7"),
         Icon: RiListOrdered,
         action: editor => {
           editor.chain().focus().toggleOrderedList().run();
@@ -118,6 +122,7 @@ export const GROUPS = [
         optionName: EDITOR_OPTIONS.LIST_BULLETS,
         title: "Bulleted list",
         description: "Add a list with bullets.",
+        keyShortcut: formatKeyboardShortcut("Mod Shift 8"),
         Icon: RiListUnordered,
         action: editor => {
           editor.chain().focus().toggleBulletList().run();
@@ -127,6 +132,7 @@ export const GROUPS = [
         optionName: EDITOR_OPTIONS.BLOCKQUOTE,
         title: "Blockquote",
         description: "Add a quote.",
+        keyShortcut: formatKeyboardShortcut("Mod Shift B"),
         Icon: RiDoubleQuotesL,
         action: editor => {
           editor.chain().focus().toggleBlockquote().run();
@@ -143,7 +149,8 @@ export const GROUPS = [
         optionName: EDITOR_OPTIONS.CODE_BLOCK,
         group: "Basic Blocks",
         title: "Code block",
-        description: "Add a code block with syntax highlighting.",
+        description: "Add a code block.",
+        keyShortcut: formatKeyboardShortcut("Mod Shift C"),
         Icon: RiCodeSSlashFill,
         action: editor => {
           editor.chain().focus().setCodeBlock().run();

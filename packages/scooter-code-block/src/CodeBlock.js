@@ -9,6 +9,12 @@ export const ScooterCodeBlock = TiptapCodeBlockLowlight.extend({
   addNodeView() {
     return new ReactNodeViewRenderer(CodeBlock);
   },
+  addKeyboardShortcuts() {
+    return {
+      ...this.parent?.(),
+      "Mod-Shift-c": () => this.editor.commands.toggleCodeBlock(),
+    };
+  },
 }).configure({
   lowlight,
 });

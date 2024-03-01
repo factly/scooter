@@ -33,35 +33,33 @@ export const getEditorStyles = ({ heightStrategy, rows }) => {
 
 export const generateAddonOptions = (
   defaults,
-  addons = [],
   extensionList = {},
-  extensionUI = {},
   { includeImageUpload }
 ) => {
-  const userAddonOptions = addons.map(option => option.toLowerCase());
+  const userAddonOptions = [];
   if (includeImageUpload) userAddonOptions.push(EDITOR_OPTIONS.IMAGE_UPLOAD);
-  if (extensionList.TagoreCommandsExtension) {
+  if (extensionList.includes("TagoreCommandsExtension")) {
     userAddonOptions.push(EDITOR_OPTIONS.WRITE_WITH_AI);
     userAddonOptions.push(EDITOR_OPTIONS.ASK_AI);
   }
-  if (extensionList.ClaimExtension) {
+  if (extensionList.includes("ClaimExtension")) {
     userAddonOptions.push(EDITOR_OPTIONS.ADD_EXISTING_CLAIM);
     userAddonOptions.push(EDITOR_OPTIONS.ADD_NEW_CLAIM);
   }
-  if (extensionList.EmbedExtension) {
+  if (extensionList.includes("EmbedExtension")) {
     userAddonOptions.push(EDITOR_OPTIONS.EMBED);
   }
-  if (extensionList.ImageExtensionConfig) {
+  if (extensionList.includes("ImageExtensionConfig")) {
     userAddonOptions.push(EDITOR_OPTIONS.IMAGE_UPLOAD);
   }
-  if (extensionList.CodeBlockExtension) {
+  if (extensionList.includes("CodeBlockExtension")) {
     userAddonOptions.push(EDITOR_OPTIONS.CODE_BLOCK);
   }
   if (
-    extensionList.Table &&
-    extensionList.TableRow &&
-    extensionList.TableCell &&
-    extensionList.TableHeadCell
+    extensionList.includes("Table") &&
+    extensionList.includes("TableRow") &&
+    extensionList.includes("TableCell") &&
+    extensionList.includes("TableHeadCell")
   ) {
     userAddonOptions.push(EDITOR_OPTIONS.TABLE);
   }

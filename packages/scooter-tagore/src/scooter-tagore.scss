@@ -17,17 +17,7 @@
   background: #37352f14;
   color: #37352f;
 }
-.scooter-editor-slash-commands__wrapper
-  .scooter-editor-slash-commands__item
-  .scooter-editor-slash-commands__item-content
-  h5 {
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1.5;
-  color: #ffffff;
-  color: #49545c;
-  margin: 0;
-}
+
 .scooter-editor-tagore-commands__wrapper
   .scooter-editor-tagore-commands__item:hover
   .scooter-editor-tagore-commands__item-content
@@ -48,7 +38,7 @@
   margin: 0;
 }
 
-.scooter-editor-tagore-commands__item-content {
+.scooter-editor-tagore-commands__keyboard-shortcut {
   display: flex;
   width: 100%;
   justify-content: space-between;
