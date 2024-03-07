@@ -61,7 +61,7 @@ export const TextMenu = ({ editor, options: textOptions }) => {
         editor={editor}
         tippyOptions={{
           theme: "light",
-          arrow: roundArrow,
+          arrow: false,
           zIndex: 99999,
           onHide: () => setIsLinkOptionActive(false),
           placement: "top-start", // isTableSelection ? "top-start" : isRowSelection ? "left-start" : "top",

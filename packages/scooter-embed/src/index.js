@@ -1,4 +1,1 @@
-import "./scooter-embed.scss";
-
-export * from "./lib/Embed";
-export * from "./EmbedPackage";
+export * from "./Embed";

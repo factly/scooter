@@ -5,11 +5,13 @@ import { Input } from "./shared/Input";
 import { Button } from "./shared/Button";
 import { Modal } from "./shared/Modal";
 import { Loader } from "./shared/Loader";
+import { noop } from "../utils/constants";
+import "../styles/scooter-embed.scss";
 
 // https://twitter.com/bennythomas03/status/1557766634059997188
 export const EmbedFetcher = ({
   isVisible,
-  setIsVisible,
+  setIsVisible = noop,
   editor,
   iframelyEndpoint,
 }) => {
@@ -20,6 +22,10 @@ export const EmbedFetcher = ({
   const [captionText] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    ref.current?.focus();
+  }, []);
 
   const fetchIframelyData = async url => {
     try {
@@ -55,10 +61,6 @@ export const EmbedFetcher = ({
     fetchIframelyData(url);
   };
 
-  React.useEffect(() => {
-    if (isVisible) ref.current?.focus();
-  }, [isVisible]);
-
   return (
     <Modal
       isOpen={isVisible}
@@ -69,10 +71,6 @@ export const EmbedFetcher = ({
         <div className="scooter-editor-embed__content">
           {data ? (
             <div>
-              {/* <div
-                className="embed-content"
-                dangerouslySetInnerHTML={{ __html: data.html }}
-              /> */}
               <InnerHTML className="embed-content" html={data.html} />
 
               <div className="scooter-editor-image-editor__footer">

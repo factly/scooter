@@ -13,7 +13,6 @@ export * from "./components/AddNewClaim";
 export * from "./components/MetaFields";
 export * from "./components/SearchClaims";
 export * from "./components/SourceList";
-export * from "./components/EmbedFetcher";
 
 export * from "./components/shared/Avatar";
 export * from "./components/shared/Backdrop";
@@ -29,3 +28,4 @@ export * from "./components/shared/Modal";
 export * from "./components/shared/Portal";
 export * from "./components/shared/Tab";
 export * from "./components/shared/Tooltip";
+export * from "./components/EmbedFetcher";

@@ -5,11 +5,12 @@ import { useTabBar } from "@factly/scooter-shared-utils";
 import { IMAGE_UPLOAD_OPTIONS } from "../utils/constants";
 import LocalUploader from "./LocalUploader";
 import UnsplashImagePicker from "./UnsplashImagePicker";
-import URLForm from "./URLForm";
-import Gallery from "./Gallery";
 import { Modal } from "../../components/shared/Modal";
 import { Tab } from "../../components/shared/Tab";
 import { ImageBlock } from "../ImageBlock";
+
+import URLForm from "./URLForm";
+import Gallery from "./Gallery";
 
 export const ImageUploader = ({
   editor,

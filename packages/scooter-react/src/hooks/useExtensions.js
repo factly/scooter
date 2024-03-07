@@ -19,29 +19,28 @@ import { ScooterSlashCommand } from "@factly/scooter-slash-command";
 import { ScooterTableCell, ScooterTableHeader } from "@factly/scooter-table";
 import Placeholder from "@tiptap/extension-placeholder";
 import { ScooterCodeBlock } from "@factly/scooter-code-block";
-import { ScooterImage } from "@factly/scooter-image";
+import { ScooterClaim } from "@factly/scooter-claim";
+import { ScooterDragHandle } from "@factly/scooter-drag-handle";
+// import { ScooterImage } from "@factly/scooter-image";
 
 export const useExtensions = ({ characterLimit }) => {
-  // const {ClaimsExtension,ClaimExtension, EmbedExtension , Table , TableRow , TableCell , TableHeadCell , CodeBlockExtension , ImageExtensionConfig , TagoreCommandsExtension,...otherExtensions} = extensions || {};
   let extensions = [
     Document,
     StarterKit?.configure({
       document: false,
       codeBlock: false,
       history: false,
+      dropcursor: true,
     }),
     BlockQuote,
     Superscript,
     Subscript,
-    // InsertRawHTML,
     Underline,
     TextStyle,
     TextAlign?.configure({
       types: ["heading", "paragraph"],
     }),
     Highlight,
-    // ImageExtensionConfig,
-    // EmbedExtension,
     Link,
     Color,
     Placeholder,
@@ -50,7 +49,8 @@ export const useExtensions = ({ characterLimit }) => {
     }),
     Table.configure({ resizable: true, lastColumnResizable: false }),
     ScooterCodeBlock,
-    ScooterImage,
+    // ScooterImage,
+    ScooterClaim,
     ScooterTypography,
     ScooterTableCell,
     ScooterTableHeader,
@@ -58,46 +58,12 @@ export const useExtensions = ({ characterLimit }) => {
       allowGapCursor: false,
       content: "tableCell*",
     }),
-
-    // KeyboardShortcuts.configure({
-    //   handleSubmit: onSubmit,
-    //   shortcuts: keyboardShortcuts,
-    // }),
-    // Table,
-    // TableRow,
-    // TableHeadCell,
-    // TableCell,
-    // ClaimExtension?.configure({
-    //   claims : meta?.claims??{},
-    // }),
-    // ClaimsExtension,
-    // TagoreCommandsExtension?.configure({
-    //   apiUrl: tagoreEndpoint,
-    //   userId,
-    //   ...tagoreConfig,
-    // }),
     ScooterHeading?.configure({
       levels: [1, 2, 3],
     }),
     ScooterSlashCommand,
+    ScooterDragHandle,
   ];
-
-  // if (isSlashCommandsActive) {
-  //   customExtensions.push(
-  //     SlashCommandsExtension?.configure({
-  //       setImageUploadVisible,
-  //       setEmbedFetcherVisible,
-  //       options,
-  //       addonCommands,
-  //       setAddNewClaimVisible,
-  //       setAddExistingClaimVisible,
-  //     })
-  //   );
-  // }
-
-  // if (!isNilOrEmpty(otherExtensions)) {
-  //   customExtensions = customExtensions.concat(otherExtensions);
-  // }
 
   return extensions;
 };

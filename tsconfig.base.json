@@ -35,7 +35,8 @@
       "@factly/scooter-tagore": ["packages/scooter-tagore/src/index.js"],
       "@factly/scooter-taskitem": ["packages/scooter-taskitem/src/index.js"],
       "@factly/scooter-tasklist": ["packages/scooter-tasklist/src/index.js"],
-      "@factly/scooter-typography": ["packages/scooter-typography/src/index.js"]
+      "@factly/scooter-typography": ["packages/scooter-typography/src/index.js"],
+      "@factly/scooter-drag-handle": ["packages/scooter-drag-handle/src/index.js"]
     }
   },
   "exclude": ["node_modules", "tmp"]

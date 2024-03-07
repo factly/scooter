@@ -3,11 +3,10 @@ import TiptapImage from "@tiptap/extension-image";
 
 export const ScooterImage = TiptapImage.extend({
   name: "image",
-  content: "block",
 
   addAttributes() {
     return {
-      ...TiptapImage.config.addAttributes(),
+      ...this.parent?.(),
       size: {
         default: "small",
         rendered: false,
@@ -71,4 +70,7 @@ export const ScooterImage = TiptapImage.extend({
       ["figcaption", caption || ""],
     ];
   },
+  // addNodeView() {
+  //   return ReactNodeViewRenderer(ImageUploader)
+  // }
 });

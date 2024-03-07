@@ -1,35 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { SSE } from "sse";
 import axios from "axios";
 import { Embed } from "@factly/scooter-embed";
 import { TagoreAI } from "@factly/scooter-tagore";
 import { EditorView as ScooterEditorView } from "@factly/scooter-react";
 export function App() {
-  const [value, setValue] = useState(
-    ` 
-    <p></p>
-   `
-  );
-
   return (
-    <>
-      <h1 className="">Scooter demo</h1>
+    <div style={{ width: "80%", margin: "0 auto" }}>
       <ScooterEditorView
-        initialValue={value}
         menuType="bubble"
         heightStrategy="flexible"
         rows={20}
-        onChange={data => {
-          setValue(data.html);
-        }}
         editorInstance={() => {
           return;
         }}
-        extensions={[
-          // FactCheck,
-          Embed,
-          TagoreAI,
-        ]}
+        extensions={[Embed, TagoreAI]}
         meta={{
           claims: {
             1: { id: 1, claim: "Claim 1", fact: "Fact 1" },
@@ -236,9 +221,7 @@ export function App() {
         //   },
         // }}
       />
-
-      {value.toString()}
-    </>
+    </div>
   );
 }
 export default App;

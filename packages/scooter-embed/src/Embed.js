@@ -1,9 +1,8 @@
 import { Node } from "@tiptap/core";
-// import { ReactNodeViewRenderer } from "@tiptap/react";
+import { ReactNodeViewRenderer } from "@tiptap/react";
+import Embed from "./components/Embed";
 
-// import EmbedComponent from "./EmbedComponent";
-
-export const EmbedExtension = Node.create({
+export const ScooterEmbed = Node.create({
   name: "embed",
 
   group: "block",
@@ -25,7 +24,7 @@ export const EmbedExtension = Node.create({
         rendered: true,
       },
       "data-html": {
-        default: "",
+        default: "<p></p>",
         rendered: true,
         parseHTML: element => {
           return element.innerHTML;
@@ -35,20 +34,20 @@ export const EmbedExtension = Node.create({
   },
   addCommands() {
     return {
-      setEmbed: options => editor => {
+      setEmbed: attributes => editor => {
         const { tr, commands } = editor;
         if (tr.selection?.node?.type?.name === "embed") {
           return commands.updateAttributes("embed", {
-            src: options.src,
-            "data-url": options.src,
-            "data-html": options.data?.html,
+            src: attributes?.src,
+            "data-url": attributes?.src,
+            "data-html": attributes?.data?.html,
           });
         }
 
         return commands.insertContent([
           {
             type: this.name,
-            attrs: { src: options.src, "data-html": options.data.html },
+            attrs: { src: attributes?.src, "data-html": attributes?.data.html },
           },
         ]);
       },
@@ -82,7 +81,7 @@ export const EmbedExtension = Node.create({
   },
 
   addNodeView() {
-    // return ReactNodeViewRenderer(EmbedComponent);
+    return ReactNodeViewRenderer(Embed);
   },
 
   renderHTML({ HTMLAttributes }) {
@@ -95,5 +94,3 @@ export const EmbedExtension = Node.create({
     return div;
   },
 });
-
-export default EmbedExtension;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BubbleMenu, EditorContent } from "@tiptap/react";
+import { EditorContent } from "@tiptap/react";
 import { EditorView as TiptapEditorView } from "@tiptap/pm/view";
 
 import { useExtensions } from "../hooks/useExtensions";
@@ -18,15 +18,13 @@ import classNames from "classnames";
 
 import "../styles/scooter-core.scss";
 import "../styles/scooter-table.scss";
+
 import { noop } from "../utils/constants";
 import { ErrorWrapper } from "../components/shared/ErrorWrapper";
-import { FixedMenu } from "../FixedMenu";
 import { ImageUploader } from "../ImageBlock";
-import { AddNewClaim } from "../components/AddNewClaim";
-import { AddExistingClaim } from "../components/AddExistingClaim";
 import { useBlockEditor } from "../hooks/useBlockEditor";
-import { SideBlockMenu } from "../SideBlockMenu/SideBlockMenu";
 import { TextMenu } from "../TextMenu/TextMenu";
+import { EmbedFetcher } from "../components/EmbedFetcher";
 
 export const EditorView = React.forwardRef(
   (
@@ -79,19 +77,7 @@ export const EditorView = React.forwardRef(
     },
     ref
   ) => {
-    // const mergedExtensions = mergeExtensions(extensions);
-    // const { extensionList, extensionUI } = mergedExtensions || {};
-    // const {
-    //   AddExistingClaim,
-    //   AddNewClaim,
-    //   Uploader: ImageUploader,
-    //   EmbedFetcher,
-    // } = extensionUI || {};
     const [isImageUploadVisible, setImageUploadVisible] = useState(false);
-    const [isAddNewClaimVisible, setAddNewClaimVisible] = useState(false);
-    const [isAddExistingClaimVisible, setAddExistingClaimVisible] =
-      useState(false);
-    const [meta, setMeta] = useState(metaData);
 
     const [isEmbedFetcherVisible, setEmbedFetcherVisible] = useState(false);
 
@@ -104,7 +90,6 @@ export const EditorView = React.forwardRef(
     const isUnsplashImageUploadActive = addons.includes(
       "image-upload-unsplash"
     );
-    const isCharacterCountActive = characterCountStrategy !== "hidden";
 
     const addonOptions = generateAddonOptions(defaults, [], {
       includeImageUpload: isUnsplashImageUploadActive,
@@ -148,20 +133,6 @@ export const EditorView = React.forwardRef(
 
     editor && editorInstance(editor);
 
-    // const checkForTagoreNodes = e => {
-    //   if (!e.contentComponent) return false;
-    //   const { state } = e.contentComponent;
-
-    //   return (
-    //     state?.renderers &&
-    //     Object.values(state.renderers)?.filter(
-    //       ({ props }) => props?.node?.type.name === "tagore"
-    //     ).length > 0
-    //   );
-    // };
-
-    const [isTagoreNodePresent] = useState(false);
-
     /* Make editor object available to the parent */
     React.useImperativeHandle(ref, () => ({ editor }));
 
@@ -186,36 +157,16 @@ export const EditorView = React.forwardRef(
             showImageInMention={showImageInMention}
           />
         )} */}
-        {/* {extensionList.ClaimExtension && ( */}
-        {/* <AddNewClaim
-            claimConfig={claimConfig}
-            isVisible={isAddNewClaimVisible}
-            setIsVisible={setAddNewClaimVisible}
-            editor={editor}
-          /> */}
-        {/* {AddExistingClaim && extensionList.ClaimExtension && ( */}
-        {/* <AddExistingClaim
-            editor={editor}
-            claimConfig={claimConfig}
-            setIsVisible={setAddExistingClaimVisible}
-            setMeta={setMeta}
-            isVisible={isAddExistingClaimVisible}
-          /> */}
-
-        {/* {ImageUploader && extensionList.ImageExtensionConfig && ( */}
-        {/* )} */}
-        {/* {EmbedFetcher && extensionList.EmbedExtension && ( */}
-        {/* <EmbedFetcher
-            isVisible={isEmbedFetcherVisible}
-            setIsVisible={setEmbedFetcherVisible}
-            editor={editor}
-            iframelyEndpoint={iframelyEndpoint}
-            embedConfig={embedConfig}
-          /> */}
 
         <EditorContent editor={editor} {...otherProps} />
-        <SideBlockMenu editor={editor} />
         <TextMenu editor={editor} options={addonOptions} />
+        <EmbedFetcher
+          isVisible={isEmbedFetcherVisible}
+          setIsVisible={setEmbedFetcherVisible}
+          editor={editor}
+          iframelyEndpoint={iframelyEndpoint}
+          embedConfig={embedConfig}
+        />
         <ImageUploader
           isVisible={isImageUploadVisible}
           setIsVisible={setImageUploadVisible}
@@ -229,13 +180,6 @@ export const EditorView = React.forwardRef(
           onFileAdded={onFileAdded}
           onUploadComplete={onUploadComplete}
         />
-        {/* {isCharacterCountActive && (
-          <CharacterCount
-            count={editor?.storage.characterCount.characters()}
-            limit={characterLimit}
-            strategy={characterCountStrategy}
-          />
-        )} */}
       </ErrorWrapper>
     );
   }

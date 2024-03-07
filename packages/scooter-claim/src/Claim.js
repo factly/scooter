@@ -1,6 +1,8 @@
 import { mergeAttributes, Node } from "@tiptap/core";
+import { Claim } from "./components/Claim";
+import { ReactNodeViewRenderer } from "@tiptap/react";
 
-export const Claim = Node.create({
+export const ScooterClaim = Node.create({
   name: "claim",
 
   group: "block",
@@ -47,14 +49,14 @@ export const Claim = Node.create({
     return ["claim", mergeAttributes(HTMLAttributes), 0];
   },
 
-  // addNodeView() {
-  //   return ReactNodeViewRenderer(Component);
-  // },
+  addNodeView() {
+    return ReactNodeViewRenderer(Claim);
+  },
   addCommands() {
     return {
       setClaim:
         options =>
-        ({ commands, chain }) => {
+        ({ commands }) => {
           return commands.insertContentAt(this.editor.state.selection.head, {
             type: this.name,
             attrs: options,

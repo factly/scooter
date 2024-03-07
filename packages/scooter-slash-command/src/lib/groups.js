@@ -8,7 +8,6 @@ import {
   RiDoubleQuotesL,
   RiImage2Line,
   RiCodeSSlashFill,
-  RiEmotionHappyLine,
   RiSeparator,
   RiVideoLine,
   RiTableLine,
@@ -51,16 +50,14 @@ export const GROUPS = [
         title: "Add existing claim",
         description: "Add existing claim",
         Icon: RiTaskLine,
-        action: ({ editor, range }) =>
-          editor.chain().focus().deleteRange(range).run(),
+        action: editor => editor.chain().focus().run(),
       },
       {
         optionName: EDITOR_OPTIONS.ADD_NEW_CLAIM,
         title: "Add new claim",
         description: "Add new claim",
         Icon: RiTaskLine,
-        action: ({ editor, range }) =>
-          editor.chain().focus().deleteRange(range).run(),
+        action: editor => editor.chain().focus().setClaim().run(),
       },
     ],
   },
@@ -143,7 +140,9 @@ export const GROUPS = [
         title: "Image",
         description: "Add an image.",
         Icon: RiImage2Line,
-        action: editor => editor.chain().focus().setImage().run(),
+        action: editor => {
+          editor.chain().focus().setImage().run();
+        },
       },
       {
         optionName: EDITOR_OPTIONS.CODE_BLOCK,
@@ -154,16 +153,6 @@ export const GROUPS = [
         Icon: RiCodeSSlashFill,
         action: editor => {
           editor.chain().focus().setCodeBlock().run();
-        },
-      },
-      {
-        optionName: EDITOR_OPTIONS.EMOJI,
-        group: "Basic Blocks",
-        title: "Emoji",
-        description: "Add an emoji.",
-        Icon: RiEmotionHappyLine,
-        action: editor => {
-          editor.chain().focus().insertContent("::").run();
         },
       },
       {
@@ -191,31 +180,12 @@ export const GROUPS = [
         },
       },
       {
-        optionName: EDITOR_OPTIONS.VIDEO_EMBED,
-        group: "Media",
-        title: "Embed Youtube/Vimeo",
-        description: "Embed a video from major services.",
-        Icon: RiVideoLine,
-        action: ({ editor, range }) =>
-          editor.chain().focus().deleteRange(range).run(),
-      },
-      {
         optionName: EDITOR_OPTIONS.EMBED,
         group: "Basic Blocks",
         title: "Embed",
         description: "Embed anything from major services.",
         Icon: RiVideoLine,
-        action: ({ editor, range }) =>
-          editor.chain().focus().deleteRange(range).run(),
-      },
-      {
-        optionName: EDITOR_OPTIONS.RAW_HTML,
-        group: "Basic Blocks",
-        title: "Raw HTML",
-        description: "Insert Raw HTML",
-        Icon: RiCodeSSlashFill,
-        action: ({ editor, range }) =>
-          editor.chain().focus().deleteRange(range).run(),
+        action: editor => editor.chain().focus().setEmbed().run(),
       },
     ],
   },
