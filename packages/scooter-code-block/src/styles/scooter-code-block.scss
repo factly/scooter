@@ -1,0 +1,22 @@
+.scooter-editor-code-block {
+  position: relative;
+  button {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: #2e3a4d;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    .copied-message {
+      color: #43cc48;
+    }
+    &:hover {
+      background-color: #1e2431;
+    }
+  }
+}

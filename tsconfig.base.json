@@ -15,30 +15,28 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@factly/scooter-bubble-menu": ["libs/scooter-bubble-menu/src/index.js"],
-      "@factly/scooter-claim": ["libs/scooter-claim/src/index.js"],
-      "@factly/scooter-claims": ["libs/scooter-claims/src/index.js"],
-      "@factly/scooter-code-block": ["libs/scooter-code-block/src/index.js"],
-      "@factly/scooter-core": ["libs/scooter-core/src/index.js"],
-      "@factly/scooter-embed": ["libs/scooter-embed/src/index.js"],
-      "@factly/scooter-fixed-menu": ["libs/scooter-fixed-menu/src/index.js"],
-      "@factly/scooter-image": ["libs/scooter-image/src/index.js"],
+      "@factly/scooter-claim": ["packages/scooter-claim/src/index.js"],
+      "@factly/scooter-claims": ["packages/scooter-claims/src/index.js"],
+      "@factly/scooter-code-block": [
+        "packages/scooter-code-block/src/index.js"
+      ],
+      "@factly/scooter-core": ["packages/scooter-core/src/index.js"],
+      "@factly/scooter-embed": ["packages/scooter-embed/src/index.js"],
+      "@factly/scooter-heading": ["packages/scooter-heading/src/index.js"],
+      "@factly/scooter-image": ["packages/scooter-image/src/index.js"],
+      "@factly/scooter-react": ["packages/scooter-react/src/index.js"],
       "@factly/scooter-shared-utils": [
-        "libs/scooter-shared-utils/src/index.js"
+        "packages/scooter-shared-utils/src/index.js"
       ],
-      "@factly/scooter-slash-commands": [
-        "libs/scooter-slash-commands/src/index.js"
+      "@factly/scooter-slash-command": [
+        "packages/scooter-slash-command/src/index.js"
       ],
-      "@factly/scooter-table": ["libs/scooter-table/src/index.js"],
-      "@factly/scooter-table-cell": ["libs/scooter-table-cell/src/index.js"],
-      "@factly/scooter-table-head-cell": [
-        "libs/scooter-table-head-cell/src/index.js"
-      ],
-      "@factly/scooter-table-row": ["libs/scooter-table-row/src/index.js"],
-      "@factly/scooter-tagore": ["libs/scooter-tagore/src/index.js"],
-      "@factly/scooter-taskitem": ["libs/scooter-taskitem/src/index.js"],
-      "@factly/scooter-tasklist": ["libs/scooter-tasklist/src/index.js"],
-      "@factly/scooter-ui": ["libs/scooter-ui/src/index.js"]
+      "@factly/scooter-table": ["packages/scooter-table/src/index.js"],
+      "@factly/scooter-tagore": ["packages/scooter-tagore/src/index.js"],
+      "@factly/scooter-taskitem": ["packages/scooter-taskitem/src/index.js"],
+      "@factly/scooter-tasklist": ["packages/scooter-tasklist/src/index.js"],
+      "@factly/scooter-typography": ["packages/scooter-typography/src/index.js"],
+      "@factly/scooter-drag-handle": ["packages/scooter-drag-handle/src/index.js"]
     }
   },
   "exclude": ["node_modules", "tmp"]

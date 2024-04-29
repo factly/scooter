@@ -1,0 +1,16 @@
+{
+  "name": "@factly/scooter-tagore",
+  "version": "0.0.45-beta.1",
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/factly/scooter.git",
+    "directory": "packages/scooter-bubble-menu"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  }
+}

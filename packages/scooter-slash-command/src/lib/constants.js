@@ -1,0 +1,41 @@
+export const EDITOR_OPTIONS = {
+  // DEFAULT EDITOR OPTIONS
+  FONT_COLOR: "font-color",
+  ASK_AI: "ask-ai",
+  BOLD: "bold",
+  ITALIC: "italic",
+  UNDERLINE: "underline",
+  STRIKETHROUGH: "strike",
+  LINK: "link",
+  PARAGRAPH: "paragraph",
+  H1: "h1",
+  H2: "h2",
+  TABLE: "table",
+  LIST_BULLETS: "bullet-list",
+  LIST_ORDERED: "ordered-list",
+  TEXT_ALIGN_LEFT: "text-align-left",
+  TEXT_ALIGN_CENTER: "text-align-center",
+  TEXT_ALIGN_RIGHT: "text-align-right",
+  CODE: "code",
+
+  // ADDON EDITOR OPTIONS
+  HIGHLIGHT: "highlight",
+  EMOJI: "emoji",
+  CODE_BLOCK: "code-block",
+  BLOCKQUOTE: "block-quote",
+  IMAGE_UPLOAD: "image-upload",
+  IMAGE_UPLOAD_UNSPLASH: "image-upload-unsplash",
+  DIVIDER: "divider",
+  VIDEO_EMBED: "video-embed",
+  EMBED: "embed",
+  RAW_HTML: "raw-html",
+  WRITE_WITH_AI: "write-with-ai",
+  ADD_EXISTING_CLAIM: "add-existing-claim",
+  ADD_NEW_CLAIM: "add-new-claim",
+
+  // OTHER AVAILABLE OPTIONS
+  H3: "h3",
+  H4: "h4",
+  H5: "h5",
+  H6: "h6",
+};

@@ -1,0 +1,41 @@
+{
+  "name": "scooter-keyboard-shortcut",
+  "sourceRoot": "packages/scooter-keyboard-shortcut/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/scooter-keyboard-shortcut/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "build": {
+      "executor": "@nrwl/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/scooter-keyboard-shortcut",
+        "tsConfig": "packages/scooter-keyboard-shortcut/tsconfig.lib.json",
+        "project": "packages/scooter-keyboard-shortcut/package.json",
+        "entryFile": "packages/scooter-keyboard-shortcut/src/index.js",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "extractCss": false,
+        "format": ["esm", "cjs"],
+        "skipTypeField": true,
+        "assets": [
+          {
+            "glob": "packages/scooter-keyboard-shortcut/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
+    }
+  }
+}

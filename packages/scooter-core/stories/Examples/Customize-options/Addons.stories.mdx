@@ -1,0 +1,102 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { ScooterCore } from "@factly/scooter-core";
+import {
+  EDITOR_ADDONS_TABLE_COLUMNS,
+  EDITOR_ADDONS_TABLE_ROWS,
+} from "../../constants";
+import Table from "../../components/Table";
+
+<Meta
+  title="Examples/Customize options/Addons"
+  parameters={{
+    layout: "padded",
+    previewTabs: {
+      canvas: {
+        hidden: true,
+      },
+    },
+  }}
+  component={ScooterCore}
+/>
+
+# Addons
+
+Additional options can be enabled by passing an array of strings to the `addons`
+prop. Customize default options
+
+<Canvas>
+  <Story name="Addons">
+    <ScooterCore
+      addons={[
+        "highlight",
+        "emoji",
+        "code-block",
+        "block-quote",
+        "image-upload",
+        "image-upload-unsplash",
+        "video-embed",
+      ]}
+    />
+  </Story>
+</Canvas>
+
+#### **Available addons**
+
+<Table columns={EDITOR_ADDONS_TABLE_COLUMNS} rows={EDITOR_ADDONS_TABLE_ROWS} />
+
+<br />
+<br />
+
+### **Unsplash image picker**
+
+scooterEditor provides an option to add images from `unsplash.com` using an
+Unsplash image picker. Pass the Unsplash access key to the editor via the
+`editorSecrets` prop and pass the addon `image-picker-unsplash` to enable it.
+
+<Canvas>
+  <Story name="Unsplash image picker">
+    <ScooterCore
+      addons={["image-upload-unsplash"]}
+      editorSecrets={{ unsplash: "<unsplash-secret-key>" }}
+      defaults={[]}
+    />
+  </Story>
+</Canvas>
+
+### **Upload configuration**
+
+scooterEditor provides an option edit the upload configuration. The
+configuration can be passed as a prop to the editor. The default configuration
+is:
+
+```json
+{
+  autoProceed: true,
+  allowMultipleUploads: false,
+  restrictions: {
+    maxFileSize: 5242880, // 5MB
+    allowedFileTypes: [".jpg", ".jpeg", ".png", ".gif"]],
+  },
+}
+```
+
+This can be overridden by passing the `uploadConfig` prop. Refer
+[Uppy official documentation](https://uppy.io/docs/uppy/#Options) for the list
+of available options.
+
+<Canvas>
+  <Story name="Upload configuration">
+    <ScooterCore
+      addons={["image-upload"]}
+      uploadConfig={{
+        autoProceed: true,
+        allowMultipleUploads: false,
+        restrictions: {
+          maxFileSize: 1 * 1024 * 1024, // 1 MB
+          allowedFileTypes: [".jpg", ".jpeg"],
+        },
+      }}
+      defaults={[]}
+    />
+  </Story>
+</Canvas>

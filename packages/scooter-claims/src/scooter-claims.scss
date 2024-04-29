@@ -1,0 +1,22 @@
+.scooter-editor-claims {
+  .collapsible-container {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .title {
+    margin: 0;
+  }
+  .content {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+}

@@ -1,9 +1,0 @@
-{
-  "name": "@factly/scooter-table",
-  "version": "0.0.45-beta.1",
-  "dependencies": {
-    "@factly/scooter-table-cell": "0.0.41",
-    "@factly/scooter-table-head-cell": "0.0.41",
-    "@factly/scooter-table-row": "0.0.41"
-  }
-}
