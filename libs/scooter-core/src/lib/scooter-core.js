@@ -228,6 +228,9 @@ export const ScooterCore = React.forwardRef(
         // setIsTagoreNodePresent(checkForTagoreNodes(editor));
       }
     }, [editor]);
+    if(!editor) {
+      return null;
+    }
 
     return (
       <ErrorWrapper error={error} isFixedMenuActive={isFixedMenuActive}>
