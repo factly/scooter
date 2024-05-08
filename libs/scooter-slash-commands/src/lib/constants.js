@@ -19,7 +19,8 @@ import {
 } from "react-icons/ri";
 
 import { BiChip } from "react-icons/bi";
-import { formatKeyboardShortcut } from "libs/scooter-core/src/lib/utils";
+import { formatKeyboardShortcut } from "../../../scooter-shared-utils/src/utils/shortcutKey";
+
 
 
 export const EDITOR_OPTIONS = {
