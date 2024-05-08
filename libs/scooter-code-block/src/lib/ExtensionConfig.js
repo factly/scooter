@@ -8,6 +8,12 @@ export const CodeBlockExtension = CodeBlockLowlight.extend({
   addNodeView() {
     return new ReactNodeViewRenderer(CodeBlockComponent);
   },
+  addKeyboardShortcuts() {
+    return {
+      ...this.parent?.(),
+      "Mod-Shift-c": () => this.editor.commands.toggleCodeBlock(),
+    };
+  },
 }).configure({ lowlight });
 
 export default CodeBlockExtension;

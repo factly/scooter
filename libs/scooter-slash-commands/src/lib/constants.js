@@ -19,6 +19,8 @@ import {
 } from "react-icons/ri";
 
 import { BiChip } from "react-icons/bi";
+import { formatKeyboardShortcut } from "libs/scooter-core/src/lib/utils";
+
 
 export const EDITOR_OPTIONS = {
   // DEFAULT EDITOR OPTIONS
@@ -67,6 +69,7 @@ export const MENU_ITEMS = {
     title: "Write with AI",
     group : "Basic Blocks",
     description: "Write with AI",
+    keyShortcut: formatKeyboardShortcut("Mod /"),
     Icon: BiChip,
     command: ({ editor, range }) => {
       return editor
@@ -100,6 +103,7 @@ export const MENU_ITEMS = {
     group : "Basic Blocks",
     title: "Paragraph",
     description: "Add a plain text block.",
+    keyShortcut: formatKeyboardShortcut("Mod Alt 0"),
     Icon: RiParagraph,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).setNode("paragraph").run();
@@ -110,6 +114,7 @@ export const MENU_ITEMS = {
     group : "Basic Blocks",
     title: "H1",
     description: "Add a big heading.",
+    keyShortcut: formatKeyboardShortcut("Mod Alt 1"),
     Icon: RiH1,
     command: ({ editor, range }) => {
       editor
@@ -125,6 +130,7 @@ export const MENU_ITEMS = {
     group : "Basic Blocks",
     title: "H2",
     description: "Add a sub-heading.",
+    keyShortcut: formatKeyboardShortcut("Mod Alt 2"),
     Icon: RiH2,
     command: ({ editor, range }) => {
       editor
@@ -140,6 +146,7 @@ export const MENU_ITEMS = {
     group : "Basic Blocks",
     title: "H3",
     description: "Add a sub-heading of level 3.",
+    keyShortcut: formatKeyboardShortcut("Mod Alt 3"),
     Icon: RiH3,
     command: ({ editor, range }) => {
       editor
@@ -155,6 +162,7 @@ export const MENU_ITEMS = {
     group : "Basic Blocks",
     title: "H4",
     description: "Add a sub-heading of level 4.",
+    keyShortcut: formatKeyboardShortcut("Mod Alt 4"),
     Icon: RiH4,
     command: ({ editor, range }) => {
       editor
@@ -170,6 +178,7 @@ export const MENU_ITEMS = {
     group : "Basic Blocks",
     title: "H5",
     description: "Add a sub-heading of level 5.",
+    keyShortcut: formatKeyboardShortcut("Mod Alt 5"),
     Icon: RiH5,
     command: ({ editor, range }) => {
       editor
@@ -185,6 +194,7 @@ export const MENU_ITEMS = {
     group : "Basic Blocks",
     title: "H6",
     description: "Add a sub-heading of level 6.",
+    keyShortcut: formatKeyboardShortcut("Mod Alt 6"),
     Icon: RiH6,
     command: ({ editor, range }) => {
       editor
@@ -200,6 +210,7 @@ export const MENU_ITEMS = {
     group : "Basic Blocks",
     title: "Numbered list",
     description: "Add a list with numbering.",
+    keyShortcut: formatKeyboardShortcut("Mod Shift 7"),
     Icon: RiListOrdered,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).toggleOrderedList().run();
@@ -210,6 +221,7 @@ export const MENU_ITEMS = {
     group : "Basic Blocks",
     title: "Bulleted list",
     description: "Add a list with bullets.",
+    keyShortcut: formatKeyboardShortcut("Mod Shift 8"),
     Icon: RiListUnordered,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).toggleBulletList().run();
@@ -220,6 +232,7 @@ export const MENU_ITEMS = {
     group : "Basic Blocks",
     title: "Blockquote",
     description: "Add a quote.",
+    keyShortcut: formatKeyboardShortcut("Mod Shift B"),
     Icon: RiDoubleQuotesL,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).toggleBlockquote().run();
@@ -238,7 +251,8 @@ export const MENU_ITEMS = {
     optionName: EDITOR_OPTIONS.CODE_BLOCK,
     group : "Basic Blocks",
     title: "Code block",
-    description: "Add a code block with syntax highlighting.",
+    description: "Add a code block.",
+    keyShortcut: formatKeyboardShortcut("Mod Shift C"),
     Icon: RiCodeSSlashFill,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).toggleCodeBlock().run();
