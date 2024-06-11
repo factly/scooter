@@ -44,7 +44,7 @@ export class SlashCommandsMenu extends React.Component {
     const groupedItems = {};
   
     items.forEach((item) => {
-      const { optionName, title, description, group , Icon , command } = item;
+      const { optionName, title, description, group, Icon, command, keyShortcut } = item;
   
       if (!groupedItems[group]) {
         groupedItems[group] = {
@@ -53,7 +53,11 @@ export class SlashCommandsMenu extends React.Component {
         };
       }
   
-      groupedItems[group].options.push({ optionName, title, description , Icon , command});
+      const newItem = { optionName, title, description, Icon, command };
+      if (keyShortcut) {
+        newItem.keyShortcut = keyShortcut;
+      }
+      groupedItems[group].options.push(newItem);
     });
   
     return Object.values(groupedItems);
@@ -132,7 +136,8 @@ export class SlashCommandsMenu extends React.Component {
     const isCurrentMenuActive = menuIndex === activeMenuIndex;
     const groupedItems = this.groupItems(items);
 
-    return (    <div ref={this.menuRef} className="scooter-editor-slash-commands__wrapper">
+    return (    
+    <div ref={this.menuRef} className="scooter-editor-slash-commands__wrapper">
     {groupedItems.map((group, groupIndex) => {
       const groupTitle = group.title
       const groupItems = group.options;
@@ -145,6 +150,7 @@ export class SlashCommandsMenu extends React.Component {
               <MenuItem
                 key={item.title}
                 item={item}
+                keyShortcut={item.keyShortcut}
                 index={itemIndex}
                 groupIndex={groupIndex}
                 selectedIndex={isCurrentMenuActive ? selectedIndex : -1}
@@ -194,7 +200,7 @@ export class SlashCommandsMenu extends React.Component {
 
 // eslint-disable-next-line react/display-name
 const MenuItem = forwardRef(
-  ({ item, selectedIndex, index, selectItem, onHover , groupIndex , selectedGroupIndex}, ref) => {
+  ({ item, selectedIndex, index, selectItem, onHover , groupIndex , selectedGroupIndex , keyShortcut }, ref) => {
     const { Icon } = item; 
     return (
       <div
@@ -211,6 +217,9 @@ const MenuItem = forwardRef(
           <h5>{item.title}</h5>
           <p>{item.description}</p>
         </div>
+        {keyShortcut&&<div className="scooter-editor-slash-commands__keyboard-shortcut">
+           <span>{keyShortcut}</span>
+        </div>}
       </div>
     );
   }
