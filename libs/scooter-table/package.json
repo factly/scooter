@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-table",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "dependencies": {
     "@factly/scooter-table-cell": "0.0.41",
     "@factly/scooter-table-head-cell": "0.0.41",

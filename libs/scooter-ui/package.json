@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-ui",
-  "version": "0.0.45",
+  "version": "0.0.46",
   "peerDependencies": {
     "react": "^18.0.0"
   },
