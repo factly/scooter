@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 import { Modal } from "@factly/scooter-ui";
 import { Tab } from "@factly/scooter-ui";
+import { ImageEditor } from "@factly/scooter-ui";
 import { useTabBar } from "@factly/scooter-shared-utils";
 
 import { IMAGE_UPLOAD_OPTIONS } from "./constants";
-import ImageEditor from "./ImageEditor";
 import LocalUploader from "./LocalUploader";
 import UnsplashImagePicker from "./UnsplashImagePicker";
 import URLForm from "./URLForm";

@@ -3,7 +3,6 @@ export * from "./lib/ScooterImage";
 export * from "./lib/ExtensionConfig";
 export * from "./lib/LocalUploader";
 export * from "./lib/Gallery";
-export * from "./lib/ImageEditor";
 export * from "./lib/ScooterImage";
 export * from "./lib/URLForm";
 export * from "./lib/UnsplashImagePicker";
