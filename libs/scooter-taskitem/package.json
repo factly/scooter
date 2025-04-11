@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-taskitem",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "peerDependencies": {
     "react": "^18.0.0"
   },
