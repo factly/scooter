@@ -1,6 +1,6 @@
 {
   "name": "@factly/scooter-image",
-  "version": "0.0.47",
+  "version": "0.0.48",
   "peerDependencies": {
     "react": "^18.0.0"
   },
