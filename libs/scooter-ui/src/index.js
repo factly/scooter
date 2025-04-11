@@ -14,3 +14,4 @@ export * from "./lib/Portal";
 export * from "./lib/Tab";
 export * from "./lib/ToolTip";
 export * from "./lib/Icons";
+export * from "./lib/shared-ui/ImageEditor";
