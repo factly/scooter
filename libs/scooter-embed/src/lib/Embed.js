@@ -16,9 +16,6 @@ export const EmbedExtension = Node.create({
         default: "embed-container",
         rendered: true,
       },
-      src: {
-        default: null,
-      },
       "data-type": {
         default: "embed",
         rendered: true,
@@ -81,15 +78,7 @@ export const EmbedExtension = Node.create({
       },
       {
         tag: 'div[class="embed-wrapper"]'
-      },
-      {
-        tag: 'iframe',
-        getAttrs: node => {
-          const src = node.getAttribute('src')
-          //https://prosemirror.net/docs/ref/version/0.18.0.html#model.ParseRule.getAttrs
-          return src && src.includes('https://flo.uri.sh/') && null
-        },
-      },
+      }
     ];
   },
 
@@ -103,22 +92,15 @@ export const EmbedExtension = Node.create({
   },
 
   renderHTML({ node, HTMLAttributes }) {
-    const { src, "data-html": dataHtml } = HTMLAttributes;
+    const { src, alt, caption, data } = HTMLAttributes;
 
-    if (node.attrs.src) {
-      return[
-          'iframe',
-          {
-            src:node.attrs.src,
-          },
-        ];
-    } else {
-      const div = document.createElement('div');
-      div.dataset.type = 'embed';
-      div.className = 'embed-wrapper';
-      div.innerHTML = dataHtml;
-      return div;
-    }
+    const div = document.createElement("div");
+
+    div.dataset.type = "embed";
+    div.className = "embed-wrapper";
+    div.innerHTML = HTMLAttributes["data-html"];
+
+    return div;
   },
 });
 

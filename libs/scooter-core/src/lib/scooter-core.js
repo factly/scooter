@@ -233,6 +233,7 @@ export const ScooterCore = React.forwardRef(
     }
 
     return (
+      <div className="scooter-editor__namespace">
       <ErrorWrapper error={error} isFixedMenuActive={isFixedMenuActive}>
         {isFixedMenuActive && (
           <FixedMenu
@@ -297,7 +298,7 @@ export const ScooterCore = React.forwardRef(
             strategy={characterCountStrategy}
           />
         )}
-      </ErrorWrapper>
+      </ErrorWrapper></div>
     );
   }
 );
